@@ -13,3 +13,8 @@ source env/bin/activate
 ```bash
 pip3 install -r requirements.txt
 ```
+
+## Running Server:
+```bash
+./manage.py runserver
+```

@@ -31,7 +31,6 @@ def add(request, a: int, b: int):
 def home(request):
     return {"message": "Hello, world!"}
 
-
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/", api.urls),
