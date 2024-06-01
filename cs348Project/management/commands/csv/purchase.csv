@@ -1,0 +1,51 @@
+id,name,category,group_id,total_cost,purchaser
+1,April Meeting Snacks,Food,1,98.90,1
+2,Booking Fees,Other,1,30,5
+3,Club Dinner,Food,1,178.54,2
+4,Post-Meeting Coffee,Food,1,15.50,5
+5,May Meeting Snacks,Food,1,134.70,1
+6,Club Fair Booth,Other,1,50,3
+7,Movie Night,Entertainment,1,85.54,2
+8,May Rent,Rent,2,4950,7
+9,June Rent,Rent,2,4950,7
+10,May 23 Groceries,Food,2,170.43,8
+11,YouTube Premium,Entertainment,2,24.99,9
+12,May 26 Dinner,Food,2,70.40,9
+13,Utilities,Utilities,2,150,10
+14,Pet Supplies,Other,2,45.50,10
+15,June 1 Groceries,Food,2,120.50,8
+16,Prop Supplies (1),Other,3,30.30,11
+17,Prop Supplies (2),Other,3,45.11,11
+18,Rehearsal Booking,Other,3,50,12
+19,Theatre Rental,Other,3,1500,12
+20,Snacks,Food,3,30.21,13
+21,Equipment Rental,Other,3,100.50,14
+22,Audition Admin,Other,3,20,11
+23,Lunch,Food,4,66.53,16
+24,Craft Supplies,Other,4,25.51,17
+25,Party,Entertainment,4,105.43,18
+26,Father's Day Gift,Other,4,114.23,19
+27,Gas,Other,4,45.54,20
+28,Dollar Store,Other,4,10.56,20
+29,Clothes,Other,4,130.30,20
+30,Gas Money,Other,5,25,5
+31,Brunch,Food,5,140.15,6
+32,Grocery Run,Food,5,90.13,6
+33,Plane Tickets9,Other,5,1234.56,10
+34,Hotel Booking,Other,5,1529.13,11
+35,Car Rental,Other,5,450.66,12
+36,Deposit,Other,5,500,16
+37,Concert Tickets,Entertainment,6,250.50,2
+38,Campsite Booking,Other,6,50,2
+39,Escape Room,Entertainment,6,75,2
+40,Bowling,Entertainment,6,45.50,2
+41,Bowling Food,Food,6,30.50,2
+42,LEGO Set,Other,6,156.49,9
+43,Ramen,Food,6,50.97,9
+44,LCBO,Other,7,175.34,3
+45,BBT,Food,7,14.50,3
+46,Sam Birthday Gift,Other,7,70,9
+47,May 30 Food Delivery,Food,7,90.29,9
+48,Museum Tickets,Entertainment,7,60,9
+49,Fruit Tray,Food,7,22.68,14
+50,Picture Frame,Other,7,15.49,19

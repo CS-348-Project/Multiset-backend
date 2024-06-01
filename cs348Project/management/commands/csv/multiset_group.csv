@@ -1,0 +1,8 @@
+id,group_name,optimize_payments
+1,Book Club,TRUE
+2,Suite 203,FALSE
+3,Theater Club,TRUE
+4,Pizza Pals,FALSE
+5,The Beatles,FALSE
+6,The Three Stooges,FALSE
+7,Gang of Four,TRUE
