@@ -1,4 +1,4 @@
-id,group_name,optimize_payments
+id,name,optimize_payments
 1,Book Club,TRUE
 2,Suite 203,FALSE
 3,Theater Club,TRUE

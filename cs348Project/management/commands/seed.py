@@ -1,4 +1,5 @@
 from django.core.management.base import BaseCommand
+from django.db import connection
 from os import listdir
 from os.path import join
 from random import randint, choice, uniform
@@ -18,6 +19,14 @@ class Command(BaseCommand):
     help = "Seeds the database with randomized dummy data."
 
     def handle(self, *args, **kwargs):
+        print("Deleting existing data...")
+        with connection.cursor() as cursor:
+            cursor.execute("DELETE FROM purchase_splits;")
+            cursor.execute("DELETE FROM purchase;")
+            cursor.execute("DELETE FROM member;")
+            cursor.execute("DELETE FROM multiset_group;")
+            cursor.execute("DELETE FROM multiset_user;")
+
         print("Seeding the database...")
         tables: dict[str, SeedingTemplate] = {}
 
@@ -38,9 +47,6 @@ class Command(BaseCommand):
                     )
             else:
                 table.rows = table_raw.values.tolist()
-
-            print(table_raw.dtypes)
-            print(table)
 
             tables[file[:-4]] = table
 
@@ -83,8 +89,24 @@ class Command(BaseCommand):
         tables["cumulative_debts"].rows = debt_rows
 
         # finally, we are done!
-        print("Done loading seeding data. Printing tables...")
-        print(tables["cumulative_debts"])
+        print("Done loading seeding data. Printing script...")
+
+        # now we insert the data into the database
+        script = f"""{str(tables['multiset_user'])}\n
+                        {str(tables['multiset_group'])}\n
+                        {str(tables['member'])}\n
+                        {str(tables['purchase'])}\n
+                        {str(tables['purchase_splits'])}\n
+                        {str(tables['cumulative_debts'])}"""
+
+        print(script)
+
+        print("Press enter to continue...")
+        input()
+
+        with connection.cursor() as cursor:
+            cursor.execute(script)
+            pass
 
 
 # Below is partially finished code for making randomized data in case we decide to use it later
