@@ -11,7 +11,7 @@ from cs348Project.seeding import *
 class Command(BaseCommand):
     """
     Making this a command allows us to run it in the same way we
-    run other scripts
+    run other scripts (i.e. python manage.py seed)
     """
 
     CSV_PATH = join("cs348Project", "management", "commands", "csv")
@@ -20,25 +20,24 @@ class Command(BaseCommand):
 
     def handle(self, *args, **kwargs):
         print("Deleting existing data...")
+        files = listdir(self.CSV_PATH)
+
         with connection.cursor() as cursor:
-            cursor.execute("DELETE FROM purchase_splits;")
-            cursor.execute("DELETE FROM purchase;")
-            cursor.execute("DELETE FROM member;")
-            cursor.execute("DELETE FROM multiset_group;")
-            cursor.execute("DELETE FROM multiset_user;")
+            for file in files:
+                cursor.execute(f"DELETE FROM {file[:-4]};")
 
         print("Seeding the database...")
         tables: dict[str, SeedingTemplate] = {}
-
-        files = listdir(self.CSV_PATH)
 
         for file in files:
             path = join(self.CSV_PATH, file)
             table_raw = pd.read_csv(path)
 
             table = SeedingTemplate(file[:-4], tuple(table_raw.columns.to_list()))
+
             if file == "purchase_splits.csv":
                 # i tried to do this with pandas but it wasnt working and im annoyed
+                # this is just to correct the types of the values
                 processed_values = table_raw.values.tolist()
 
                 for row in processed_values:
@@ -55,7 +54,9 @@ class Command(BaseCommand):
         # now, let's get our collective debt data
         # this is lowkey inefficient but it's fine
         for row in tables["purchase_splits"].dict_rows:
-            # get the associated purchase
+            # get the purchaser from the associated purchase
+            # next returns the first element that matches the criteria
+
             purchaser = next(
                 purchase
                 for purchase in tables["purchase"].dict_rows
@@ -73,7 +74,7 @@ class Command(BaseCommand):
                 debt["amount"] += row["amount"]
 
             except StopIteration:
-                # if the debt doesn't exist, create it
+                # if the debt doesn't exist, create it and append to our list
                 debt = {
                     "borrower_id": row["borrower"],
                     "purchaser_id": purchaser,
@@ -92,6 +93,7 @@ class Command(BaseCommand):
         print("Done loading seeding data. Printing script...")
 
         # now we insert the data into the database
+        # we have to do this in a specific order because of foreign key constraints
         script = f"""{str(tables['multiset_user'])}\n
                         {str(tables['multiset_group'])}\n
                         {str(tables['member'])}\n
@@ -101,12 +103,15 @@ class Command(BaseCommand):
 
         print(script)
 
+        # Please actually briefly look over the data to make sure nothing is wrong :,)
         print("Press enter to continue...")
         input()
 
         with connection.cursor() as cursor:
             cursor.execute(script)
             pass
+
+        print("Done seeding the database.")
 
 
 # Below is partially finished code for making randomized data in case we decide to use it later
