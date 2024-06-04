@@ -1,5 +1,5 @@
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from django.db import connection
 from django.http import JsonResponse
 from ninja import NinjaAPI
@@ -31,4 +31,5 @@ def get_users(request):
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/", api.urls),
+    path('accounts/', include('allauth.urls')),
 ]
