@@ -5,4 +5,4 @@ Usage: [purchase_id, amount, borrower]
 Return: None
 */
 INSERT INTO purchase_splits (purchase_id, amount, borrower)
-VALUES (%(purchase_id)s, %(amount)s, %(borrower)s) RETURNING id
+VALUES (%(purchase_id)s, %(amount)s, %(borrower)s)
