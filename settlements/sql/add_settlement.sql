@@ -1,0 +1,1 @@
+INSERT INTO settlement_history (purchaser_id, amount, borrower_id) VALUES (%s, %s, %s);
