@@ -5,6 +5,12 @@ from pathlib import Path
 
 
 def valid_purchase(purchase: Purchase):
+    """
+    Args:
+        The new purchase object
+    Returns:
+        True if the purchase is valid otherwise False
+    """
     sum = 0
     for purchase_split in purchase.purchase_splits:
         sum += purchase_split.amount
@@ -14,6 +20,13 @@ def valid_purchase(purchase: Purchase):
 
 
 def new_purchase(purchase: Purchase):
+    """
+    Inserts the purchase into the relation and checks that it was properly inserted
+    Args:
+        The new purchase object
+    Returns:
+        Dictionary with {id}
+    """
     new_purchase = execute_query(
         Path("purchases/sql/new_purchase.sql"),
         {
@@ -31,6 +44,15 @@ def new_purchase(purchase: Purchase):
 
 
 def split_purchase(purchase: Purchase, new_purchase_id):
+    """
+    Iterates through the people that split the purchase and populates the purchase_splits table
+
+    Args:
+        purchase: the new purchase object
+        new_purchase_id: the id of the purchase that the splits are associated with
+    Returns:
+        None
+    """
     for purchase_split in purchase.purchase_splits:
         execute_query(
             Path("purchases/sql/split_purchase.sql"),
