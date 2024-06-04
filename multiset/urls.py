@@ -3,8 +3,11 @@ from django.urls import path
 from django.db import connection
 from django.http import JsonResponse
 from ninja import NinjaAPI
+from settlements.api import router as settlements_router
+
 
 api = NinjaAPI()
+api.add_router("/settlements/", settlements_router)
 
 
 @api.get("/add")
