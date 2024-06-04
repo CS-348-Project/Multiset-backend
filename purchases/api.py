@@ -3,7 +3,7 @@ from django.http import JsonResponse
 from multiset.db_utils import execute_query
 from pathlib import Path
 from purchases.models import Purchase
-from purchases.services import new_purchase, split_purchase
+from purchases.services import new_purchase, split_purchase, valid_purchase
 
 router = Router()
 
@@ -17,6 +17,8 @@ def create_new_purchase(request, purchase: Purchase):
     Returns:
         a JSON response with the status of the operation
     """
+    if not valid_purchase(purchase):
+        return JsonResponse({"error": "The purchase is not valid!"})
     created_purchase = new_purchase(purchase)
     new_purchase_id = created_purchase["id"]
     split_purchase(purchase, new_purchase_id)

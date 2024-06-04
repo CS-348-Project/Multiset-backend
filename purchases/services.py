@@ -4,6 +4,15 @@ from django.http import JsonResponse
 from pathlib import Path
 
 
+def valid_purchase(purchase: Purchase):
+    sum = 0
+    for purchase_split in purchase.purchase_splits:
+        sum += purchase_split.amount
+    if sum != purchase.total_cost:
+        return False
+    return True
+
+
 def new_purchase(purchase: Purchase):
     new_purchase = execute_query(
         Path("purchases/sql/new_purchase.sql"),
