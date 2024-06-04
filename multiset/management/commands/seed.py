@@ -5,7 +5,7 @@ from os.path import join
 from random import randint, choice, uniform
 import pandas as pd
 
-from cs348Project.seeding import *
+from multiset.seeding import *
 
 
 class Command(BaseCommand):
@@ -14,7 +14,7 @@ class Command(BaseCommand):
     run other scripts (i.e. python manage.py seed)
     """
 
-    CSV_PATH = join("cs348Project", "management", "commands", "csv")
+    CSV_PATH = join("multiset", "management", "commands", "csv")
 
     help = "Seeds the database with randomized dummy data."
 
