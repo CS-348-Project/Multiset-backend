@@ -9,6 +9,13 @@ def _load_sql(filepath: Path):
     with open(filename, 'r') as file:
         return file.read()
 
+def dictfetchall(cursor):
+    "Return all rows from a cursor as a dict"
+    columns = [col[0] for col in cursor.description]
+    return [
+        dict(zip(columns, row))
+        for row in cursor.fetchall()
+    ]
 
 def dictfetchall(cursor):
     "Return all rows from a cursor as a dict"
@@ -18,19 +25,17 @@ def dictfetchall(cursor):
 
 def execute_query(
     filepath: Path,
-    params: List = None,
+    params: dict = None,
     fetchone: bool = False,
     fetchall: bool = False,
 ):
     """Executes a SQL query directly with optional parameter substitution."""
     sql = _load_sql(filepath)
-    try:
+    try: 
         with connection.cursor() as cursor:
-            cursor.execute(sql, params or {})
+            cursor.execute(sql, params)
             if fetchone:
-                return dict(
-                    zip([col[0] for col in cursor.description], cursor.fetchone())
-                )
+                return dict(zip([col[0] for col in cursor.description], cursor.fetchone()))
             if fetchall:
                 return dictfetchall(cursor)
             return None
