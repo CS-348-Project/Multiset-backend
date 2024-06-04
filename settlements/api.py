@@ -1,20 +1,19 @@
 from ninja import Router
-from .services import find_settlements, save_settlement
+from django.http import JsonResponse
+from .models import Settlement
+from .services import find_settlements, save_settlement, find_settlements_between_members
 
 router = Router()
 
-@router.get("/example")
-def example(request):
-    return "example"
-
-# e.g. http://localhost:8000/api/settlements/
 @router.get("/")
-def get_settlements(request):
-    return find_settlements()
+def get_settlements(request, member_id: int = None, group_id: int = None):
+    return find_settlements(group_id=group_id, member_id=member_id)
 
+@router.get("/members")
+def get_settlements_between_members(request, member1_id: int, member2_id: int):
+    return find_settlements_between_members(member1_id, member2_id)
 
-# e.g. http://localhost:8000/api/settlements/add?purchaser_id=2&amount=200&borrower_id=3
-# Remember that you must use Postman to test POST routes!
 @router.post("/save")
-def add_settlement(request, purchaser_id: int, amount: float, borrower_id: int):
-    return save_settlement(purchaser_id, amount, borrower_id)
+def add_settlement(request, new_settlement: Settlement):
+    if (save_settlement(new_settlement)):
+        return JsonResponse({"success": True})
