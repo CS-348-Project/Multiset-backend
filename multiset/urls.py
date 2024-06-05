@@ -5,11 +5,13 @@ from django.http import JsonResponse
 from ninja import NinjaAPI
 from settlements.api import router as settlements_router
 from purchases.api import router as purchases_router
+from optimization.api import router as optimization_router
 
 
 api = NinjaAPI()
 api.add_router("/settlements/", settlements_router)
 api.add_router("/purchases/", purchases_router)
+api.add_router("/optimization/", optimization_router)
 
 
 @api.get("/add")
@@ -33,5 +35,5 @@ def get_users(request):
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/", api.urls),
-    path('accounts/', include('allauth.urls')),
+    path("accounts/", include("allauth.urls")),
 ]
