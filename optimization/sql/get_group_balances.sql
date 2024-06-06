@@ -6,14 +6,14 @@ Usage: [groupId]
 */
 
 -- get all users in a group
-WITH user_ids AS (
-    SELECT user_id id FROM member WHERE group_id = %(group_id)s
+WITH group_members AS (
+    SELECT * FROM member WHERE group_id = %(group_id)s
 ),
 
 purchase_owed AS (
     SELECT purchaser, SUM(total_cost) amount
-    FROM purchase p
-    WHERE p.group_id = %(group_id)s
+    FROM purchase p, group_members gm
+    WHERE p.group_id = %(group_id)s AND p.purchaser = gm.id
     GROUP BY purchaser
 ),
 
@@ -28,7 +28,7 @@ purchase_owing AS (
 in_group_settlements AS (
     SELECT *
     FROM settlement_history
-    WHERE sender_id IN (SELECT id FROM user_ids) AND receiver_id IN (SELECT id FROM user_ids)
+    WHERE sender_id IN (SELECT id FROM group_members) AND receiver_id IN (SELECT id FROM group_members)
 ),
 
 settlements_sent AS (
@@ -42,20 +42,19 @@ settlements_received AS (
     FROM in_group_settlements
     GROUP BY receiver_id
 )
-
 -- big ugly query to get the balances for each person
 -- purchase balance: amount owed - amount owing
 -- settlement balance: amount sent - amount received
 -- total balance: purchase balance + settlement balance
 -- positive = owed money, negative = owing money
 
-SELECT powing.id user_id, 
+SELECT powing.id member_id, 
     -- COALESCE handles null values
     COALESCE(powed.amount, 0) - COALESCE(powing.amount, 0) + COALESCE(ssent.amount, 0) - COALESCE(sreceived.amount, 0) balance
 FROM 
-    (purchase_owing RIGHT OUTER JOIN user_ids ON user_ids.id = purchase_owing.borrower) powing, 
-    (purchase_owed RIGHT OUTER JOIN user_ids ON user_ids.id = purchase_owed.purchaser) powed,
-    (settlements_sent RIGHT OUTER JOIN user_ids ON user_ids.id = settlements_sent.sender_id) ssent,
-    (settlements_received RIGHT OUTER JOIN user_ids ON user_ids.id = settlements_received.receiver_id) sreceived
+    (purchase_owing RIGHT OUTER JOIN group_members ON group_members.id = purchase_owing.borrower) powing, 
+    (purchase_owed RIGHT OUTER JOIN group_members ON group_members.id = purchase_owed.purchaser) powed,
+    (settlements_sent RIGHT OUTER JOIN group_members ON group_members.id = settlements_sent.sender_id) ssent,
+    (settlements_received RIGHT OUTER JOIN group_members ON group_members.id = settlements_received.receiver_id) sreceived
 WHERE powing.id = powed.id AND powing.id = ssent.id AND powing.id = sreceived.id; 
--- we use id (from user_ids table at the top) because other columns might be null 
+-- we use id (from group_members table at the top) because other columns might be null 
