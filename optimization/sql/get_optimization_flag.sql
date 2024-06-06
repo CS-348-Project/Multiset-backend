@@ -1,0 +1,1 @@
+SELECT optimize_payments FROM multiset_group WHERE id = %(group_id)s;

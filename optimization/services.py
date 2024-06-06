@@ -1,4 +1,4 @@
-from multiset.db_utils import execute_query
+from django.http import JsonResponse
 from pathlib import Path
 from pulp import (
     LpAffineExpression,
@@ -8,6 +8,7 @@ from pulp import (
     LpVariable,
 )
 
+from multiset.db_utils import execute_query
 from optimization.models import GroupId
 
 """
@@ -21,6 +22,19 @@ recreation of the math there.
 
 
 def calculate_transfers(gid: GroupId):
+    # first, we need to check if the optimization flag is set
+    flag = execute_query(
+        Path("optimization/sql/get_optimization_flag.sql"),
+        {
+            "group_id": gid.group_id,
+        },
+        fetchone=True,
+    )
+
+    if not flag["optimize_payments"]:
+        return JsonResponse({"status": "error, optimization flag not set"}, status=400)
+
+    # then we get the balances of the group members
     balances = execute_query(
         Path("optimization/sql/get_group_balances.sql"),
         {
@@ -29,7 +43,13 @@ def calculate_transfers(gid: GroupId):
         fetchall=True,
     )
 
-    return _solve_lp(balances)
+    # and we solve the linear program
+    solution = _solve_lp(balances)
+
+    if solution:
+        return JsonResponse(solution, safe=False, status=200)
+
+    return JsonResponse({"status": "error, no feasible solution found"}, status=500)
 
 
 # input is list of dicts with keys: "user_id", "balance"

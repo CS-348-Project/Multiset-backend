@@ -9,9 +9,4 @@ router = Router()
 
 @router.post("/calculate")
 def test(request, gid: GroupId):
-    solution = calculate_transfers(gid)
-
-    if solution:
-        return JsonResponse(solution, safe=False, status=200)
-
-    return JsonResponse({"status": "error"}, status=500)
+    return calculate_transfers(gid)
