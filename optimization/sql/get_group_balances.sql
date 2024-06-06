@@ -1,5 +1,5 @@
 /*
-Name: get_balances.sql
+Name: get_group_balances.sql
 Description: Get balances of all members in a group. Accounts for purchases within the group and settlements
 between two group members.
 Usage: [group_id]

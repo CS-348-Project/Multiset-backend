@@ -12,8 +12,6 @@ from multiset.db_utils import execute_query
 from optimization.models import GroupId
 
 """
-Mathy blurb
-
 Our goal is to minimize the amount of total transferred money.
 See https://www.notion.so/Optimization-LP-88256a673acb483b9d37bb2a6e7d0959
 for a more detailed breakown. This service is basically a step-by-step
@@ -22,6 +20,14 @@ recreation of the math there.
 
 
 def calculate_transfers(gid: GroupId):
+    """
+        Calculates optimal transfers for a group
+    Args:
+        gid: the id of the group to calculate transfers for
+    Returns:
+        a list of dicts with keys: `from_id`, `to_id`, `amount` representing optimal transfers
+    """
+
     # first, we need to check if the optimization flag is set
     flag = execute_query(
         Path("optimization/sql/get_optimization_flag.sql"),
@@ -44,7 +50,7 @@ def calculate_transfers(gid: GroupId):
     )
 
     # and we solve the linear program
-    solution = _solve_lp(balances)
+    solution = _solve_ilp(balances)
 
     if solution:
         return JsonResponse(solution, safe=False, status=200)
@@ -53,7 +59,17 @@ def calculate_transfers(gid: GroupId):
 
 
 # input is list of dicts with keys: "user_id", "balance"
-def _solve_lp(input: list[dict["member_id":str, "balance":float]]):
+def _solve_ilp(input: list[dict["member_id":str, "balance":float]]):
+    """
+        Solves an integer linear program (ILP) that minimizes the number of transfers
+        to resolve the balances in the input list.
+    Args:
+        input: list of dicts with keys `member_id` and `balance` representing current balances
+        (positive balance => owed money, negative balance => owing money)
+    Returns:
+        list of dicts with keys `from_id`, `to_id`, `amount` representing optimal transfers
+    """
+
     # first, let's declare our variables
     # transfers[i][j] = x_i_j
     # binary_variables[i][j] = y_i_j
