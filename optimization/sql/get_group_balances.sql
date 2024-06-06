@@ -2,7 +2,8 @@
 Name: get_balances.sql
 Description: Get balances of all members in a group. Accounts for purchases within the group and settlements
 between two group members.
-Usage: [groupId]
+Usage: [group_id]
+Return: [member_id, balance]
 */
 
 -- get all users in a group
