@@ -1,7 +1,5 @@
-from django.http import JsonResponse
 from multiset.db_utils import execute_query
 from pathlib import Path
-
 from pulp import (
     LpAffineExpression,
     LpMinimize,
@@ -9,6 +7,8 @@ from pulp import (
     LpProblem,
     LpVariable,
 )
+
+from optimization.models import GroupId
 
 """
 Mathy blurb
@@ -20,23 +20,16 @@ recreation of the math there.
 """
 
 
-def test():
-    q = execute_query(
+def calculate_transfers(gid: GroupId):
+    balances = execute_query(
         Path("optimization/sql/get_group_balances.sql"),
         {
-            "group_id": 3,
+            "group_id": gid.group_id,
         },
         fetchall=True,
     )
 
-    print(q)
-
-    solution = _solve_lp(q)
-
-    if solution:
-        return JsonResponse(solution, safe=False, status=200)
-
-    return JsonResponse({"status": "error"}, status=500)
+    return _solve_lp(balances)
 
 
 # input is list of dicts with keys: "user_id", "balance"

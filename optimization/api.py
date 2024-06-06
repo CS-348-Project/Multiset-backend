@@ -1,13 +1,17 @@
 from ninja import Router
 from django.http import JsonResponse
-from multiset.db_utils import execute_query
-from pathlib import Path
 
-from optimization.services import test as test_service
+from optimization.models import GroupId
+from optimization.services import calculate_transfers
 
 router = Router()
 
 
-@router.get("/test")
-def test(request):
-    return test_service()
+@router.post("/calculate")
+def test(request, gid: GroupId):
+    solution = calculate_transfers(gid)
+
+    if solution:
+        return JsonResponse(solution, safe=False, status=200)
+
+    return JsonResponse({"status": "error"}, status=500)
