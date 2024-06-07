@@ -9,7 +9,7 @@ def create_group(group: GroupSkeleton, user_ids: List[int]):
 
     created_group = execute_query(
         Path("groups/sql/create_group.sql"),
-        {"name": group.name, "optimize_payments": group.optimize_payments, "user_ids": user_ids},
+        {"name": group.name, "optimize_payments": group.optimize_payments, "budget": group.budget, "user_ids": user_ids},
     )
     # print("created_group", created_group, group.name, group.optimize_payments, user_ids)
     return {"status": "success"}
