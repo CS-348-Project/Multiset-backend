@@ -1,6 +1,15 @@
+from datetime import datetime
 from ninja import Schema
 
+# TODO: replace with member from group management
+class SettlementMemberInfo(Schema):
+    member_id: int
+    first_name: str
+    last_name: str
+    
 class Settlement(Schema):
-    sender_id: int
+    id: int
+    sender: SettlementMemberInfo
     amount: float
-    receiver_id: int
+    receiver: SettlementMemberInfo
+    created_at: datetime
