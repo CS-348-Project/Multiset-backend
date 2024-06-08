@@ -9,7 +9,6 @@ from pulp import (
 )
 
 from multiset.db_utils import execute_query
-from optimization.models import GroupId
 
 """
 Our goal is to minimize the amount of total transferred money.
@@ -19,7 +18,7 @@ recreation of the math there.
 """
 
 
-def calculate_transfers(gid: GroupId):
+def calculate_transfers(gid: int):
     """
         Calculates optimal transfers for a group
     Args:
@@ -32,7 +31,7 @@ def calculate_transfers(gid: GroupId):
     flag = execute_query(
         Path("optimization/sql/get_optimization_flag.sql"),
         {
-            "group_id": gid.group_id,
+            "group_id": gid,
         },
         fetchone=True,
     )
@@ -44,7 +43,7 @@ def calculate_transfers(gid: GroupId):
     balances = execute_query(
         Path("optimization/sql/get_group_balances.sql"),
         {
-            "group_id": gid.group_id,
+            "group_id": gid,
         },
         fetchall=True,
     )
