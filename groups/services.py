@@ -41,7 +41,7 @@ def get_group(group_id=None, user_id=None):
 def update_group(group: Group):
     updated_group = execute_query(
         Path("groups/sql/update_group.sql"),
-        {"id": group.id, "name": group.name, "optimize_payments": group.optimize_payments},
+        {"group_id": group.id, "name": group.name, "optimize_payments": group.optimize_payments, "budget": group.budget},
     )
     return updated_group
 
