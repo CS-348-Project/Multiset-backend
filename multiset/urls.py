@@ -5,11 +5,12 @@ from django.http import JsonResponse
 from ninja import NinjaAPI
 from settlements.api import router as settlements_router
 from purchases.api import router as purchases_router
-
+from analytics.api import router as analytics_router
 
 api = NinjaAPI()
 api.add_router("/settlements/", settlements_router)
 api.add_router("/purchases/", purchases_router)
+api.add_router("/analytics/", analytics_router)
 
 
 @api.get("/add")
