@@ -7,5 +7,5 @@ router = Router()
 
 
 @router.post("/calculate")
-def test(request, gid: int):
-    return calculate_transfers(gid)
+def calculate(request, group_id: int):
+    return calculate_transfers(group_id)
