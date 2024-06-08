@@ -21,7 +21,7 @@ def get_settlements_between_members_handler(request, member1_id: int, member2_id
     except Exception as e:
         return JsonResponse({"status": "error", "message": "Error in fetching settlements"}, status=400)
         
-@router.post("/save")
+@router.post("/create")
 def add_settlement_handler(request, new_settlement: SettlementCreate):
     if new_settlement.amount <= 0:
         return JsonResponse({"status": "error", "message": "Amount must be greater than 0"}, status=400)
