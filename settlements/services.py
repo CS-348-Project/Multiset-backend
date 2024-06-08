@@ -1,7 +1,7 @@
 from multiset.db_utils import execute_query
 from pathlib import Path
 
-from .models import Settlement, SettlementCreate
+from .models import SettlementCreate
 
 def add_member_info_to_settlements(settlements):
     # Parse the rows to add in member data 
