@@ -14,22 +14,28 @@ def create_group(group: GroupSkeleton, user_ids: List[int]):
     # print("created_group", created_group, group.name, group.optimize_payments, user_ids)
     return {"status": "success"}
 
-def get_group(group_id=None, member_id=None):
+def get_group(group_id=None, user_id=None):
     rows = []
+    print("GOT HERE 1")
     if group_id:
+      print("GOT HERE 2")
       rows = execute_query(
           Path("groups/sql/get_groups_by_group_id.sql"),
           {"group_id": group_id},
           fetchall=True,
       )
-    elif member_id:
+    elif user_id:
+      print("GOT HERE 3")
       rows = execute_query(
-          Path("groups/sql/get_groups_by_member_id.sql"),
-          {"member_id": member_id},
+          Path("groups/sql/get_groups_by_user_id.sql"),
+          {"user_id": user_id},
           fetchall=True,
       )
     else:
+        print("GOT HERE 4")
         rows = execute_query(Path("groups/sql/get_groups.sql"), fetchall=True)
+
+    print("ROWS", rows)
     return rows
 
 def update_group(group: Group):

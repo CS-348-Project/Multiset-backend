@@ -4,23 +4,24 @@ from multiset.db_utils import execute_query
 from pathlib import Path
 from groups.services import get_group, create_group, update_group, delete_group
 
-from typing import List
+from typing import List, Optional
 from .models import Group, GroupSkeleton
 
 router = Router()
 
 @router.get("/", response=List[Group])
-def get_group_handler(request, group_id: int = None, member_id: int = None):
+def get_group_handler(request, group_id: Optional[int] = None, user_id: Optional[int] = None):
     """
     Gets a group by its id.
     Args:
         group_id: the id of the group to be retrieved
-        member_id: the id of the member to get the groups for
+        user_id: the id of the user to get the groups for
     Returns:
         a JSON response with the status of the operation and the group or groups retrieved
     """
     try:
-        ret = get_group(group_id, member_id)
+        ret = get_group(group_id, user_id)
+        print("HERE", ret)
         return ret
     except Exception as e:
         return JsonResponse({"status": "error", "message": str(e)}, status=400)
