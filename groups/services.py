@@ -16,26 +16,20 @@ def create_group(group: GroupSkeleton, user_ids: List[int]):
 
 def get_group(group_id=None, user_id=None):
     rows = []
-    print("GOT HERE 1")
     if group_id:
-      print("GOT HERE 2")
       rows = execute_query(
           Path("groups/sql/get_groups_by_group_id.sql"),
           {"group_id": group_id},
           fetchall=True,
       )
     elif user_id:
-      print("GOT HERE 3")
       rows = execute_query(
           Path("groups/sql/get_groups_by_user_id.sql"),
           {"user_id": user_id},
           fetchall=True,
       )
     else:
-        print("GOT HERE 4")
         rows = execute_query(Path("groups/sql/get_groups.sql"), fetchall=True)
-
-    print("ROWS", rows)
     return rows
 
 def update_group(group: Group):
