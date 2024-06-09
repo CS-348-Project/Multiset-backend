@@ -11,22 +11,22 @@ def create_group(group: GroupSkeleton, user_ids: List[int]):
     )
     return {"status": "success"}
 
-def get_group(group_id=None, user_id=None):
+def get_group(group_id=None, user_id=None, detailed=False):
     rows = []
     if group_id:
-      rows = execute_query(
-          Path("groups/sql/get_groups_by_group_id.sql"),
-          {"group_id": group_id},
-          fetchall=True,
-      )
+        rows = execute_query(
+            Path("groups/sql/get_groups_by_group_id.sql"),
+            {"group_id": group_id, "detailed": detailed},
+            fetchall=True,
+        )
     elif user_id:
-      rows = execute_query(
-          Path("groups/sql/get_groups_by_user_id.sql"),
-          {"user_id": user_id},
-          fetchall=True,
-      )
+        rows = execute_query(
+            Path("groups/sql/get_groups_by_user_id.sql"),
+            {"user_id": user_id, "detailed": detailed},
+            fetchall=True,
+        )
     else:
-        rows = execute_query(Path("groups/sql/get_groups.sql"), fetchall=True)
+        rows = execute_query(Path("groups/sql/get_groups.sql"), {"detailed": detailed}, fetchall=True)
     return rows
 
 def update_group(group: Group):
