@@ -73,5 +73,4 @@ def delete_group_handler(request, group_id: int):
         return JsonResponse({"status": "success"})
     except Exception as e:
         return JsonResponse({"status": "error", "message": str(e)}, status=400)
-    return JsonResponse({"status": "success"})
 
