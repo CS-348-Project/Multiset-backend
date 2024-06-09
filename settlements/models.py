@@ -13,3 +13,8 @@ class Settlement(Schema):
     amount: float
     receiver: SettlementMemberInfo
     created_at: datetime
+    
+class SettlementCreate(Schema):
+    sender_id: int
+    amount: float
+    receiver_id: int

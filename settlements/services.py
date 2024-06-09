@@ -1,7 +1,7 @@
 from multiset.db_utils import execute_query
 from pathlib import Path
 
-from .models import Settlement
+from .models import SettlementCreate
 
 def add_member_info_to_settlements(settlements):
     # Parse the rows to add in member data 
@@ -48,7 +48,7 @@ def find_settlements_between_members(member1_id, member2_id):
     settlements = add_member_info_to_settlements(settlements)
     return settlements if settlements else []
 
-def save_settlement(new_settlement: Settlement):
+def save_settlement(new_settlement: SettlementCreate):
     execute_query(
         Path("settlements/sql/save_settlement.sql"), 
         {'sender_id': new_settlement.sender_id, 'amount': new_settlement.amount, 'receiver_id': new_settlement.receiver_id},
