@@ -4,6 +4,15 @@ from django.http import JsonResponse
 from pathlib import Path
 
 
+def get_purchases_by_group_id(group_id: int):
+    rows = execute_query(
+        Path("purchases/sql/get_purchases_by_group_id.sql"),
+        {"group_id": group_id},
+        fetchall=True,
+    )
+    return rows
+
+
 def valid_purchase(purchase: Purchase):
     """
     Args:
