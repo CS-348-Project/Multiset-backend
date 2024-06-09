@@ -5,13 +5,10 @@ from typing import List
 from .models import Group, GroupSkeleton
 
 def create_group(group: GroupSkeleton, user_ids: List[int]):
-    # user_ids_clause = ",".join([f"{user_id}" for user_id in user_ids])
-
     created_group = execute_query(
         Path("groups/sql/create_group.sql"),
         {"name": group.name, "optimize_payments": group.optimize_payments, "budget": group.budget, "user_ids": user_ids},
     )
-    # print("created_group", created_group, group.name, group.optimize_payments, user_ids)
     return {"status": "success"}
 
 def get_group(group_id=None, user_id=None):

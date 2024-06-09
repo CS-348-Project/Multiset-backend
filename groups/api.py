@@ -21,7 +21,6 @@ def get_group_handler(request, group_id: Optional[int] = None, user_id: Optional
     """
     try:
         ret = get_group(group_id, user_id)
-        print("HERE", ret)
         return ret
     except Exception as e:
         return JsonResponse({"status": "error", "message": str(e)}, status=400)
@@ -40,8 +39,8 @@ def create_group_handler(request, group: GroupSkeleton, user_ids: List[int] = []
     if len(user_ids) == 0:
         return JsonResponse({"status": "error", "message": "No users provided for group"}, status=400)
     try:
-        ret = create_group(group, user_ids)
-        return ret
+        create_group(group, user_ids)
+        return JsonResponse({"status": "success"})
     except Exception as e:
         return JsonResponse({"status": "error", "message": str(e)}, status=400)
 
@@ -55,8 +54,8 @@ def update_group_handler(request, group: Group):
         a JSON response with the status of the operation
     """
     try:
-        ret = update_group(group)
-        return ret
+        update_group(group)
+        return JsonResponse({"status": "success"})
     except Exception as e:
         return JsonResponse({"status": "error", "message": str(e)}, status=400)
 
@@ -71,6 +70,7 @@ def delete_group_handler(request, group_id: int):
     """
     try:
         delete_group(group_id)
+        return JsonResponse({"status": "success"})
     except Exception as e:
         return JsonResponse({"status": "error", "message": str(e)}, status=400)
     return JsonResponse({"status": "success"})
