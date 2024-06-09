@@ -9,7 +9,7 @@ router = Router()
 def get_settlements_handler(request, member_id: int = None, group_id: int = None):
     try: 
         ret = find_settlements(group_id, member_id)
-        return ret
+        return JsonResponse(ret, safe=False, status=200)
     except Exception as e:
         return JsonResponse({"status": "error", "message": "Error in fetching settlements"}, status=400)
 
@@ -17,7 +17,7 @@ def get_settlements_handler(request, member_id: int = None, group_id: int = None
 def get_settlements_between_members_handler(request, member1_id: int, member2_id: int):
     try: 
         ret = find_settlements_between_members(member1_id, member2_id)
-        return ret
+        return JsonResponse(ret, safe=False, status=200)
     except Exception as e:
         return JsonResponse({"status": "error", "message": "Error in fetching settlements"}, status=400)
         
