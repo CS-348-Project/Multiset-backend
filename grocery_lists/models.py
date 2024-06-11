@@ -5,6 +5,10 @@ from ninja import Schema
 class GroceryListCreate(Schema):
   group_id: int
   name: str
+  
+class GroceryListUpdate(Schema):
+  id: int
+  name: str
 
 class GroceryList(Schema):
   id: int
@@ -23,6 +27,12 @@ class GroceryListItem(Schema):
   item_name: str
   quantity: int
   completed: bool
+  notes: str
+  
+class GroceryListItemCreate(Schema):
+  member_id: int
+  item_name: str
+  quantity: int
   notes: str
   
 class GroceryListWithItems(Schema):

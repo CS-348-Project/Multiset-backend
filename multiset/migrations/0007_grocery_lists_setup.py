@@ -5,7 +5,7 @@ from django.db import migrations
 
 class Migration(migrations.Migration):
 
-    dependencies = [("multiset", "0001_initial_setup"), ("multiset", "0002_rename_settlement_history"), ("multiset", "0003_add_names_to_users"), ("multiset", "0004_add_timestamp_to_settlements"), ("multiset", "0005_add_fields_to_groups"), ("multiset", "0006_add_cascade_to_members")]
+    dependencies = [("multiset", "0001_initial_setup"), ("multiset", "0002_rename_settlement_history"), ("multiset", "0003_add_names_to_users"), ("multiset", "0004_add_timestamp_to_settlements"), ("multiset", "0005_add_fields_to_groups"), ("multiset", "0006_on_delete_cascade_for_members")]
 
     operations = [
         migrations.RunSQL(
@@ -21,11 +21,13 @@ class Migration(migrations.Migration):
             CREATE TABLE grocery_list_item (
                 id SERIAL PRIMARY KEY,
                 item_name VARCHAR(255) NOT NULL,
+                member_id INTEGER NOT NULL,
                 quantity INTEGER NOT NULL,
                 grocery_list_id INTEGER NOT NULL,
                 notes VARCHAR(255),
                 completed BOOLEAN DEFAULT FALSE,
-                FOREIGN KEY (grocery_list_id) REFERENCES grocery_list (id) ON DELETE CASCADE
+                FOREIGN KEY (grocery_list_id) REFERENCES grocery_list (id) ON DELETE CASCADE,
+                FOREIGN KEY (member_id) REFERENCES member (id) ON DELETE CASCADE
             );
             """
         )
