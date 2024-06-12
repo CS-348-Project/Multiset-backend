@@ -25,7 +25,7 @@ def all_purchase_handler(request, group_id: int):
     return JsonResponse(purchases, safe=False)
 
 
-@router.get("/{user_id}")
+@router.get("/")
 def get_purchase_handler(request, user_id: int, group_id: int = None):
     """
     Returns a purchases made by a user.
