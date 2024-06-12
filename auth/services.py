@@ -7,17 +7,16 @@ SECRET_KEY = settings.SECRET_KEY
 ALGORITHM = "HS256"
 
 
-def valid_token(token: str) -> bool:
+def get_associated_user_id(token: str) -> bool:
     payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
     user_id = payload.get("user_id")
     res = execute_query(
         "auth/sql/user_id_exists.sql", {"user_id": user_id}, fetchone=True
     )
-    print(res)
     if res["id"]:
-        return True
-
-    return False
+        return res["id"]
+    else:
+        return None
 
 
 def user_already_registered(email: str) -> bool:

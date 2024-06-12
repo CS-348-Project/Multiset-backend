@@ -11,13 +11,16 @@ from optimization.api import router as optimization_router
 from grocery_lists.api import router as grocery_lists_router
 from auth.api import router as auth_router
 from ninja.security import HttpBearer
-from auth.services import valid_token
+from auth.services import get_associated_user_id
 
 
 class GlobalAuth(HttpBearer):
+    # To get the user id from within an endpoint you can use request.auth
     def authenticate(self, request, token):
-        if valid_token(token):
-            return token
+        user_id = get_associated_user_id(token)
+        if not user_id:
+            return None
+        return user_id
 
 
 api = NinjaAPI(auth=GlobalAuth())
