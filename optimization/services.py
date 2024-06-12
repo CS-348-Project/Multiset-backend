@@ -88,6 +88,10 @@ def calculate(gid: int):
         fetchall=True,
     )
 
+    # if all balances are 0, we can return an empty list of transfers
+    if all(item["balance"] == 0 for item in balances):
+        return JsonResponse([], safe=False, status=200)
+
     # and we solve the linear program
     solution = _solve_ilp(balances)
 
