@@ -68,13 +68,19 @@ def calculate(gid: int):
     """
 
     # first, we need to check if the optimization flag is set
-    flag = execute_query(
-        Path("optimization/sql/get_optimization_flag.sql"),
-        {
-            "group_id": gid,
-        },
-        fetchone=True,
-    )
+    try:
+        flag = execute_query(
+            Path("optimization/sql/get_optimization_flag.sql"),
+            {
+                "group_id": gid,
+            },
+            fetchone=True,
+        )
+    # this means that None was returned, which means the group doesn't exist
+    except TypeError:
+        return JsonResponse(
+            {"status": f"error, no group with id {gid} found"}, status=404
+        )
 
     if not flag["optimize_payments"]:
         return JsonResponse({"status": "error, optimization flag not set"}, status=400)
