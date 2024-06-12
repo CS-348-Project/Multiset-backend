@@ -16,8 +16,8 @@ def get_grocery_lists_handler(request, group_id: int):
 @router.post("/create")
 def add_grocery_list_handler(request, new_grocery_list: GroceryListCreate):
     try:
-        create_grocery_list(new_grocery_list)
-        return JsonResponse({"success": True})
+        ret = create_grocery_list(new_grocery_list)
+        return JsonResponse({"id": ret}, status=200)
     except Exception as e:
         return JsonResponse({"status": "error", "message": "Error in saving grocery list"}, status=400)
     
@@ -38,9 +38,9 @@ def delete_grocery_list_handler(request, id: int):
         return JsonResponse({"status": "error", "message": "Error in deleting grocery list"}, status=400)
     
 @router.post("/add-item")
-def add_item_to_grocery_list_handler(request, grocery_list_id: int, grocery_list_item: GroceryListItemCreate):
+def add_item_to_grocery_list_handler(request, grocery_list_item: GroceryListItemCreate):
     try:
-        add_item_to_grocery_list(grocery_list_id, grocery_list_item)
+        add_item_to_grocery_list(grocery_list_item)
         return JsonResponse({"success": True})
     except Exception as e:
         return JsonResponse({"status": "error", "message": "Error in adding item to grocery list"}, status=400)

@@ -14,7 +14,7 @@ api.add_router("/settlements/", settlements_router)
 api.add_router("/purchases/", purchases_router)
 api.add_router("/analytics/", analytics_router)
 api.add_router("/optimization/", optimization_router)
-api.add_router("/grocery_lists/", grocery_lists_router)
+api.add_router("/grocery-lists/", grocery_lists_router)
 
 
 @api.get("/add")

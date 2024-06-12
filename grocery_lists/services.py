@@ -39,11 +39,11 @@ def delete_grocery_list(id: int):
     )
     return True
 
-def add_item_to_grocery_list(grocery_list_id: int, grocery_list_item: GroceryListItemCreate):
+def add_item_to_grocery_list(grocery_list_item: GroceryListItemCreate):
     execute_query(
         Path("grocery_lists/sql/add_item_to_grocery_list.sql"),
         {
-            "grocery_list_id": grocery_list_id,
+            "grocery_list_id": grocery_list_item.grocery_list_id,
             "member_id": grocery_list_item.member_id,
             "item_name": grocery_list_item.item_name,
             "quantity": grocery_list_item.quantity,

@@ -30,6 +30,7 @@ class GroceryListItem(Schema):
   notes: str
   
 class GroceryListItemCreate(Schema):
+  grocery_list_id: int
   member_id: int
   item_name: str
   quantity: int
