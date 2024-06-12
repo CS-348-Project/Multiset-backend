@@ -18,7 +18,47 @@ recreation of the math there.
 """
 
 
-def calculate_transfers(gid: int):
+def flag_handler(gid: int):
+    """
+        Checks if optimization is enabled for a group
+    Args:
+        gid: the id of the group to check
+    Returns:
+        a dict with key `optimize_payments` and value `True` if optimization is enabled
+    """
+
+    result = execute_query(
+        Path("optimization/sql/get_optimization_flag.sql"),
+        {
+            "group_id": gid,
+        },
+        fetchone=True,
+    )
+
+    return result
+
+
+def toggle_handler(gid: int):
+    """
+        Toggles optimization for a group
+    Args:
+        gid: the id of the group to toggle
+    Returns:
+        a dict with key `optimize_payments` and value `True` if optimization is now enabled
+    """
+
+    result = execute_query(
+        Path("optimization/sql/toggle_optimization_flag.sql"),
+        {
+            "group_id": gid,
+        },
+        fetchone=True,
+    )
+
+    return result
+
+
+def calculate_handler(gid: int):
     """
         Calculates optimal transfers for a group
     Args:
