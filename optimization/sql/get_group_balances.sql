@@ -8,7 +8,8 @@ Return: [member_id, balance]
 
 -- get all users in a group
 WITH group_members AS (
-    SELECT * FROM member WHERE group_id = %(group_id)s
+    SELECT m.*, u.first_name, u.last_name 
+    FROM member m, multiset_user u WHERE group_id = %(group_id)s AND m.user_id = u.id
 ),
 
 purchase_owed AS (
@@ -50,8 +51,10 @@ settlements_received AS (
 -- positive = owed money, negative = owing money
 
 SELECT powing.id member_id, 
-    -- COALESCE handles null values
-    COALESCE(powed.amount, 0) - COALESCE(powing.amount, 0) + COALESCE(ssent.amount, 0) - COALESCE(sreceived.amount, 0) balance
+        powing.first_name, 
+        powing.last_name,
+        -- COALESCE handles null values
+        COALESCE(powed.amount, 0) - COALESCE(powing.amount, 0) + COALESCE(ssent.amount, 0) - COALESCE(sreceived.amount, 0) balance
 FROM 
     (purchase_owing RIGHT OUTER JOIN group_members ON group_members.id = purchase_owing.borrower) powing, 
     (purchase_owed RIGHT OUTER JOIN group_members ON group_members.id = purchase_owed.purchaser) powed,

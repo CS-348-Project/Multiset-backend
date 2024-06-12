@@ -172,13 +172,17 @@ def _solve_ilp(input: list[dict["member_id":str, "balance":float]]):
         for i in range(len(transfers)):
             for j in range(len(transfers[i])):
                 if transfers[i][j].value() > 0:
-                    from_id = input[i]["member_id"]
-                    to_id = input[j]["member_id"]
-
                     output.append(
                         {
-                            "from_id": from_id,
-                            "to_id": to_id,
+                            # giver
+                            "from_id": input[i]["member_id"],
+                            "from_first_name": input[i]["first_name"],
+                            "from_last_name": input[i]["last_name"],
+                            # receiver
+                            "to_id": input[j]["member_id"],
+                            "to_first_name": input[j]["first_name"],
+                            "to_last_name": input[j]["last_name"],
+                            # amount
                             "amount": transfers[i][j].value(),
                         }
                     )
