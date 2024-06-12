@@ -18,7 +18,7 @@ recreation of the math there.
 """
 
 
-def flag_handler(gid: int):
+def flag(gid: int):
     """
         Checks if optimization is enabled for a group
     Args:
@@ -38,7 +38,7 @@ def flag_handler(gid: int):
     return result
 
 
-def toggle_handler(gid: int):
+def toggle(gid: int):
     """
         Toggles optimization for a group
     Args:
@@ -58,7 +58,7 @@ def toggle_handler(gid: int):
     return result
 
 
-def calculate_handler(gid: int):
+def calculate(gid: int):
     """
         Calculates optimal transfers for a group
     Args:
