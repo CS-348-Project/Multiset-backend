@@ -13,10 +13,7 @@ def get_associated_user_id(token: str) -> bool:
     res = execute_query(
         "auth/sql/user_id_exists.sql", {"user_id": user_id}, fetchone=True
     )
-    if res["id"]:
-        return res["id"]
-    else:
-        return None
+    return res.get("id")
 
 
 def find_id_from_email(email: str) -> int:
