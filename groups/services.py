@@ -6,10 +6,17 @@ from .models import Group, GroupSkeleton
 
 def create_group(group: GroupSkeleton, user_ids: List[int]):
     created_group = execute_query(
-        Path("groups/sql/create_group.sql"),
-        {"name": group.name, "optimize_payments": group.optimize_payments, "budget": group.budget, "user_ids": user_ids},
+        Path("groups/sql/create_group/create_group.sql"),
+        {"name": group.name, "optimize_payments": group.optimize_payments, "budget": group.budget},
+        fetchone=True,
     )
-    return {"status": "success"}
+    print("yeehaw", created_group)
+    execute_query(
+        Path("groups/sql/create_group/add_users_to_group.sql"),
+        {"group_id": created_group["id"], "user_ids": user_ids},
+    )
+    print(created_group)
+    return created_group
 
 def get_group(group_id=None, user_id=None, detailed=False):
     rows = []

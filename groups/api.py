@@ -39,8 +39,8 @@ def create_group_handler(request, group: GroupSkeleton, user_ids: List[int] = []
     if len(user_ids) == 0:
         return JsonResponse({"status": "error", "message": "No users provided for group"}, status=400)
     try:
-        create_group(group, user_ids)
-        return JsonResponse({"status": "success"})
+        ret = create_group(group, user_ids)
+        return JsonResponse(ret, status=201)
     except Exception as e:
         return JsonResponse({"status": "error", "message": str(e)}, status=400)
 

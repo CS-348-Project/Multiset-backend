@@ -8,6 +8,7 @@ from purchases.api import router as purchases_router
 from groups.api import router as groups_router
 from analytics.api import router as analytics_router
 from optimization.api import router as optimization_router
+from users.api import router as users_router
 
 api = NinjaAPI()
 api.add_router("/settlements/", settlements_router)
@@ -15,6 +16,7 @@ api.add_router("/purchases/", purchases_router)
 api.add_router("/groups/", groups_router)
 api.add_router("/analytics/", analytics_router)
 api.add_router("/optimization/", optimization_router)
+api.add_router("/users/", users_router)
 
 
 @api.get("/add")
