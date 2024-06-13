@@ -8,5 +8,5 @@ WITH user_ids AS (
   SELECT * FROM unnest(%(user_ids)s) AS id
 )
 INSERT INTO member ("user_id", "group_id")
-SELECT u.id as user_id, g.id as $(group_id)s
-FROM user_ids u, group_info g;
+SELECT u.id as user_id, %(group_id)s as group_id
+FROM user_ids u;
