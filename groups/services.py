@@ -25,7 +25,6 @@ def get_group(group_id=None, user_id=None, detailed=False):
                 {"group_id": group_id},
                 fetchall=True,
             )
-            print(rows)
         else:
             rows = execute_query(
                 Path("groups/sql/get_groups_by_group_id.sql"),
