@@ -7,14 +7,22 @@ class Command(BaseCommand):
     TEST_PATH = "tests/"
 
     def handle(self, *args, **kwargs):
+        """
+        Runs all the tests in the tests directory and finds their expected output
+
+        The expected output should be between the lines "begin expected" and "end expected"
+        in the SQL file. If it's not found, the test is marked as an error.
+
+        Check `tests/sample_suite/test.sql` for an example of the expected output format
+        """
         passes = 0
         fails = []
         errors = []
 
-        # get all the sql files in the tests directory
+        # recursively get all the sql files in the tests directory
         files = glob(self.TEST_PATH + "/**/*.sql", recursive=True)
 
-        print(f"Running {len(files)} tests...")
+        print(f"Running {len(files)} test(s)...")
 
         for file in files:
             # let's get the expected output
@@ -24,11 +32,12 @@ class Command(BaseCommand):
             content_lines = contents.split("\n")
 
             # get the expected output or return an error if it doesn't exist
+            # side note, the ./E/F printing is how regular Django tests work and I'm stealing it
             try:
                 start = content_lines.index("begin expected") + 1
                 end = content_lines.index("end expected") - 1
 
-                if start >= end:
+                if start > end:
                     raise ValueError("Invalid expected output range")
             except ValueError:
                 print("E", end="")
@@ -52,6 +61,8 @@ class Command(BaseCommand):
                 )
 
         print()
+
+        # print the detailed results
         print(f"Passes: {passes}, Fails: {len(fails)}, Errors: {len(errors)}")
 
         if len(fails) > 0:
@@ -71,7 +82,7 @@ class Command(BaseCommand):
     def _to_csv(self, result: list) -> str:
         # convert the result to a csv string
         if len(result) == 0:
-            return "[]"  # special case for empty result
+            return "[]"  # special case for empty result so it's more explicit
 
         csv = ",".join(result[0].keys()) + "\n"
         for row in result:
