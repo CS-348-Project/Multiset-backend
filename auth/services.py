@@ -19,13 +19,22 @@ def get_associated_user_id(token: str) -> bool:
         return None
 
 
-def user_already_registered(email: str) -> bool:
-    # TODO: Implement me
-    print("Checking if user already registered")
-    return False
+def find_id_from_email(email: str) -> int:
+    res = execute_query("auth/sql/email_exists.sql", {"email": email}, fetchone=True)
+    if res["id"]:
+        return res["id"]
+    return None
 
 
-def create_new_user(email: str, first_name: str, last_name: str) -> int:
-    print("Creating new user")
-    # get the user id from the database after creating
-    return 1
+def create_new_user(email: str, first_name: str, last_name: str, google_id: str) -> int:
+    res = execute_query(
+        "auth/sql/create_new_user.sql",
+        {
+            "email": email,
+            "first_name": first_name,
+            "last_name": last_name,
+            "google_id": google_id,
+        },
+        fetchone=True,
+    )
+    return res["id"]
