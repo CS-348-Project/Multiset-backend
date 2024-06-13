@@ -35,6 +35,8 @@ def execute_query(
         with connection.cursor() as cursor:
             cursor.execute(sql, params)
             if fetchone:
+                if cursor.rowcount == 0:
+                    return {}
                 return dict(zip([col[0] for col in cursor.description], cursor.fetchone()))
             if fetchall:
                 return dictfetchall(cursor)
