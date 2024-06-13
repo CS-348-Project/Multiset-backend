@@ -21,9 +21,7 @@ def get_associated_user_id(token: str) -> bool:
 
 def find_id_from_email(email: str) -> int:
     res = execute_query("auth/sql/email_exists.sql", {"email": email}, fetchone=True)
-    if res["id"]:
-        return res["id"]
-    return None
+    return res.get("id")
 
 
 def create_new_user(email: str, first_name: str, last_name: str, google_id: str) -> int:
