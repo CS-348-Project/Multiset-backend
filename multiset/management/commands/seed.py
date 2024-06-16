@@ -61,30 +61,40 @@ class Command(BaseCommand):
                 purchase
                 for purchase in tables["purchase"].dict_rows
                 if purchase["id"] == row["purchase_id"]
-            )["purchaser"]
+            )
 
             try:
                 # if the debt already exists, add to it
                 debt = next(
                     debt
                     for debt in debts
-                    if debt["borrower_id"] == row["borrower"]
-                    and debt["purchaser_id"] == purchaser
+                    if debt["borrower_user_id"] == row["borrower_user_id"]
+                    and debt["borrower_group_id"] == row["borrower_group_id"]
+                    and debt["purchaser_user_id"] == purchaser["purchaser_user_id"]
+                    and debt["purchaser_group_id"] == purchaser["purchaser_group_id"]
                 )
                 debt["amount"] += row["amount"]
 
             except StopIteration:
                 # if the debt doesn't exist, create it and append to our list
                 debt = {
-                    "borrower_id": row["borrower"],
-                    "purchaser_id": purchaser,
+                    "borrower_user_id": row["borrower_user_id"],
+                    "borrower_group_id": row["borrower_group_id"],
+                    "purchaser_user_id": purchaser["purchaser_user_id"],
+                    "purchaser_group_id": purchaser["purchaser_group_id"],
                     "amount": row["amount"],
                 }
                 debts.append(debt)
 
         debt_rows = [
-            (i, round(debt["amount"], 2), debt["borrower_id"], debt["purchaser_id"])
-            for i, debt in enumerate(debts)
+            (
+                debt["amount"],
+                debt["purchaser_user_id"],
+                debt["purchaser_group_id"],
+                debt["borrower_user_id"],
+                debt["borrower_group_id"],
+            )
+            for debt in debts
         ]
 
         tables["cumulative_debts"].rows = debt_rows
