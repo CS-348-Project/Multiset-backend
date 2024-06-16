@@ -70,5 +70,4 @@ def split_purchase(purchase: Purchase, new_purchase_id):
                 "amount": purchase_split.amount,
                 "borrower": purchase_split.borrower,
             },
-            fetchone=True,
         )
