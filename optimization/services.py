@@ -60,51 +60,57 @@ def toggle(gid: int):
 
 def calculate(gid: int):
     """
-        Calculates optimal transfers for a group
+        Calculates transfers for a group:
+        - if optimization is disabled, just returns the balances between each pair of users that need to be resolved
+        - if optimization is enabled, solves an ILP to minimize the number of transfers
     Args:
         gid: the id of the group to calculate transfers for
     Returns:
-        a list of dicts with keys: `from_id`, `to_id`, `amount` representing optimal transfers
+        a list of dicts representing optimal transfers
     """
 
-    # first, we need to check if the optimization flag is set
-    try:
-        flag = execute_query(
-            Path("optimization/sql/get_optimization_flag.sql"),
+    # first, let's check if optimization is enabled for this group
+    # TODO handling of non-existing group
+    optimization_flag = flag(gid)
+
+    # if optimization is not enabled, we just get the balances and return them
+    if not optimization_flag["optimize_payments"]:
+        balances = execute_query(
+            Path("optimization/sql/get_group_balances.sql"),
             {
                 "group_id": gid,
             },
-            fetchone=True,
+            fetchall=True,
         )
-    # this means that None was returned, which means the group doesn't exist
-    except TypeError:
+
+        print(balances)
+
         return JsonResponse(
-            {"status": f"error, no group with id {gid} found"}, status=404
+            {"optimized": False, "transfers": balances}, safe=False, status=200
         )
 
-    if not flag["optimize_payments"]:
-        return JsonResponse({"status": "error, optimization flag not set"}, status=400)
-
-    # then we get the balances of the group members
+    # if optimization is enabled, we get the balances and solve the ILP
     balances = execute_query(
-        Path("optimization/sql/get_group_balances.sql"),
+        Path("optimization/sql/get_aggregate_balances.sql"),
         {
             "group_id": gid,
         },
         fetchall=True,
     )
 
-    print(balances)
-
     # if all balances are 0, we can return an empty list of transfers
     if all(item["balance"] == 0 for item in balances):
-        return JsonResponse([], safe=False, status=200)
+        return JsonResponse(
+            {"optimized": True, "transfers": balances}, safe=False, status=200
+        )
 
     # and we solve the linear program
     solution = _solve_ilp(balances)
 
     if solution:
-        return JsonResponse(solution, safe=False, status=200)
+        return JsonResponse(
+            {"optimized": True, "transfers": solution}, safe=False, status=200
+        )
 
     return JsonResponse({"status": "error, no feasible solution found"}, status=500)
 
