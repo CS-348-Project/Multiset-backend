@@ -94,6 +94,8 @@ def calculate(gid: int):
         fetchall=True,
     )
 
+    print(balances)
+
     # if all balances are 0, we can return an empty list of transfers
     if all(item["balance"] == 0 for item in balances):
         return JsonResponse([], safe=False, status=200)
@@ -108,7 +110,7 @@ def calculate(gid: int):
 
 
 # input is list of dicts with keys: "user_id", "balance"
-def _solve_ilp(input: list[dict["member_id":str, "balance":float]]):
+def _solve_ilp(input: list[dict]):
     """
         Solves an integer linear program (ILP) that minimizes the number of transfers
         to resolve the balances in the input list.
@@ -180,12 +182,14 @@ def _solve_ilp(input: list[dict["member_id":str, "balance":float]]):
                 if transfers[i][j].value() > 0:
                     output.append(
                         {
+                            # group id (same for all transfers in the same group)
+                            "group_id": input[i]["group_id"],
                             # giver
-                            "from_id": input[i]["member_id"],
+                            "from_user_id": input[i]["user_id"],
                             "from_first_name": input[i]["first_name"],
                             "from_last_name": input[i]["last_name"],
                             # receiver
-                            "to_id": input[j]["member_id"],
+                            "to_user_id": input[j]["user_id"],
                             "to_first_name": input[j]["first_name"],
                             "to_last_name": input[j]["last_name"],
                             # amount
