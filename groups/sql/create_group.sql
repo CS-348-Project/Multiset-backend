@@ -7,8 +7,8 @@ Usage: {name, optimize_payments, budget, user_ids}
 BEGIN TRANSACTION; 
 -- Create a new group and retrieve the group_id
 WITH group_info AS (
-  INSERT INTO multiset_group ("name", "optimize_payments", "budget")
-  VALUES (%(name)s, %(optimize_payments)s, %(budget)s)
+  INSERT INTO multiset_group ("name", "optimize_payments")
+  VALUES (%(name)s, %(optimize_payments)s)
   RETURNING id
 ),
 user_ids AS (

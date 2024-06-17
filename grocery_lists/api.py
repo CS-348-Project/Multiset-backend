@@ -1,5 +1,6 @@
-from grocery_lists.models import GroceryListCreate, GroceryListItemCreate, GroceryListUpdate
-from grocery_lists.services import add_item_to_grocery_list, create_grocery_list, delete_grocery_list, delete_grocery_list_item, get_grocery_list_items, get_grocery_lists_by_group_id, toggle_grocery_list_item, update_grocery_list
+from grocery_lists.models import GroceryList, GroceryListCreate, GroceryListItemCreate, GroceryListUpdate
+from grocery_lists.services import add_item_to_grocery_list, create_grocery_list, delete_grocery_list, delete_grocery_list_item, get_grocery_list_by_id, get_grocery_list_items, get_grocery_lists_by_group_id, toggle_grocery_list_item, update_grocery_list
+from groups.services import verify_user_in_group
 from ninja import Router
 from django.http import JsonResponse
 
@@ -8,6 +9,8 @@ router = Router()
 @router.get("/")
 def get_grocery_lists_handler(request, group_id: int):
     try:
+        if (not verify_user_in_group(request.auth, group_id)):
+            return JsonResponse({"status": "error", "message": "You are unauthorized to access this group"}, status=403)
         ret = get_grocery_lists_by_group_id(group_id)
         return JsonResponse(ret, safe=False, status=200)
     except Exception as e:
@@ -16,6 +19,8 @@ def get_grocery_lists_handler(request, group_id: int):
 @router.post("/create")
 def add_grocery_list_handler(request, new_grocery_list: GroceryListCreate):
     try:
+        if (not verify_user_in_group(request.auth, new_grocery_list.group_id)):
+            return JsonResponse({"status": "error", "message": "You are unauthorized to access this group"}, status=403)
         ret = create_grocery_list(new_grocery_list)
         return JsonResponse(ret, status=201)
     except Exception as e:
@@ -24,6 +29,9 @@ def add_grocery_list_handler(request, new_grocery_list: GroceryListCreate):
 @router.put("/update")
 def update_grocery_list_handler(request, grocery_list: GroceryListUpdate):
     try:
+        current_grocery_list: GroceryList = get_grocery_list_by_id(grocery_list.id)
+        if (not verify_user_in_group(request.auth, current_grocery_list.get("group_id"))):
+            return JsonResponse({"status": "error", "message": "You are unauthorized to access this group"}, status=403)
         update_grocery_list(grocery_list)
         return JsonResponse({}, status=204)
     except Exception as e:
@@ -32,6 +40,9 @@ def update_grocery_list_handler(request, grocery_list: GroceryListUpdate):
 @router.delete("/delete")
 def delete_grocery_list_handler(request, id: int):
     try:
+        grocery_list: GroceryList = get_grocery_list_by_id(id)
+        if (not verify_user_in_group(request.auth, grocery_list.get("group_id"))):
+            return JsonResponse({"status": "error", "message": "You are unauthorized to access this group"}, status=403)
         delete_grocery_list(id)
         return JsonResponse({}, status=204)
     except Exception as e:
@@ -40,6 +51,9 @@ def delete_grocery_list_handler(request, id: int):
 @router.post("/add-item")
 def add_item_to_grocery_list_handler(request, grocery_list_item: GroceryListItemCreate):
     try:
+        grocery_list: GroceryList = get_grocery_list_by_id(grocery_list_item.grocery_list_id)
+        if (not verify_user_in_group(request.auth, grocery_list.get("group_id"))):
+            return JsonResponse({"status": "error", "message": "You are unauthorized to access this group"}, status=403)
         add_item_to_grocery_list(grocery_list_item)
         return JsonResponse({}, status=204)
     except Exception as e:
@@ -48,6 +62,9 @@ def add_item_to_grocery_list_handler(request, grocery_list_item: GroceryListItem
 @router.get("/items")
 def get_grocery_list_items_handler(request, grocery_list_id: int):
     try:
+        grocery_list: GroceryList = get_grocery_list_by_id(grocery_list_id)
+        if (not verify_user_in_group(request.auth, grocery_list.get("group_id"))):
+            return JsonResponse({"status": "error", "message": "You are unauthorized to access this group"}, status=403)
         ret = get_grocery_list_items(grocery_list_id)
         return JsonResponse(ret, safe=False, status=200)
     except Exception as e:

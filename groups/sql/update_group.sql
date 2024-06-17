@@ -5,5 +5,5 @@ Usage: {group_id, name, optimize_payments, budget}
 */
 
 UPDATE multiset_group
-SET name = %(name)s, optimize_payments = %(optimize_payments)s, budget = %(budget)s
+SET name = %(name)s, optimize_payments = %(optimize_payments)s
 WHERE id = %(group_id)s;

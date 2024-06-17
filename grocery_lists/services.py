@@ -1,16 +1,23 @@
 from typing import List
-from grocery_lists.models import GroceryListCreate, GroceryListItemCreate, GroceryListUpdate
+from grocery_lists.models import GroceryList, GroceryListCreate, GroceryListItemCreate, GroceryListUpdate
 from multiset.db_utils import execute_query
 from purchases.models import Purchase
 from django.http import JsonResponse
 from pathlib import Path
 
-def get_grocery_lists_by_group_id(group_id: int):
+def get_grocery_lists_by_group_id(group_id: int) -> GroceryList:
     grocery_lists = execute_query(
         Path("grocery_lists/sql/get_grocery_lists_by_group_id.sql"),
         {"group_id": group_id},
         fetchall=True)
     return grocery_lists
+
+def get_grocery_list_by_id(id: int) -> GroceryList:
+    grocery_list = execute_query(
+        Path("grocery_lists/sql/get_grocery_list_by_id.sql"),
+        {"id": id},
+        fetchone=True)
+    return grocery_list
   
 def create_grocery_list(new_grocery_list: GroceryListCreate):
     new_grocery_list = execute_query(
