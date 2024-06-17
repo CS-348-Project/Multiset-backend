@@ -74,13 +74,13 @@ class Migration(migrations.Migration):
         group_id INT NOT NULL,
         name VARCHAR(255) NOT NULL,
         created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-        grocery_list_id SERIAL PRIMARY KEY,
+        id SERIAL PRIMARY KEY,
         FOREIGN KEY (group_id) REFERENCES multiset_group(id) ON DELETE CASCADE
       );
       
       CREATE TABLE grocery_list_item (
         id SERIAL PRIMARY KEY,
-        grocery_list_id INT NOT NULL REFERENCES grocery_list(grocery_list_id) ON DELETE CASCADE,
+        grocery_list_id INT NOT NULL REFERENCES grocery_list(id) ON DELETE CASCADE,
         requester_user_id INT NOT NULL,
         requester_group_id INT NOT NULL,
         completed BOOLEAN NOT NULL,
