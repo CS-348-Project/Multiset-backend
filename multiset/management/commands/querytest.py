@@ -14,6 +14,8 @@ class Command(BaseCommand):
         in the SQL file. If it's not found, the test is marked as an error.
 
         Check `tests/sample_suite/test.sql` for an example of the expected output format
+
+        TO RUN: `docker-compose run web python manage.py querytest`
         """
         passes = 0
         fails = []
