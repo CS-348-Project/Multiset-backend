@@ -17,8 +17,8 @@ class GroceryList(Schema):
   created_at: datetime
   
 class GroceryListMemberInfo(Schema):
-  member_user_id: int
-  member_group_id: int
+  user_id: int
+  group_id: int
   first_name: str
   last_name: str
   
