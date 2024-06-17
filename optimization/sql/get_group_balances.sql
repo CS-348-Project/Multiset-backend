@@ -34,15 +34,15 @@ uncondensed AS (
 SELECT 
     from_user_id, to_user_id, %(group_id)s group_id, 
     COALESCE(purchase_amount, 0) + COALESCE(settlement_amount, 0) amount
- FROM group_purchase_splits NATURAL FULL OUTER JOIN group_settlements
+    FROM group_purchase_splits NATURAL FULL OUTER JOIN group_settlements
 ),
  
 condensed AS (
---condense the balances for each pair of users
-SELECT u1.from_user_id, u1.to_user_id, u1.group_id, u1.amount - COALESCE(u2.amount,0) amount
-FROM uncondensed u1 LEFT OUTER JOIN uncondensed u2 
-ON u1.from_user_id = u2.to_user_id AND u1.to_user_id = u2.from_user_id
-WHERE u1.amount > u2.amount OR u2.amount IS NULL
+    --condense the balances for each pair of users
+    SELECT u1.from_user_id, u1.to_user_id, u1.group_id, u1.amount - COALESCE(u2.amount,0) amount
+    FROM uncondensed u1 LEFT OUTER JOIN uncondensed u2 
+    ON u1.from_user_id = u2.to_user_id AND u1.to_user_id = u2.from_user_id
+    WHERE u1.amount > u2.amount OR u2.amount IS NULL
 )
 
 SELECT c.*, 

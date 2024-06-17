@@ -83,7 +83,7 @@ def calculate(gid: int):
             fetchall=True,
         )
 
-        print(balances)
+        update_debts(balances, gid)
 
         return JsonResponse(
             {"optimized": False, "transfers": balances}, safe=False, status=200
@@ -100,6 +100,8 @@ def calculate(gid: int):
 
     # if all balances are 0, we can return an empty list of transfers
     if all(item["balance"] == 0 for item in balances):
+        update_debts(solution, gid)
+
         return JsonResponse(
             {"optimized": True, "transfers": balances}, safe=False, status=200
         )
@@ -108,11 +110,44 @@ def calculate(gid: int):
     solution = _solve_ilp(balances)
 
     if solution:
+        update_debts(
+            solution, gid
+        )  # we wait to do this in case the solution is not feasible
+
         return JsonResponse(
             {"optimized": True, "transfers": solution}, safe=False, status=200
         )
 
     return JsonResponse({"status": "error, no feasible solution found"}, status=500)
+
+
+def update_debts(balances: list[dict], gid: int):
+    """
+        Updates the debts recorded for a group in the database
+    Args:
+        balances: list of dicts representing the balances to update
+        gid: the id of the group to update
+    """
+
+    # first, delete all debts for this group
+    execute_query(
+        Path("optimization/sql/delete_group_debts.sql"),
+        {"group_id": gid},
+    )
+
+    # then, insert the new debts
+    for balance in balances:
+        # TODO make this a single query?
+        execute_query(
+            Path("optimization/sql/insert_debt.sql"),
+            {
+                "amount": balance["amount"],
+                "borrower_user_id": balance["from_user_id"],
+                "collector_user_id": balance["to_user_id"],
+                "borrower_group_id": gid,
+                "collector_group_id": gid,
+            },
+        )
 
 
 # input is list of dicts with keys: "user_id", "balance"
