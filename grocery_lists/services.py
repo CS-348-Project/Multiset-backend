@@ -68,20 +68,22 @@ def get_grocery_list_items(grocery_list_id: int):
         fetchall=True)
     return grocery_list_items
 
-def toggle_grocery_list_item(item_id: int):
+def toggle_grocery_list_item(item_id: int, grocery_list_id: int):
     execute_query(
         Path("grocery_lists/sql/toggle_grocery_list_item.sql"),
         {
             "id": item_id,
+            "grocery_list_id": grocery_list_id,
         },
     )
     return True
 
-def delete_grocery_list_item(item_id: int):
+def delete_grocery_list_item(item_id: int, grocery_list_id: int):
     execute_query(
         Path("grocery_lists/sql/delete_grocery_list_item.sql"),
         {
             "id": item_id,
+            "grocery_list_id": grocery_list_id,
         },
     )
     return True

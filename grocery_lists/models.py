@@ -17,12 +17,14 @@ class GroceryList(Schema):
   created_at: datetime
   
 class GroceryListMemberInfo(Schema):
-  member_id: int
+  member_user_id: int
+  member_group_id: int
   first_name: str
   last_name: str
   
 class GroceryListItem(Schema):
   id: int
+  grocery_list_id: int
   member: GroceryListMemberInfo
   item_name: str
   quantity: int
