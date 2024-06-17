@@ -83,7 +83,7 @@ class Migration(migrations.Migration):
         grocery_list_id INT NOT NULL REFERENCES grocery_list(id) ON DELETE CASCADE,
         requester_user_id INT NOT NULL,
         requester_group_id INT NOT NULL,
-        completed BOOLEAN NOT NULL,
+        completed BOOLEAN NOT NULL DEFAULT FALSE,
         notes VARCHAR(255),
         quantity INT NOT NULL,
         item_name VARCHAR(255) NOT NULL,
