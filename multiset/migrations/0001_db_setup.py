@@ -79,7 +79,7 @@ class Migration(migrations.Migration):
       );
       
       CREATE TABLE grocery_list_item (
-        id SERIAL PRIMARY KEY,
+        id SERIAL,
         grocery_list_id INT NOT NULL REFERENCES grocery_list(id) ON DELETE CASCADE,
         requester_user_id INT NOT NULL,
         requester_group_id INT NOT NULL,
@@ -87,7 +87,8 @@ class Migration(migrations.Migration):
         notes VARCHAR(255),
         quantity INT NOT NULL,
         item_name VARCHAR(255) NOT NULL,
-        FOREIGN KEY (requester_user_id, requester_group_id) REFERENCES member(user_id, group_id) ON DELETE CASCADE
+        FOREIGN KEY (requester_user_id, requester_group_id) REFERENCES member(user_id, group_id) ON DELETE CASCADE,
+        PRIMARY KEY (id, grocery_list_id)
       );
       
       CREATE TABLE member_activity_logs (
