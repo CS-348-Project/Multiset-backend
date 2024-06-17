@@ -13,14 +13,15 @@ def get_grocery_lists_by_group_id(group_id: int):
     return grocery_lists
   
 def create_grocery_list(new_grocery_list: GroceryListCreate):
-    new_grocery_list_id = execute_query(
+    new_grocery_list = execute_query(
         Path("grocery_lists/sql/create_grocery_list.sql"),
         {
             "group_id": new_grocery_list.group_id,
             "name": new_grocery_list.name,
         },
+        fetchone=True,
     )
-    return new_grocery_list_id
+    return new_grocery_list
 
 def update_grocery_list(grocery_list: GroceryListUpdate):
     execute_query(
@@ -44,7 +45,8 @@ def add_item_to_grocery_list(grocery_list_item: GroceryListItemCreate):
         Path("grocery_lists/sql/add_item_to_grocery_list.sql"),
         {
             "grocery_list_id": grocery_list_item.grocery_list_id,
-            "member_id": grocery_list_item.member_id,
+            "requester_user_id": grocery_list_item.requester_user_id,
+            "requester_group_id": grocery_list_item.requester_group_id,
             "item_name": grocery_list_item.item_name,
             "quantity": grocery_list_item.quantity,
             "notes": grocery_list_item.notes,

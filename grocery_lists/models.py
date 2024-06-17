@@ -31,7 +31,8 @@ class GroceryListItem(Schema):
   
 class GroceryListItemCreate(Schema):
   grocery_list_id: int
-  member_id: int
+  requester_user_id: int
+  requester_group_id: int
   item_name: str
   quantity: int
   notes: str

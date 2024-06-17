@@ -5,4 +5,4 @@ Usage: {id, name}
 */
 UPDATE grocery_list
 SET name = %(name)s
-WHERE grocery_list_id = %(id)s;
+WHERE id = %(id)s;

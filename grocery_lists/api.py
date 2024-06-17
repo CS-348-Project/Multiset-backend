@@ -17,7 +17,7 @@ def get_grocery_lists_handler(request, group_id: int):
 def add_grocery_list_handler(request, new_grocery_list: GroceryListCreate):
     try:
         ret = create_grocery_list(new_grocery_list)
-        return JsonResponse({"id": ret}, status=201)
+        return JsonResponse(ret, status=201)
     except Exception as e:
         return JsonResponse({"status": "error", "message": "Error in saving grocery list"}, status=500)
     
