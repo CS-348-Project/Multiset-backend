@@ -7,7 +7,7 @@ from .models import Group, GroupSkeleton
 def create_group(group: GroupSkeleton, user_ids: List[int]):
     created_group = execute_query(
         Path("groups/sql/create_group/create_group.sql"),
-        {"name": group.name, "optimize_payments": group.optimize_payments, "budget": group.budget},
+        {"name": group.name, "optimize_payments": group.optimize_payments},
         fetchone=True,
     )
     execute_query(
@@ -54,7 +54,7 @@ def get_group(group_id=None, user_id=None, detailed=False):
 def update_group(group: Group):
     updated_group = execute_query(
         Path("groups/sql/update_group.sql"),
-        {"group_id": group.id, "name": group.name, "optimize_payments": group.optimize_payments, "budget": group.budget},
+        {"group_id": group.id, "name": group.name, "optimize_payments": group.optimize_payments},
     )
     return updated_group
 
