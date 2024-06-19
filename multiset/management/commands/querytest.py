@@ -130,3 +130,4 @@ class Command(BaseCommand):
 
         # remove the last newline
         return csv[:-1]
+    

@@ -1,7 +1,7 @@
 /*
 Name: save_settlement.sql
 Description: Save a settlement between two members
-Usage: {sender_id, receiver_id, amount}
+Usage: {sender_user_id, sender_group_id, receiver_user_id, receiver_group_id, amount}
 */
-INSERT INTO settlement_history (sender_id, amount, receiver_id) 
-VALUES (%(sender_id)s, %(amount)s, %(receiver_id)s);
+INSERT INTO settlement_history (sender_user_id, sender_group_id, receiver_user_id, receiver_group_id, amount) 
+VALUES (%(sender_user_id)s, %(sender_group_id)s, %(receiver_user_id)s, %(receiver_group_id)s, %(amount)s)

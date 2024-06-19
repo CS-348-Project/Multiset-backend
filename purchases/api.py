@@ -60,6 +60,8 @@ def create_new_purchase(request, purchase: Purchase):
     Returns:
         a JSON response with the status of the operation
     """
+    user_id = request.auth
+    purchase.purchaser = user_id
     if not valid_purchase(purchase):
         return JsonResponse({"error": "The purchase is not valid!"})
     created_purchase = new_purchase(purchase)
