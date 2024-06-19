@@ -1,14 +1,25 @@
-from django.core.management.base import BaseCommand
+from django.core.management.base import BaseCommand, CommandParser
 from glob import glob
+import json
 from os import makedirs
 
 from multiset.db_utils import execute_query
 
+import sys
+
 
 class Command(BaseCommand):
     TEST_PATH = "tests/suites/"
-
     OUTPUT_PATH = "tests/outputs/"
+
+    help = "Runs all the tests in the tests directory and finds their expected output"
+
+    def add_arguments(self, parser: CommandParser) -> None:
+        parser.add_argument(
+            "--print",
+            action="store_true",
+            help="Whether the result is printed",
+        )
 
     def handle(self, *args, **kwargs):
         """
@@ -19,8 +30,13 @@ class Command(BaseCommand):
 
         Check `tests/sample_suite/test.sql` for an example of the expected output format
 
-        TO RUN: `docker-compose run web python manage.py querytest`
+        TO RUN: `docker-compose run web python manage.py querytest` (no printing to files) or
+        `docker-compose run web python manage.py querytest --print` (with printing to files)
+
         """
+
+        print_to_file = kwargs.get("print", False)
+
         passes = 0
         fails = []
         errors = []
@@ -50,7 +66,8 @@ class Command(BaseCommand):
                 errors.append(file)
                 continue
 
-            expected_output = "\n".join(content_lines[start : end + 1])
+            expected_output_str = "\n".join(content_lines[start : end + 1])
+            expected_output_obj = json.loads(expected_output_str)
 
             # now, we get the result of the query
             raw_result = execute_query(file, fetchall=True)
@@ -62,19 +79,22 @@ class Command(BaseCommand):
             # we remove the file name from the path to get the directory
             makedirs(output_path[: output_path.rfind("/")], exist_ok=True)
 
-            with open(output_path, "w") as f:
-                f.write(str(raw_result))
+            if print_to_file:
+                with open(output_path, "w") as f:
+                    json.dump(raw_result, f, indent=4)
 
-            string_result = self._to_csv(raw_result)
-
-            if string_result == expected_output:
+            if expected_output_obj == raw_result:
                 print(".", end="")
                 passes += 1
 
             else:
                 print("F", end="")
                 fails.append(
-                    {"file": file, "result": string_result, "expected": expected_output}
+                    {
+                        "file": file,
+                        "result": json.dumps(raw_result, indent=4),
+                        "expected": expected_output_str,
+                    }
                 )
 
         print()
