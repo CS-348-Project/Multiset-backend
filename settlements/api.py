@@ -7,10 +7,10 @@ from .services import find_settlements, save_settlement, find_settlements_betwee
 router = Router()
 
 @router.get("/")
-def get_settlements_handler(request, group_id: int, member_user_id: int = None):
+def get_settlements_handler(request, group_id: int = None, member_user_id: int = None):
     try: 
-        if (not verify_user_in_group(request.auth, group_id)):
-            return JsonResponse({"status": "error", "message": "You are unauthorized to access this group"}, status=403)
+        # if (not verify_user_in_group(request.auth, group_id)):
+        #     return JsonResponse({"status": "error", "message": "You are unauthorized to access this group"}, status=403)
         ret = find_settlements(group_id, member_user_id)
         return JsonResponse(ret, safe=False, status=200)
     except Exception as e:
