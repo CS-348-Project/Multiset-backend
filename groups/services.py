@@ -18,13 +18,13 @@ def get_group(group_id=None, user_id=None, detailed=False):
             rows = execute_query(
                 Path("groups/sql/get_groups_by_group_id_detailed.sql"),
                 {"group_id": group_id},
-                fetchall=True,
+                fetchone=True,
             )
         else:
             rows = execute_query(
                 Path("groups/sql/get_groups_by_group_id.sql"),
                 {"group_id": group_id, "detailed": detailed},
-                fetchall=True,
+                fetchone=True,
             )
     elif user_id:
         if detailed:
