@@ -1,7 +1,7 @@
 /*
 Name: update_group.sql
 Description: Update a group's properties based on its group_id
-Usage: {group_id, name, optimize_payments, budget}
+Usage: {group_id, name, optimize_payments}
 */
 
 UPDATE multiset_group
