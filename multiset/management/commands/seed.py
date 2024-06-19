@@ -20,12 +20,7 @@ class Command(BaseCommand):
     help = "Seeds the database with randomized dummy data."
 
     def handle(self, *args, **kwargs):
-        print("Deleting existing data...")
         files = listdir(self.CSV_PATH)
-
-        with connection.cursor() as cursor:
-            for file in files:
-                cursor.execute(f"DELETE FROM {file[:-4]};")
 
         print("Seeding the database...")
         tables: dict[str, SeedingTemplate] = {}
@@ -131,8 +126,15 @@ class Command(BaseCommand):
         print(script)
 
         # Please actually briefly look over the data to make sure nothing is wrong :,)
-        print("Press enter to continue...")
+        print("Press enter to continue. Press Ctrl+C to cancel.")
+        print("This will delete all existing data in the database.")
         input()
+
+        print("Deleting existing data...")
+
+        with connection.cursor() as cursor:
+            for file in files:
+                cursor.execute(f"DELETE FROM {file[:-4]};")
 
         with connection.cursor() as cursor:
             cursor.execute(script)
