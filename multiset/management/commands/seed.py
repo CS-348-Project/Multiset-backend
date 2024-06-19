@@ -99,7 +99,8 @@ class Command(BaseCommand):
                         {str(tables['member'])}\n
                         {str(tables['purchase'])}\n
                         {str(tables['purchase_splits'])}\n
-                        {str(tables['cumulative_debts'])}"""
+                        {str(tables['cumulative_debts'])}\n
+                        {str(tables['settlement_history'])}"""
 
         print(script)
 
