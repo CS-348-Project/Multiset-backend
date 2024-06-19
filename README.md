@@ -12,7 +12,7 @@ Note: To try out the API endpoints after starting the application, go to `/api/d
 
 ## Setup
 
-To setup the backend, you can either do it locally or using the docker container.
+To setup the backend, you can either do it locally or using the docker container. Note that the database is cloud-hosted via AWS RDS so you do not have to load the sample data into your local database.
 
 ### Docker Setup
 
