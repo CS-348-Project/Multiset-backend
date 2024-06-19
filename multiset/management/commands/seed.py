@@ -4,6 +4,7 @@ from os import listdir
 from os.path import join
 from random import randint, choice, uniform
 import pandas as pd
+import numpy as np
 
 from multiset.seeding import *
 
@@ -44,6 +45,20 @@ class Command(BaseCommand):
                     table.add_row(
                         int(row[0]), int(row[1]), round(row[2], 2), int(row[3])
                     )
+
+            elif file == "grocery_list_item.csv":
+                # we have to handle NaN values in the "notes" column
+                # these occur when this column is empty in a given row
+                processed_values = table_raw.values.tolist()
+
+                for row in processed_values:
+                    try:
+                        if np.isnan(row[5]):
+                            row[5] = ""
+                    except TypeError:  # happens when the value is a string, can ignore
+                        pass
+
+                    table.add_row(*row)
             else:
                 table.rows = table_raw.values.tolist()
 
@@ -109,7 +124,9 @@ class Command(BaseCommand):
                         {str(tables['member'])}\n
                         {str(tables['purchase'])}\n
                         {str(tables['purchase_splits'])}\n
-                        {str(tables['cumulative_debts'])}"""
+                        {str(tables['cumulative_debts'])}\n
+                        {str(tables['grocery_list'])}\n
+                        {str(tables['grocery_list_item'])}\n"""
 
         print(script)
 
