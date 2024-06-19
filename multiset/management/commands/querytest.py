@@ -47,6 +47,11 @@ class Command(BaseCommand):
         print(f"Running {len(files)} test(s)...")
 
         for file in files:
+            # TODO error handling and reporting
+
+            # now, we get the result of the query
+            raw_result = execute_query(file, fetchall=True)
+
             # let's get the expected output
             with open(file, "r") as f:
                 contents = f.read()
@@ -61,16 +66,30 @@ class Command(BaseCommand):
 
                 if start > end:
                     raise ValueError("Invalid expected output range")
+
+                expected_output_str = "\n".join(content_lines[start : end + 1])
+                expected_output_obj = json.loads(expected_output_str)
+
+                if expected_output_obj == raw_result:
+                    print(".", end="")
+                    passes += 1
+
+                else:
+                    print("F", end="")
+                    fails.append(
+                        {
+                            "file": file,
+                            "result": json.dumps(raw_result, indent=4),
+                            "expected": expected_output_str,
+                        }
+                    )
+
+                print()
+
+            # no expected output found
+            # for now we just skip the test but still print if appropriate
             except ValueError:
-                print("E", end="")
-                errors.append(file)
-                continue
-
-            expected_output_str = "\n".join(content_lines[start : end + 1])
-            expected_output_obj = json.loads(expected_output_str)
-
-            # now, we get the result of the query
-            raw_result = execute_query(file, fetchall=True)
+                pass
 
             # this just replaces self.TEST_PATH with self.OUTPUT_PATH and changes the extension
             output_path = f"{self.OUTPUT_PATH}{file[len(self.TEST_PATH):-4]}.out"
@@ -82,22 +101,6 @@ class Command(BaseCommand):
             if print_to_file:
                 with open(output_path, "w") as f:
                     json.dump(raw_result, f, indent=4)
-
-            if expected_output_obj == raw_result:
-                print(".", end="")
-                passes += 1
-
-            else:
-                print("F", end="")
-                fails.append(
-                    {
-                        "file": file,
-                        "result": json.dumps(raw_result, indent=4),
-                        "expected": expected_output_str,
-                    }
-                )
-
-        print()
 
         # print the detailed results
         print(f"Passes: {passes}, Fails: {len(fails)}, Errors: {len(errors)}")
