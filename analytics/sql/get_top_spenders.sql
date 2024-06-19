@@ -8,7 +8,7 @@ Return: {id, first_name, last_name, num_purchases, total_spend}
 
 SELECT u.id, u.first_name, u.last_name, COUNT(*) AS num_purchases, SUM(total_cost) AS total_spend
 FROM multiset_user u
-JOIN purchase p ON u.id = p.purchaser
-WHERE p.group_id = %(group_id)s
+JOIN purchase p ON u.id = p.purchaser_user_id
+WHERE p.purchaser_group_id = %(group_id)s
 GROUP BY u.id
 ORDER BY SUM(total_cost) DESC
