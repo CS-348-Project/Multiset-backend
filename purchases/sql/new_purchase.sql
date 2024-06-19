@@ -5,5 +5,5 @@ Usage: [name, category, group_id, total_cost, purchaser]
 Return: {id}
 */
 
-INSERT INTO purchase (name, category, group_id, total_cost, purchaser)
+INSERT INTO purchase (name, category, purchaser_group_id, total_cost, purchaser_user_id)
 VALUES (%(name)s, %(category)s, %(group_id)s, %(total_cost)s, %(purchaser)s) RETURNING id

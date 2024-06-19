@@ -4,6 +4,7 @@ from os import listdir
 from os.path import join
 from random import randint, choice, uniform
 import pandas as pd
+import numpy as np
 
 from multiset.seeding import *
 
@@ -19,12 +20,7 @@ class Command(BaseCommand):
     help = "Seeds the database with randomized dummy data."
 
     def handle(self, *args, **kwargs):
-        print("Deleting existing data...")
         files = listdir(self.CSV_PATH)
-
-        with connection.cursor() as cursor:
-            for file in files:
-                cursor.execute(f"DELETE FROM {file[:-4]};")
 
         print("Seeding the database...")
         tables: dict[str, SeedingTemplate] = {}
@@ -44,6 +40,20 @@ class Command(BaseCommand):
                     table.add_row(
                         int(row[0]), int(row[1]), round(row[2], 2), int(row[3])
                     )
+
+            elif file == "grocery_list_item.csv":
+                # we have to handle NaN values in the "notes" column
+                # these occur when this column is empty in a given row
+                processed_values = table_raw.values.tolist()
+
+                for row in processed_values:
+                    try:
+                        if np.isnan(row[5]):
+                            row[5] = None
+                    except TypeError:  # happens when the value is a string, can ignore
+                        pass
+
+                    table.add_row(*row)
             else:
                 table.rows = table_raw.values.tolist()
 
@@ -61,30 +71,40 @@ class Command(BaseCommand):
                 purchase
                 for purchase in tables["purchase"].dict_rows
                 if purchase["id"] == row["purchase_id"]
-            )["purchaser"]
+            )
 
             try:
                 # if the debt already exists, add to it
                 debt = next(
                     debt
                     for debt in debts
-                    if debt["borrower_id"] == row["borrower"]
-                    and debt["purchaser_id"] == purchaser
+                    if debt["borrower_user_id"] == row["borrower_user_id"]
+                    and debt["borrower_group_id"] == row["borrower_group_id"]
+                    and debt["purchaser_user_id"] == purchaser["purchaser_user_id"]
+                    and debt["purchaser_group_id"] == purchaser["purchaser_group_id"]
                 )
                 debt["amount"] += row["amount"]
 
             except StopIteration:
                 # if the debt doesn't exist, create it and append to our list
                 debt = {
-                    "borrower_id": row["borrower"],
-                    "purchaser_id": purchaser,
+                    "borrower_user_id": row["borrower_user_id"],
+                    "borrower_group_id": row["borrower_group_id"],
+                    "purchaser_user_id": purchaser["purchaser_user_id"],
+                    "purchaser_group_id": purchaser["purchaser_group_id"],
                     "amount": row["amount"],
                 }
                 debts.append(debt)
 
         debt_rows = [
-            (i, round(debt["amount"], 2), debt["borrower_id"], debt["purchaser_id"])
-            for i, debt in enumerate(debts)
+            (
+                debt["amount"],
+                debt["purchaser_user_id"],
+                debt["purchaser_group_id"],
+                debt["borrower_user_id"],
+                debt["borrower_group_id"],
+            )
+            for debt in debts
         ]
 
         tables["cumulative_debts"].rows = debt_rows
@@ -99,13 +119,22 @@ class Command(BaseCommand):
                         {str(tables['member'])}\n
                         {str(tables['purchase'])}\n
                         {str(tables['purchase_splits'])}\n
-                        {str(tables['cumulative_debts'])}"""
+                        {str(tables['cumulative_debts'])}\n
+                        {str(tables['grocery_list'])}\n
+                        {str(tables['grocery_list_item'])}\n"""
 
         print(script)
 
         # Please actually briefly look over the data to make sure nothing is wrong :,)
-        print("Press enter to continue...")
+        print("Press enter to continue. Press Ctrl+C to cancel.")
+        print("This will delete all existing data in the database.")
         input()
+
+        print("Deleting existing data...")
+
+        with connection.cursor() as cursor:
+            for file in files:
+                cursor.execute(f"DELETE FROM {file[:-4]};")
 
         with connection.cursor() as cursor:
             cursor.execute(script)
