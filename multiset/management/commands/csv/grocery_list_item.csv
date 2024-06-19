@@ -1,0 +1,103 @@
+id,grocery_list_id,requester_user_id,requester_group_id,completed,notes,quantity,item_name
+1,1,1,1,TRUE,,1,Milk
+2,1,1,1,TRUE,vanilla flavour,1,Almond Milk
+3,1,2,1,FALSE,,2,Hummus
+4,1,3,1,FALSE,,1,Ketchup
+5,1,6,1,TRUE,Meeting snack,3,Wasabi Peas
+6,2,7,2,FALSE,1 pack,1,Toilet Paper
+7,2,8,2,TRUE,,1,Eggs x 12
+8,2,8,2,FALSE,,1,Butter
+9,2,8,2,FALSE,,18,Bagels
+10,2,9,2,TRUE,,2,Orange Juice
+11,2,10,2,FALSE,small pkg pls,1,Ground Beef
+12,2,7,2,TRUE,,1,Chicken Breast
+13,2,7,2,FALSE,,1,Marinara
+14,2,7,2,FALSE,,1,Spaghetti
+15,2,8,2,FALSE,,1,Honey
+16,3,8,2,TRUE,,20,Solo cups
+17,3,9,2,FALSE,sprite/lemonade/juice would be great,2,Mixers
+18,3,7,2,TRUE,,5,Chips
+19,3,10,2,TRUE,mild,3,Salsa
+20,3,8,2,TRUE,,3,Pizzas
+21,5,16,4,FALSE,,12,Eggs
+22,5,17,4,FALSE,,1,Pancake Mix
+23,5,18,4,FALSE,,1,Syrup
+24,5,17,4,FALSE,,1,Bacon
+25,5,19,4,FALSE,,1,Fruit Tray
+26,5,20,4,FALSE,,2,Juices
+27,5,19,4,FALSE,,1,Frozen Hashbrowns
+28,6,16,4,TRUE,,1,Chia Seeds
+29,6,16,4,TRUE,,1,Oat Milk
+30,6,17,4,FALSE,,1,Instant Noodles
+31,6,17,4,TRUE,,4,Udon
+32,6,18,4,TRUE,,1,Soy Sauce
+33,6,18,4,TRUE,,1,Peanut Butter
+34,6,19,4,TRUE,,1,Cilantro
+35,6,19,4,FALSE,,1,Iceberg Lettuce
+36,6,20,4,TRUE,,6,Apples
+37,6,20,4,TRUE,,6,Instant Oatmeal
+38,6,20,4,FALSE,mix of choc/vanilla is fine,12,Cupcakes
+39,4,11,3,TRUE,,12,Burger Buns
+40,4,12,3,TRUE,,1,Ketchup
+41,4,12,3,TRUE,,1,Mustard
+42,4,12,3,TRUE,,1,Relish
+43,4,13,3,TRUE,,6,Beef patties
+44,4,13,3,TRUE,,6,Veggie patties
+45,4,14,3,TRUE,,1,Frozen fries
+46,4,15,3,TRUE,,3,Onions
+47,4,15,3,TRUE,,3,Tomatoes
+48,4,11,3,TRUE,,1,Lettuce
+49,4,14,3,FALSE,pick up from Safeway bakery,1,Quarter sheet cake
+50,7,5,5,FALSE,,1,Olive Oil
+51,7,5,5,FALSE,,5,Carrots
+52,7,5,5,FALSE,,3,Onions
+53,7,5,5,FALSE,,1,Celery
+54,7,5,5,FALSE,,10,Potatoes
+55,7,6,5,FALSE,,4,Beef stock
+56,7,6,5,FALSE,,1,Tomato paste
+57,7,6,5,FALSE,,1,Parsley
+58,7,6,5,FALSE,,1,Barley
+59,7,6,5,FALSE,,1,Rosemary
+60,7,6,5,FALSE,,1,Thyme
+61,7,5,5,FALSE,,1,Liquid Smoke
+62,7,5,5,TRUE,,2,Black beans
+63,7,5,5,TRUE,,2,Corn
+64,7,5,5,FALSE,,1,Garlic
+65,8,10,5,TRUE,,2,Chickpeas
+66,8,10,5,TRUE,,1,Coconut Milk
+67,8,10,5,TRUE,,2,Onions
+68,8,10,5,TRUE,plain,1,Yogurt
+69,8,10,5,TRUE,,1,Naan
+70,8,11,5,TRUE,,1,Garam Masala
+71,8,11,5,TRUE,,1,Turmeric
+72,8,11,5,TRUE,,1,Cumin
+73,8,11,5,TRUE,,1,Cilantro
+74,8,11,5,TRUE,,1,Rice
+75,8,11,5,TRUE,,1,Tomato Paste
+76,9,2,6,FALSE,,3,Premade pizza dough
+77,9,2,6,FALSE,,1,Marinara
+78,9,2,6,TRUE,mozzarella + cheddar,1,Cheese
+79,9,9,6,FALSE,,1,Pepperoni
+80,9,9,6,FALSE,,2,Green Peppers
+81,9,9,6,FALSE,,1,Anchovies
+82,9,13,6,FALSE,,1,Pineapple
+83,9,13,6,FALSE,,1,Ham
+84,9,2,6,FALSE,,1,Mushrooms
+85,9,2,6,FALSE,,1,Italian Sausage
+86,10,2,6,TRUE,,1,Laundry Detergent
+87,10,2,6,FALSE,,1,Dish Soap
+88,10,9,6,TRUE,,1,Bread
+89,10,9,6,FALSE,,1,Ramen
+90,10,13,6,TRUE,,2,Hand Soap
+91,10,13,6,FALSE,,1,Toothpaste
+92,11,3,7,FALSE,,1,Flour
+93,11,3,7,FALSE,,1,Sugar
+94,11,3,7,FALSE,,1,Cocoa Powder
+95,11,9,7,TRUE,,4,Salmon Fillets
+96,11,9,7,FALSE,,1,Butter
+97,11,9,7,FALSE,,1,Lemon
+98,11,9,7,FALSE,,1,Dill
+99,11,14,7,TRUE,,1,Asparagus
+100,11,14,7,TRUE,,2,Iced Tea
+101,11,14,7,TRUE,,1,Chips
+102,11,14,7,TRUE,,1,Guacamole
