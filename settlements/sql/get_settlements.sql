@@ -1,5 +1,5 @@
 /*
-Name: get_settlements_between_members.sql
+Name: get_settlements.sql
 Description: Get all settlements 
 Usage: {}
 */
