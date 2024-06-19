@@ -49,7 +49,7 @@ class Command(BaseCommand):
                 for row in processed_values:
                     try:
                         if np.isnan(row[5]):
-                            row[5] = ""
+                            row[5] = None
                     except TypeError:  # happens when the value is a string, can ignore
                         pass
 
