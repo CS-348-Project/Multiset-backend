@@ -1,10 +1,14 @@
 from django.core.management.base import BaseCommand
-from multiset.db_utils import execute_query
 from glob import glob
+from os import makedirs
+
+from multiset.db_utils import execute_query
 
 
 class Command(BaseCommand):
-    TEST_PATH = "tests/"
+    TEST_PATH = "tests/suites/"
+
+    OUTPUT_PATH = "tests/outputs/"
 
     def handle(self, *args, **kwargs):
         """
@@ -50,6 +54,17 @@ class Command(BaseCommand):
 
             # now, we get the result of the query
             raw_result = execute_query(file, fetchall=True)
+
+            # this just replaces self.TEST_PATH with self.OUTPUT_PATH and changes the extension
+            output_path = f"{self.OUTPUT_PATH}{file[len(self.TEST_PATH):-4]}.out"
+
+            # create the directory if it doesn't exist
+            # we remove the file name from the path to get the directory
+            makedirs(output_path[: output_path.rfind("/")], exist_ok=True)
+
+            with open(output_path, "w") as f:
+                f.write(str(raw_result))
+
             string_result = self._to_csv(raw_result)
 
             if string_result == expected_output:
@@ -84,7 +99,7 @@ class Command(BaseCommand):
     def _to_csv(self, result: list) -> str:
         # convert the result to a csv string
         if len(result) == 0:
-            return "[]"  # special case for empty result so it's more explicit
+            return "[]"  # special case for empty result so it's more clear
 
         csv = ",".join(result[0].keys()) + "\n"
         for row in result:
