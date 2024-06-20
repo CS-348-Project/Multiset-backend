@@ -58,13 +58,14 @@ def toggle(gid: int):
     return result
 
 
-def calculate(gid: int):
+def calculate(gid: int, uid: int, show_all: bool = False):
     """
         Calculates transfers for a group:
         - if optimization is disabled, just returns the balances between each pair of users that need to be resolved
         - if optimization is enabled, solves an ILP to minimize the number of transfers
     Args:
         gid: the id of the group to calculate transfers for
+        show_all: whether to show all balances or only those for the current user
     Returns:
         a list of dicts representing optimal transfers
     """
@@ -85,8 +86,8 @@ def calculate(gid: int):
 
         update_debts(balances, gid)
 
-        return JsonResponse(
-            {"optimized": False, "transfers": balances}, safe=False, status=200
+        return _get_response(
+            balances, uid, optimization_flag["optimize_payments"], show_all
         )
 
     # if optimization is enabled, we get the balances and solve the ILP
@@ -102,9 +103,7 @@ def calculate(gid: int):
     if all(item["balance"] == 0 for item in balances):
         update_debts(solution, gid)
 
-        return JsonResponse(
-            {"optimized": True, "transfers": balances}, safe=False, status=200
-        )
+        return _get_response([], uid, optimization_flag["optimize_payments"], show_all)
 
     # and we solve the linear program
     solution = _solve_ilp(balances)
@@ -114,8 +113,8 @@ def calculate(gid: int):
             solution, gid
         )  # we wait to do this in case the solution is not feasible
 
-        return JsonResponse(
-            {"optimized": True, "transfers": solution}, safe=False, status=200
+        return _get_response(
+            solution, uid, optimization_flag["optimize_payments"], show_all
         )
 
     return JsonResponse({"status": "error, no feasible solution found"}, status=500)
@@ -245,3 +244,30 @@ def _solve_ilp(input: list[dict]):
     # (e.g. purchase splits not adding up to the purchase amount)
     # because there is always a feasible solution if everything adds up to 0
     return None
+
+
+def _get_response(transfers: list[dict], uid: int, optimized: bool, show_all: bool):
+    """
+        Formats the response for the frontend. This is to ensure consistency
+        since this logic is used in multiple places.
+    Args:
+        transfers: list of dicts representing transfers
+        optimized: whether the transfers are optimized
+    Returns:
+        a JsonResponse object
+    """
+
+    if show_all:
+        transfers_to_return = transfers
+    else:
+        transfers_to_return = [
+            transfer
+            for transfer in transfers
+            if transfer["from_user_id"] == uid or transfer["to_user_id"] == uid
+        ]
+
+    return JsonResponse(
+        {"optimized": optimized, "transfers": transfers_to_return},
+        safe=False,
+        status=200,
+    )

@@ -63,9 +63,9 @@ def create_new_purchase(request, purchase: Purchase):
     user_id = request.auth
     purchase.purchaser = user_id
     if not valid_purchase(purchase):
-        return JsonResponse({"error": "The purchase is not valid!"})
+        return JsonResponse({"status": "error", "message": "Purchase is not valid"}, status=400)
     created_purchase = new_purchase(purchase)
     new_purchase_id = created_purchase["id"]
     split_purchase(purchase, new_purchase_id)
 
-    return JsonResponse({"status": "success"})
+    return JsonResponse({}, status=204)
