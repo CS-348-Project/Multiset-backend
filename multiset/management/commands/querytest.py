@@ -79,7 +79,7 @@ class Command(BaseCommand):
                     fails.append(
                         {
                             "file": file,
-                            "result": json.dumps(raw_result, indent=4),
+                            "result": json.dumps(raw_result, indent=4, default=str),
                             "expected": expected_output_str,
                         }
                     )
@@ -100,7 +100,7 @@ class Command(BaseCommand):
 
             if print_to_file:
                 with open(output_path, "w") as f:
-                    json.dump(raw_result, f, indent=4)
+                    json.dump(raw_result, f, indent=4, default=str)
 
         # print the detailed results
         print(f"Passes: {passes}, Fails: {len(fails)}, Errors: {len(errors)}")
