@@ -10,7 +10,7 @@ from .models import Group, GroupSkeleton
 router = Router()
 
 @router.get("/")
-def get_group_handler(request, group_id: Optional[int] = None, user_id: Optional[int] = None, detailed: Optional[bool] = False):
+def get_group_handler(request, group_id: Optional[int] = None, detailed: Optional[bool] = False):
     """
     Gets a group by its id.
     Args:
@@ -20,7 +20,7 @@ def get_group_handler(request, group_id: Optional[int] = None, user_id: Optional
         a JSON response with the status of the operation and the group or groups retrieved
     """
     try:
-        ret = get_group(group_id, user_id, detailed)
+        ret = get_group(group_id, request.auth, detailed)
         return ret
     except Exception as e:
         return JsonResponse({"status": "error", "message": str(e)}, status=400)
