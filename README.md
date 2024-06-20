@@ -8,8 +8,11 @@
 4. Purchase settlements
 5. Analytics
 6. Group grocery list
+7. Debts and optimization
 
-Note: To try out the API endpoints after starting the application, go to `/api/docs` where you can use the interactive frontend.
+## API Docs
+
+To try out the API endpoints after starting the application, go to `/api/docs` where you can use the interactive frontend. In order to access endpoints protected by auth, you would need to set the bearer token through the Authorize button at the top right of the page. Please message Emma for a valid token value that you can use!
 
 ## Setup
 
