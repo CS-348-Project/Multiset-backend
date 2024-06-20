@@ -18,17 +18,16 @@ recreation of the math there.
 """
 
 
-def calculate_transfers(gid: int):
+def flag(gid: int):
     """
-        Calculates optimal transfers for a group
+        Checks if optimization is enabled for a group
     Args:
-        gid: the id of the group to calculate transfers for
+        gid: the id of the group to check
     Returns:
-        a list of dicts with keys: `from_id`, `to_id`, `amount` representing optimal transfers
+        a dict with key `optimize_payments` and value `True` if optimization is enabled
     """
 
-    # first, we need to check if the optimization flag is set
-    flag = execute_query(
+    result = execute_query(
         Path("optimization/sql/get_optimization_flag.sql"),
         {
             "group_id": gid,
@@ -36,29 +35,123 @@ def calculate_transfers(gid: int):
         fetchone=True,
     )
 
-    if not flag["optimize_payments"]:
-        return JsonResponse({"status": "error, optimization flag not set"}, status=400)
+    return result
 
-    # then we get the balances of the group members
+
+def toggle(gid: int):
+    """
+        Toggles optimization for a group
+    Args:
+        gid: the id of the group to toggle
+    Returns:
+        a dict with key `optimize_payments` and value `True` if optimization is now enabled
+    """
+
+    result = execute_query(
+        Path("optimization/sql/toggle_optimization_flag.sql"),
+        {
+            "group_id": gid,
+        },
+        fetchone=True,
+    )
+
+    return result
+
+
+def calculate(gid: int):
+    """
+        Calculates transfers for a group:
+        - if optimization is disabled, just returns the balances between each pair of users that need to be resolved
+        - if optimization is enabled, solves an ILP to minimize the number of transfers
+    Args:
+        gid: the id of the group to calculate transfers for
+    Returns:
+        a list of dicts representing optimal transfers
+    """
+
+    # first, let's check if optimization is enabled for this group
+    # TODO handling of non-existing group
+    optimization_flag = flag(gid)
+
+    # if optimization is not enabled, we just get the balances and return them
+    if not optimization_flag["optimize_payments"]:
+        balances = execute_query(
+            Path("optimization/sql/get_group_balances.sql"),
+            {
+                "group_id": gid,
+            },
+            fetchall=True,
+        )
+
+        update_debts(balances, gid)
+
+        return JsonResponse(
+            {"optimized": False, "transfers": balances}, safe=False, status=200
+        )
+
+    # if optimization is enabled, we get the balances and solve the ILP
     balances = execute_query(
-        Path("optimization/sql/get_group_balances.sql"),
+        Path("optimization/sql/get_aggregate_balances.sql"),
         {
             "group_id": gid,
         },
         fetchall=True,
     )
 
+    # if all balances are 0, we can return an empty list of transfers
+    if all(item["balance"] == 0 for item in balances):
+        update_debts(solution, gid)
+
+        return JsonResponse(
+            {"optimized": True, "transfers": balances}, safe=False, status=200
+        )
+
     # and we solve the linear program
     solution = _solve_ilp(balances)
 
     if solution:
-        return JsonResponse(solution, safe=False, status=200)
+        update_debts(
+            solution, gid
+        )  # we wait to do this in case the solution is not feasible
+
+        return JsonResponse(
+            {"optimized": True, "transfers": solution}, safe=False, status=200
+        )
 
     return JsonResponse({"status": "error, no feasible solution found"}, status=500)
 
 
+def update_debts(balances: list[dict], gid: int):
+    """
+        Updates the debts recorded for a group in the database
+    Args:
+        balances: list of dicts representing the balances to update
+        gid: the id of the group to update
+    """
+
+    # first, delete all debts for this group
+    execute_query(
+        Path("optimization/sql/delete_group_debts.sql"),
+        {"group_id": gid},
+    )
+
+    # then, insert the new debts
+    for balance in balances:
+        # TODO make this a single query?
+        execute_query(
+            Path("optimization/sql/insert_debt.sql"),
+            {
+                "amount": balance["amount"],
+                "borrower_user_id": balance["from_user_id"],
+                "collector_user_id": balance["to_user_id"],
+                "borrower_group_id": gid,
+                "collector_group_id": gid,
+            },
+        )
+
+
 # input is list of dicts with keys: "user_id", "balance"
-def _solve_ilp(input: list[dict["member_id":str, "balance":float]]):
+def _solve_ilp(input: list[dict]):
     """
         Solves an integer linear program (ILP) that minimizes the number of transfers
         to resolve the balances in the input list.
@@ -128,13 +221,19 @@ def _solve_ilp(input: list[dict["member_id":str, "balance":float]]):
         for i in range(len(transfers)):
             for j in range(len(transfers[i])):
                 if transfers[i][j].value() > 0:
-                    from_id = input[i]["member_id"]
-                    to_id = input[j]["member_id"]
-
                     output.append(
                         {
-                            "from_id": from_id,
-                            "to_id": to_id,
+                            # group id (same for all transfers in the same group)
+                            "group_id": input[i]["group_id"],
+                            # giver
+                            "from_user_id": input[i]["user_id"],
+                            "from_first_name": input[i]["first_name"],
+                            "from_last_name": input[i]["last_name"],
+                            # receiver
+                            "to_user_id": input[j]["user_id"],
+                            "to_first_name": input[j]["first_name"],
+                            "to_last_name": input[j]["last_name"],
+                            # amount
                             "amount": transfers[i][j].value(),
                         }
                     )
