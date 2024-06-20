@@ -2,7 +2,7 @@
 
 ## Setup
 
-To setup the backend, you can either do it locally or using the docker container.
+To setup the backend, you can either do it locally or using the docker container. We recommend using the docker setup as it eliminates possible issues with environment inconsistencies.
 
 ### Docker Setup
 
