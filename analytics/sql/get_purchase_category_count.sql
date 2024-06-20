@@ -7,5 +7,5 @@ Return: {category, count}
 
 SELECT category, COUNT(*)
 FROM purchase
-WHERE group_id = %(group_id)s
+WHERE purchaser_group_id = %(group_id)s
 GROUP BY category

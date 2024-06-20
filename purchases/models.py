@@ -1,5 +1,5 @@
 from ninja import Schema
-from typing import List
+from typing import List, Optional
 
 
 class PurchaseSplit(Schema):
@@ -12,5 +12,5 @@ class Purchase(Schema):
     category: str
     group_id: int
     total_cost: int
-    purchaser: int
+    purchaser: Optional[int] = None
     purchase_splits: List[PurchaseSplit]

@@ -3,7 +3,8 @@ from ninja import Schema
 
 # TODO: replace with member from group management
 class SettlementMemberInfo(Schema):
-    member_id: int
+    user_id: int
+    group_id: int
     first_name: str
     last_name: str
     
@@ -15,6 +16,7 @@ class Settlement(Schema):
     created_at: datetime
     
 class SettlementCreate(Schema):
-    sender_id: int
+    sender_user_id: int
+    receiver_user_id: int
+    group_id: int
     amount: float
-    receiver_id: int

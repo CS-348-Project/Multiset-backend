@@ -45,4 +45,10 @@ class SeedingTemplate:
 
             sql += row_str
 
-        return sql[:-2] + ";\n"
+        sql = sql[:-2] + ";\n"
+
+        # if we have an id column, we need to reset the serial so new rows start from the correct id
+        if "id" in self.columns:
+            sql += f"SELECT setval('{self.table}_id_seq', (SELECT MAX(id) FROM {self.table}));\n"
+
+        return sql

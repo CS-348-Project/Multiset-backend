@@ -1,1 +1,1 @@
-id,amount,borrower_id,collector_id
+amount,collector_user_id,collector_group_id,borrower_user_id,borrower_group_id

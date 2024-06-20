@@ -1,8 +1,19 @@
 # Multiset-backend
 
+## Current Features
+
+1. Google authentication
+2. Group management
+3. Purchase splitting
+4. Purchase settlements
+5. Analytics
+6. Group grocery list
+
+Note: To try out the API endpoints after starting the application, go to `/api/docs` where you can use the interactive frontend.
+
 ## Setup
 
-To setup the backend, you can either do it locally or using the docker container. We recommend using the docker setup as it eliminates possible issues with environment inconsistencies.
+To setup the backend, you can either do it locally or using the docker container. Note that the database is cloud-hosted via AWS RDS so you do not have to load the sample data into your local database. We recommend using the docker setup as it eliminates possible issues with environment inconsistencies.
 
 ### Docker Setup
 
