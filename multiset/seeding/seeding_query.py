@@ -6,9 +6,9 @@ from random import randint, choice, uniform
 import pandas as pd
 import numpy as np
 
-from multiset.seeding import *
+from multiset.seeding.template import *
 
-CSV_PATH = join("multiset", "management", "commands", "csv")
+CSV_PATH = join("multiset", "seeding", "csv")
 
 
 def get_seeding_query():

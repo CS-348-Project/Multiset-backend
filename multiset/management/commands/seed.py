@@ -6,8 +6,8 @@ from random import randint, choice, uniform
 import pandas as pd
 import numpy as np
 
-from multiset.management.commands.seeding_query import get_seeding_query
-from multiset.seeding import *
+from multiset.seeding.seeding_query import get_seeding_query
+from multiset.seeding.template import *
 
 
 class Command(BaseCommand):
