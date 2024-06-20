@@ -1,11 +1,11 @@
 from django.core.management.base import BaseCommand, CommandParser
+from django.db import connection
 from glob import glob
 import json
 from os import makedirs
 
 from multiset.db_utils import execute_query
-
-import sys
+from multiset.management.commands.seeding_query import get_seeding_query
 
 
 class Command(BaseCommand):
@@ -41,13 +41,23 @@ class Command(BaseCommand):
         fails = []
         errors = []
 
+        # get the seeding query (ran before each test suite)
+        seeding_query = get_seeding_query()
+
         # recursively get all the sql files in the tests directory
         files = glob(self.TEST_PATH + "/**/*.sql", recursive=True)
 
-        print(f"Running {len(files)} test(s)...")
+        print(f"Running {len(files)} test(s), shown below...")
+
+        for file in files:
+            print(file)
 
         for file in files:
             # TODO error handling and reporting
+
+            # first, we run the seeding query
+            with connection.cursor() as cursor:
+                cursor.execute(seeding_query)
 
             # now, we get the result of the query
             raw_result = execute_query(file, fetchall=True)
@@ -130,4 +140,3 @@ class Command(BaseCommand):
 
         # remove the last newline
         return csv[:-1]
-    
