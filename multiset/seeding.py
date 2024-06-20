@@ -21,7 +21,8 @@ class SeedingTemplate:
         return [dict(zip(self.columns, row)) for row in self.rows]
 
     def __str__(self):
-        sql = f"INSERT INTO {self.table} ({', '.join(self.columns)}) VALUES\n"
+        sql = f"DELETE FROM {self.table};\n"
+        sql += f"INSERT INTO {self.table} ({', '.join(self.columns)}) VALUES\n"
 
         for row in self.rows:
             row_str = "("
