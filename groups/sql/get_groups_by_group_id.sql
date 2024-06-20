@@ -1,7 +1,7 @@
 /*
 Name: get_groups_by_group_id.sql
 Description: Get a group by its group_id
-Usage: {group_id, detailed}
+Usage: {group_id}
 */
 
 SELECT mg.*

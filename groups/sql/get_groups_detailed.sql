@@ -1,6 +1,6 @@
 /*
-Name: get_groups.sql
-Description: Get all groups
+Name: get_groups_detailed.sql
+Description: Get all groups with user details
 Usage: {}
 */
 

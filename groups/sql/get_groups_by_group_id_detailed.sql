@@ -1,6 +1,6 @@
 /*
 Name: get_groups_by_group_id_detailed.sql
-Description: Get a group by its group_id
+Description: Get a group by its group_id with user details
 Usage: {group_id}
 */
 
