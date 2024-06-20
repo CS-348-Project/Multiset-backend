@@ -16,7 +16,7 @@ class Settlement(Schema):
     created_at: datetime
     
 class SettlementCreate(Schema):
-    sender_user_id: int
+    sender_user_id: int = None
     receiver_user_id: int
     group_id: int
     amount: float
