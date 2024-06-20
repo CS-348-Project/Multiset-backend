@@ -1,0 +1,44 @@
+[
+    {
+        "user_id": 4,
+        "group_id": 1,
+        "first_name": "Daniel",
+        "last_name": "Dubois",
+        "balance": -12163
+    },
+    {
+        "user_id": 3,
+        "group_id": 1,
+        "first_name": "Carol",
+        "last_name": "Hirose",
+        "balance": -7496
+    },
+    {
+        "user_id": 1,
+        "group_id": 1,
+        "first_name": "Alice",
+        "last_name": "Camley",
+        "balance": 14324
+    },
+    {
+        "user_id": 5,
+        "group_id": 1,
+        "first_name": "Eve",
+        "last_name": "Butler",
+        "balance": -5274
+    },
+    {
+        "user_id": 2,
+        "group_id": 1,
+        "first_name": "Robert",
+        "last_name": "Strauss",
+        "balance": 19023
+    },
+    {
+        "user_id": 6,
+        "group_id": 1,
+        "first_name": "Francesco",
+        "last_name": "Mengoni",
+        "balance": -8414
+    }
+]
