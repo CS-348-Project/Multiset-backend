@@ -1,0 +1,30 @@
+[
+    {
+        "id": 2,
+        "first_name": "Robert",
+        "last_name": "Strauss",
+        "num_purchases": 2,
+        "total_spend": 26408
+    },
+    {
+        "id": 1,
+        "first_name": "Alice",
+        "last_name": "Camley",
+        "num_purchases": 2,
+        "total_spend": 23360
+    },
+    {
+        "id": 3,
+        "first_name": "Carol",
+        "last_name": "Hirose",
+        "num_purchases": 1,
+        "total_spend": 5000
+    },
+    {
+        "id": 5,
+        "first_name": "Eve",
+        "last_name": "Butler",
+        "num_purchases": 2,
+        "total_spend": 4550
+    }
+]

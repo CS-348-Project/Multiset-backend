@@ -1,0 +1,20 @@
+[
+    {
+        "id": 3,
+        "name": "Club Dinner",
+        "category": "Food",
+        "total_cost": 17854,
+        "purchaser_user_id": 2,
+        "purchaser_first_name": "Robert",
+        "purchaser_last_name": "Strauss"
+    },
+    {
+        "id": 7,
+        "name": "Movie Night",
+        "category": "Entertainment",
+        "total_cost": 8554,
+        "purchaser_user_id": 2,
+        "purchaser_first_name": "Robert",
+        "purchaser_last_name": "Strauss"
+    }
+]
