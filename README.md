@@ -14,6 +14,8 @@
 
 To try out the API endpoints after starting the application, go to `/api/docs` where you can use the interactive frontend. In order to access endpoints protected by auth, you would need to set the bearer token through the Authorize button at the top right of the page. Please message Emma for a valid token value that you can use!
 
+To see our test SQL queries, go into the `tests` folder from the root directory of the repository. In this folder, there is a subfolder called `suites` that has the test SQL queries and a folder called `outputs` which has the corresponding results of the tests.
+
 ## Setup
 
 To setup the backend, you can either do it locally or using the docker container. Note that the database is cloud-hosted via AWS RDS so you do not have to load the sample data into your local database. We recommend using the docker setup as it eliminates possible issues with environment inconsistencies.
