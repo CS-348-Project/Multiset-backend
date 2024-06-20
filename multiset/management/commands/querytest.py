@@ -1,11 +1,11 @@
 from django.core.management.base import BaseCommand, CommandParser
+from django.db import connection
 from glob import glob
 import json
 from os import makedirs
 
 from multiset.db_utils import execute_query
-
-import sys
+from multiset.seeding.seeding_query import get_seeding_query
 
 
 class Command(BaseCommand):
@@ -40,14 +40,25 @@ class Command(BaseCommand):
         passes = 0
         fails = []
         errors = []
+        no_expected_output = 0
+
+        # get the seeding query (ran before each test suite)
+        seeding_query = get_seeding_query()
 
         # recursively get all the sql files in the tests directory
         files = glob(self.TEST_PATH + "/**/*.sql", recursive=True)
 
-        print(f"Running {len(files)} test(s)...")
+        print(f"Running {len(files)} test(s), shown below...")
+
+        for file in files:
+            print(file)
 
         for file in files:
             # TODO error handling and reporting
+
+            # first, we run the seeding query
+            with connection.cursor() as cursor:
+                cursor.execute(seeding_query)
 
             # now, we get the result of the query
             raw_result = execute_query(file, fetchall=True)
@@ -89,6 +100,7 @@ class Command(BaseCommand):
             # no expected output found
             # for now we just skip the test but still print if appropriate
             except ValueError:
+                no_expected_output += 1
                 pass
 
             # this just replaces self.TEST_PATH with self.OUTPUT_PATH and changes the extension
@@ -104,6 +116,7 @@ class Command(BaseCommand):
 
         # print the detailed results
         print(f"Passes: {passes}, Fails: {len(fails)}, Errors: {len(errors)}")
+        print(f"{no_expected_output} test(s) had no expected output")
 
         if len(fails) > 0:
             print("Fails:")
@@ -130,4 +143,3 @@ class Command(BaseCommand):
 
         # remove the last newline
         return csv[:-1]
-    
