@@ -16,7 +16,7 @@ class Command(BaseCommand):
 
     def add_arguments(self, parser: CommandParser) -> None:
         parser.add_argument(
-            "--print",
+            "--noprint",
             action="store_true",
             help="Whether the result is printed",
         )
@@ -30,12 +30,12 @@ class Command(BaseCommand):
 
         Check `tests/sample_suite/test.sql` for an example of the expected output format
 
-        TO RUN: `docker-compose run web python manage.py querytest` (no printing to files) or
-        `docker-compose run web python manage.py querytest --print` (with printing to files)
+        TO RUN: `docker-compose run --rm web python manage.py querytest` (printing to files) or
+        `docker-compose run --rm web python manage.py querytest --noprint` (no printing to files)
 
         """
 
-        print_to_file = kwargs.get("print", False)
+        noprint = kwargs.get("noprint", False)
 
         passes = 0
         fails = []
@@ -110,7 +110,7 @@ class Command(BaseCommand):
             # we remove the file name from the path to get the directory
             makedirs(output_path[: output_path.rfind("/")], exist_ok=True)
 
-            if print_to_file:
+            if not noprint:
                 with open(output_path, "w") as f:
                     json.dump(raw_result, f, indent=4, default=str)
 
