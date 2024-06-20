@@ -4,21 +4,21 @@
         "group_id": 1,
         "first_name": "Daniel",
         "last_name": "Dubois",
-        "balance": -11863
+        "balance": -12163
     },
     {
         "user_id": 3,
         "group_id": 1,
         "first_name": "Carol",
         "last_name": "Hirose",
-        "balance": -6796
+        "balance": -7496
     },
     {
         "user_id": 1,
         "group_id": 1,
         "first_name": "Alice",
         "last_name": "Camley",
-        "balance": 14124
+        "balance": 14324
     },
     {
         "user_id": 5,
@@ -32,7 +32,7 @@
         "group_id": 1,
         "first_name": "Robert",
         "last_name": "Strauss",
-        "balance": 18223
+        "balance": 19023
     },
     {
         "user_id": 6,
