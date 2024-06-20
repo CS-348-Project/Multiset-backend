@@ -8,14 +8,11 @@ def _load_sql(filepath: Path):
     filename = settings.BASE_DIR / filepath
     with open(filename, 'r') as file:
         return file.read()
-
-def dictfetchall(cursor):
-    "Return all rows from a cursor as a dict"
+    
+def dictfetchone(cursor):
+    "Return one row from a cursor as a dict"
     columns = [col[0] for col in cursor.description]
-    return [
-        dict(zip(columns, row))
-        for row in cursor.fetchall()
-    ]
+    return dict(zip(columns, cursor.fetchone()))
 
 def dictfetchall(cursor):
     "Return all rows from a cursor as a dict"
@@ -34,11 +31,15 @@ def execute_query(
     try: 
         with connection.cursor() as cursor:
             cursor.execute(sql, params)
+            if cursor.description is None:
+                return None
             if fetchone:
                 if cursor.rowcount == 0:
                     return {}
-                return dict(zip([col[0] for col in cursor.description], cursor.fetchone()))
+                return dictfetchone(cursor)
             if fetchall:
+                if cursor.rowcount == 0:
+                    return []
                 return dictfetchall(cursor)
             return None
     except Error as e:
