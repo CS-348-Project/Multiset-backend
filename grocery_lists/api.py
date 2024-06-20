@@ -54,6 +54,7 @@ def add_item_to_grocery_list_handler(request, grocery_list_item: GroceryListItem
         grocery_list: GroceryList = get_grocery_list_by_id(grocery_list_item.grocery_list_id)
         if (not verify_user_in_group(request.auth, grocery_list.get("group_id"))):
             return JsonResponse({"status": "error", "message": "You are unauthorized to access this group"}, status=403)
+        grocery_list_item.requester_user_id = request.auth
         add_item_to_grocery_list(grocery_list_item)
         return JsonResponse({}, status=204)
     except Exception as e:
@@ -91,3 +92,4 @@ def delete_grocery_list_item_handler(request, item_id: int, grocery_list_id: int
         return JsonResponse({}, status=204)
     except Exception as e:
         return JsonResponse({"status": "error", "message": "Error in deleting grocery list item"}, status=500)
+

@@ -2,7 +2,7 @@ from ninja import Router
 from django.http import JsonResponse
 from multiset.db_utils import execute_query
 from pathlib import Path
-from groups.services import get_group, create_group, update_group, delete_group
+from groups.services import get_group, create_group, update_group, delete_group, verify_user_in_group
 
 from typing import List, Optional
 from .models import Group, GroupSkeleton
@@ -74,3 +74,22 @@ def delete_group_handler(request, group_id: int):
     except Exception as e:
         return JsonResponse({"status": "error", "message": str(e)}, status=400)
 
+@router.get("/other-members")
+def get_other_group_members_handler(request, group_id: int, detailed: Optional[bool] = False):
+    """
+    Gets the other members of a group.
+    Args:
+        group_id: the id of the group to get the members of
+        detailed: whether to return detailed information about the members
+    Returns:
+        a JSON response with the status of the operation and the list of members
+    """
+    try:
+        verify_user_in_group(request.auth, group_id)
+        group = get_group(group_id, detailed=detailed)
+        if not group:
+            return JsonResponse({"status": "error", "message": "Group not found"}, status=404)
+        other_members = [user for user in group["users"] if user["id"] != request.auth]
+        return JsonResponse(other_members, safe=False)
+    except Exception as e:
+        return JsonResponse({"status": "error", "message": str(e)}, status=400)
