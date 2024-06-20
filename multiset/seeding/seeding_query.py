@@ -109,6 +109,7 @@ def get_seeding_query():
                     {str(tables['purchase_splits'])}\n
                     {str(tables['cumulative_debts'])}\n
                     {str(tables['grocery_list'])}\n
-                    {str(tables['grocery_list_item'])}\n"""
+                    {str(tables['grocery_list_item'])}\n
+                    {str(tables['settlement_history'])}"""
 
     return script
