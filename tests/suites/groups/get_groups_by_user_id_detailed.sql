@@ -1,7 +1,7 @@
 /*
 Name: get_groups_by_user_id_detailed.sql
 Description: Get a group with detailed user information querying by its user_id 
-Usage: {user_id}
+Usage: {user_id = 2}
 */
 
 SELECT mg.*, json_agg(json_build_object(
@@ -16,6 +16,6 @@ JOIN multiset_user mu ON m.user_id = mu.id
 WHERE mg.id IN (
   SELECT group_id
   FROM member
-  WHERE user_id = %(user_id)s
+  WHERE user_id = 2
 )
 GROUP BY mg.id;

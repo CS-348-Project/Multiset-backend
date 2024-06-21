@@ -1,7 +1,7 @@
 /*
-Name: get_groups_detailed.sql
-Description: Get all groups with user details
-Usage: {}
+Name: get_groups_by_group_id_detailed.sql
+Description: Get a group by its group_id with user details
+Usage: {group_id = 1}
 */
 
 SELECT mg.*, 
@@ -16,4 +16,5 @@ COALESCE(json_agg(json_build_object(
 FROM multiset_group mg 
 LEFT JOIN member m ON mg.id = m.group_id
 LEFT JOIN multiset_user mu ON m.user_id = mu.id
+WHERE mg.id = 1
 GROUP BY mg.id;

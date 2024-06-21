@@ -1,0 +1,256 @@
+[
+    {
+        "id": 7,
+        "name": "Gang of Four",
+        "optimize_payments": true,
+        "created_at": "2024-06-20 22:31:49.360535",
+        "users": [
+            {
+                "id": 3,
+                "email": "carol@gmail.com",
+                "first_name": "Carol",
+                "last_name": "Hirose"
+            },
+            {
+                "id": 9,
+                "email": "ivan@gmail.com",
+                "first_name": "Ivan",
+                "last_name": "Shevchenko"
+            },
+            {
+                "id": 14,
+                "email": "naomi@gmail.com",
+                "first_name": "Naomi",
+                "last_name": "Elson"
+            },
+            {
+                "id": 19,
+                "email": "sam@gmail.com",
+                "first_name": "Samuel",
+                "last_name": "Odoh"
+            }
+        ]
+    },
+    {
+        "id": 1,
+        "name": "Book Club",
+        "optimize_payments": true,
+        "created_at": "2024-06-20 22:31:49.360535",
+        "users": [
+            {
+                "id": 1,
+                "email": "alice@gmail.com",
+                "first_name": "Alice",
+                "last_name": "Camley"
+            },
+            {
+                "id": 2,
+                "email": "bob@gmail.com",
+                "first_name": "Robert",
+                "last_name": "Strauss"
+            },
+            {
+                "id": 3,
+                "email": "carol@gmail.com",
+                "first_name": "Carol",
+                "last_name": "Hirose"
+            },
+            {
+                "id": 4,
+                "email": "dan@gmail.com",
+                "first_name": "Daniel",
+                "last_name": "Dubois"
+            },
+            {
+                "id": 5,
+                "email": "eve@gmail.com",
+                "first_name": "Eve",
+                "last_name": "Butler"
+            },
+            {
+                "id": 6,
+                "email": "frank@gmail.com",
+                "first_name": "Francesco",
+                "last_name": "Mengoni"
+            }
+        ]
+    },
+    {
+        "id": 5,
+        "name": "The Beatles",
+        "optimize_payments": false,
+        "created_at": "2024-06-20 22:31:49.360535",
+        "users": [
+            {
+                "id": 5,
+                "email": "eve@gmail.com",
+                "first_name": "Eve",
+                "last_name": "Butler"
+            },
+            {
+                "id": 6,
+                "email": "frank@gmail.com",
+                "first_name": "Francesco",
+                "last_name": "Mengoni"
+            },
+            {
+                "id": 10,
+                "email": "judy@gmail.com",
+                "first_name": "Judy",
+                "last_name": "Schroeder"
+            },
+            {
+                "id": 11,
+                "email": "kris@gmail.com",
+                "first_name": "Kris",
+                "last_name": "Ramos"
+            },
+            {
+                "id": 12,
+                "email": "lee@gmail.com",
+                "first_name": "Lee",
+                "last_name": "Baldwin"
+            },
+            {
+                "id": 16,
+                "email": "payton@gmail.com",
+                "first_name": "Payton",
+                "last_name": "Wu"
+            }
+        ]
+    },
+    {
+        "id": 4,
+        "name": "Pizza Pals",
+        "optimize_payments": false,
+        "created_at": "2024-06-20 22:31:49.360535",
+        "users": [
+            {
+                "id": 16,
+                "email": "payton@gmail.com",
+                "first_name": "Payton",
+                "last_name": "Wu"
+            },
+            {
+                "id": 17,
+                "email": "quincy@gmail.com",
+                "first_name": "Quincy",
+                "last_name": "McTavish"
+            },
+            {
+                "id": 18,
+                "email": "rebecca@gmail.com",
+                "first_name": "Rebecca",
+                "last_name": "Zhang"
+            },
+            {
+                "id": 19,
+                "email": "sam@gmail.com",
+                "first_name": "Samuel",
+                "last_name": "Odoh"
+            },
+            {
+                "id": 20,
+                "email": "tracy@gmail.com",
+                "first_name": "Tracy",
+                "last_name": "Thompson"
+            }
+        ]
+    },
+    {
+        "id": 2,
+        "name": "Suite 203",
+        "optimize_payments": false,
+        "created_at": "2024-06-20 22:31:49.360535",
+        "users": [
+            {
+                "id": 7,
+                "email": "grace@gmail.com",
+                "first_name": "Grace",
+                "last_name": "Park"
+            },
+            {
+                "id": 8,
+                "email": "heidi@gmail.com",
+                "first_name": "Heidi",
+                "last_name": "Smith"
+            },
+            {
+                "id": 9,
+                "email": "ivan@gmail.com",
+                "first_name": "Ivan",
+                "last_name": "Shevchenko"
+            },
+            {
+                "id": 10,
+                "email": "judy@gmail.com",
+                "first_name": "Judy",
+                "last_name": "Schroeder"
+            }
+        ]
+    },
+    {
+        "id": 6,
+        "name": "The Three Stooges",
+        "optimize_payments": false,
+        "created_at": "2024-06-20 22:31:49.360535",
+        "users": [
+            {
+                "id": 2,
+                "email": "bob@gmail.com",
+                "first_name": "Robert",
+                "last_name": "Strauss"
+            },
+            {
+                "id": 9,
+                "email": "ivan@gmail.com",
+                "first_name": "Ivan",
+                "last_name": "Shevchenko"
+            },
+            {
+                "id": 13,
+                "email": "mike@gmail.com",
+                "first_name": "Michael",
+                "last_name": "Tatanka"
+            }
+        ]
+    },
+    {
+        "id": 3,
+        "name": "Theater Club",
+        "optimize_payments": true,
+        "created_at": "2024-06-20 22:31:49.360535",
+        "users": [
+            {
+                "id": 11,
+                "email": "kris@gmail.com",
+                "first_name": "Kris",
+                "last_name": "Ramos"
+            },
+            {
+                "id": 12,
+                "email": "lee@gmail.com",
+                "first_name": "Lee",
+                "last_name": "Baldwin"
+            },
+            {
+                "id": 13,
+                "email": "mike@gmail.com",
+                "first_name": "Michael",
+                "last_name": "Tatanka"
+            },
+            {
+                "id": 14,
+                "email": "naomi@gmail.com",
+                "first_name": "Naomi",
+                "last_name": "Elson"
+            },
+            {
+                "id": 15,
+                "email": "olivia@gmail.com",
+                "first_name": "Olivia",
+                "last_name": "Abbas"
+            }
+        ]
+    }
+]
