@@ -18,36 +18,78 @@ To see our test SQL queries, go into the `tests` folder from the root directory 
 
 ## Setup
 
-To setup the backend, you can either do it locally or using the docker container. Note that the database is cloud-hosted via AWS RDS so you do not have to load the sample data into your local database. We recommend using the docker setup as it eliminates possible issues with environment inconsistencies.
-
-### Docker Setup
+To setup the backend, you can run a docker container through the Makefile. This approach eliminates possible issues with environment inconsistencies.
 
 1. Start docker desktop
 2. Create a `.env` file at the root with the secrets (message Emma)
 3. Run the following command:
 
 ```bash
-docker-compose up -d
+make init
 ```
 
-### Local Setup
-
-1. Create a python environment and activate:
+To stop running all services, run the following command:
 
 ```bash
-python -m venv env
-
-source env/bin/activate
+make down
 ```
 
-2. Install the dependencies
+## Useful Make Commands
+
+Below are useful Makefile commands to manage the Docker containers for our Django application.
+
+### Build Docker Images
 
 ```bash
-pip3 install -r requirements.txt
+make build
 ```
 
-3. Run the server
+Builds all necessary Docker images from the Dockerfile, preparing the environment.
+
+### Start Services
 
 ```bash
-./manage.py runserver
+make up
 ```
+
+Launches all services defined in docker-compose.yml in detached mode.
+
+### Apply Django Migrations
+
+```bash
+make migrate
+```
+
+Executes Django migrations to update or set up the database schema.
+
+### Seed Database
+
+```bash
+make seed
+```
+
+Runs a custom Django management command to populate the database with initial data.
+
+### Stop All Services
+
+```bash
+make down
+```
+
+Stops and removes all Docker containers, clearing the environment.
+
+### Full Environment Initialization
+
+```bash
+make init
+```
+
+Performs a complete setup (build, start, migrate, seed), useful for first-time setups or reinitializations.
+
+### Reinitialize Environment
+
+```bash
+make reinit
+```
+
+Fully resets and restarts the environment, useful for significant changes or clean starts.
