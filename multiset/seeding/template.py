@@ -53,3 +53,66 @@ class SeedingTemplate:
             sql += f"SELECT setval('{self.table}_id_seq', (SELECT MAX(id) FROM {self.table}));\n"
 
         return sql
+
+
+def multiset_templates():
+    # this is a function so each invocation returns new template objects
+    return {
+        "multiset_user": SeedingTemplate(
+            "multiset_user", ("id", "google_id", "email", "first_name", "last_name")
+        ),
+        "multiset_group": SeedingTemplate(
+            "multiset_group", ("id", "name", "optimize_payments")
+        ),
+        "member": SeedingTemplate("member", ("user_id", "group_id")),
+        "purchase": SeedingTemplate(
+            "purchase",
+            (
+                "id",
+                "category",
+                "name",
+                "total_cost",
+                "purchaser_user_id",
+                "purchaser_group_id",
+            ),
+        ),
+        "purchase_splits": SeedingTemplate(
+            "purchase_splits",
+            ("purchase_id", "borrower_user_id", "borrower_group_id", "amount"),
+        ),
+        "cumulative_debts": SeedingTemplate(
+            "cumulative_debts",
+            (
+                "amount",
+                "collector_user_id",
+                "collector_group_id",
+                "borrower_user_id",
+                "borrower_group_id",
+            ),
+        ),
+        "settlement_history": SeedingTemplate(
+            "settlement_history",
+            (
+                "id",
+                "sender_user_id",
+                "sender_group_id",
+                "receiver_user_id",
+                "receiver_group_id",
+                "amount",
+            ),
+        ),
+        "grocery_list": SeedingTemplate("grocery_list", ("id", "group_id", "name")),
+        "grocery_list_item": SeedingTemplate(
+            "grocery_list_item",
+            (
+                "id",
+                "grocery_list_id",
+                "requester_user_id",
+                "requester_group_id",
+                "completed",
+                "notes",
+                "quantity",
+                "item_name",
+            ),
+        ),
+    }
