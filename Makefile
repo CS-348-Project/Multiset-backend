@@ -20,8 +20,11 @@ seed:
 down:
 	docker-compose down
 
-# Shortcut for full initialization (build, start, migrate, seed)
-init: build up migrate seed
+# Shortcut for initialization for the first time
+init: build up
 
-# Shortcut to reinitialize everything (shutdown, rebuild and restart)
-reinit: down build up migrate seed
+# Shortcut to reinitialize
+reinit: down build up
+
+# Shortcut to initialize database
+initdb: migrate seed
