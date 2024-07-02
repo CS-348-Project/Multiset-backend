@@ -21,30 +21,25 @@ class SeedingTemplate:
         return [dict(zip(self.columns, row)) for row in self.rows]
 
     def __str__(self):
+        def _get_value_string(value):
+            if type(value) == str:
+                return f"'{value}'"
+            elif type(value) == bool:
+                return str(value).upper()
+            elif value == None:
+                return "NULL"
+            else:
+                return str(value)
+
         sql = f"DELETE FROM {self.table};\n"
         sql += f"INSERT INTO {self.table} ({', '.join(self.columns)}) VALUES\n"
 
-        for row in self.rows:
-            row_str = "("
-
-            for value in row:
-                # we have to handle each value individually because they can be all different types
-
-                if type(value) == str:
-                    row_str += f"'{value}', "
-
-                elif type(value) == bool:
-                    row_str += f"{str(value).upper()}, "
-
-                elif value == None:
-                    row_str += "NULL, "
-
-                else:
-                    row_str += f"{value}, "
-
-            row_str = row_str[:-2] + "),\n"
-
-            sql += row_str
+        sql += "".join(
+            [
+                f"({', '.join([_get_value_string(value) for value in row])}),\n"
+                for row in self.rows
+            ]
+        )
 
         sql = sql[:-2] + ";\n"
 
