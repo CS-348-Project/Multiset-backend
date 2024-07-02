@@ -23,5 +23,18 @@ services:
     ports:
       - "5432:5432"
 
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin4_container
+    restart: always
+    ports:
+      - "8888:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: multiset@multiset.com
+      PGADMIN_DEFAULT_PASSWORD: multiset
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
+
 volumes:
   postgres_data:
+  pgadmin-data:
