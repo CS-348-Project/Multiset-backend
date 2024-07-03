@@ -7,6 +7,7 @@ import pandas as pd
 import math
 import numpy as np
 
+from optimization.services import calculate
 from multiset.db_utils import execute_query
 from multiset.seeding.template import *
 
@@ -19,6 +20,8 @@ class ProductionSeeder:
 
     UNIFORM_SPLIT_PROB = 0.7
     MEMBER_INCLUDE_PROB = 0.8
+
+    NUM_SETTLEMENTS = 1000000
 
     CATEGORIES = [
         "Food",
@@ -41,6 +44,7 @@ class ProductionSeeder:
         self.name_user_id = {}
         self.user_id_groups = {}
         self.group_id_users = {}
+        self.purchase_id_splits = {}
 
         # ensure results are always the same
         random.seed(self.SEED)
@@ -84,6 +88,14 @@ class ProductionSeeder:
             cursor.execute(str(self.templates["purchase"]))
             print("Seeding splits...")
             cursor.execute(str(self.templates["purchase_splits"]))
+
+        print(f"Calculating balances...")
+        debt_dict = self._get_debts()
+
+        print(f"Total debts: {len(debt_dict)}")
+        for key in debt_dict:
+            if key[2] == 7:
+                print(key, debt_dict[key])
 
     def _get_users(self):
         users = self.templates["multiset_user"]
@@ -214,6 +226,8 @@ class ProductionSeeder:
             split_evenly = random.random() < self.UNIFORM_SPLIT_PROB
             remaining = amount
 
+            self.purchase_id_splits[purchase_id] = []
+
             for i in range(len(group_members) - 1):
                 if split_evenly:
                     split_amount = int(amount / len(group_members))
@@ -240,6 +254,10 @@ class ProductionSeeder:
                     split_amount,
                 )
 
+                self.purchase_id_splits[purchase_id].append(
+                    {"user_id": group_members[i], "amount": split_amount}
+                )
+
                 remaining -= split_amount
 
             # no matter what, the last person gets the remainder
@@ -251,7 +269,57 @@ class ProductionSeeder:
                 remaining,
             )
 
+            self.purchase_id_splits[purchase_id].append(
+                {"user_id": group_members[-1], "amount": remaining}
+            )
+
             purchase_id += 1
+
+    def _get_debts(self):
+        # we need to calculate the debts between users in a group
+        debts = self.templates["cumulative_debts"]
+
+        # keys are tuples of (purchaser_id, borrower_id)
+        debt_dict = {}
+
+        for purchase in self.templates["purchase"].dict_rows:
+            purchaser_id = purchase["purchaser_user_id"]
+
+            for split in self.purchase_id_splits[purchase["id"]]:
+                borrower_id = split["user_id"]
+                amount = split["amount"]
+
+                key = (purchaser_id, borrower_id, purchase["purchaser_group_id"])
+                current_debt = debt_dict.get(key, 0)
+
+                debt_dict[key] = current_debt + amount
+
+        print("Calculating debts...")
+        print(f"Total debts: {len(debt_dict)}")
+
+        for key in debt_dict:
+            if key[2] == 7:
+                print(key, debt_dict[key])
+
+        # we make a new dict to store the debts that have been cancelled out
+        # we can't use the other bc we'd have to delete keys as we go which is illegal
+        processed_debt_dict = {}
+
+        # now, for every debt, see if the reverse debt exists
+        for key in debt_dict:
+            amount = debt_dict[key]
+            reverse_pair = (key[1], key[0], key[2])
+            reverse_amount = debt_dict.get((reverse_pair), None)
+
+            if reverse_amount is not None:
+                # if the reverse debt exists, we can cancel them out
+                if amount > reverse_amount:
+                    processed_debt_dict[key] = amount - reverse_amount
+
+                elif amount < reverse_amount:
+                    processed_debt_dict[reverse_pair] = reverse_amount - amount
+
+        return processed_debt_dict
 
     @staticmethod
     def _get_first_last(name):
