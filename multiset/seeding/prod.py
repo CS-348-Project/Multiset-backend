@@ -21,7 +21,9 @@ class ProductionSeeder:
     UNIFORM_SPLIT_PROB = 0.7
     MEMBER_INCLUDE_PROB = 0.8
 
-    NUM_SETTLEMENTS = 1000000
+    SETTLEMENT_PROBABILITY = 0.5
+    FULL_SETTLEMENT_PROBABILITY = 0.5
+    MAX_SETTLEMENTS = 3
 
     CATEGORIES = [
         "Food",
@@ -65,18 +67,18 @@ class ProductionSeeder:
         self._get_users()
         print(f"Seeding {len(self.templates['multiset_user'].rows)} users...")
 
-        with connection.cursor() as cursor:
-            cursor.execute(str(self.templates["multiset_user"]))
+        # with connection.cursor() as cursor:
+        #     cursor.execute(str(self.templates["multiset_user"]))
 
         print("Processing groups and members...")
         self._get_groups()
 
         print(f"Seeding {len(self.templates['multiset_group'].rows)} groups...")
 
-        with connection.cursor() as cursor:
-            cursor.execute(str(self.templates["multiset_group"]))
-            print("Seeding members...")
-            cursor.execute(str(self.templates["member"]))
+        # with connection.cursor() as cursor:
+        #     cursor.execute(str(self.templates["multiset_group"]))
+        #     print("Seeding members...")
+        #     cursor.execute(str(self.templates["member"]))
 
         print("Processing purchases and splits...")
 
@@ -84,18 +86,24 @@ class ProductionSeeder:
 
         print(f"Seeding {len(self.templates['purchase'].rows)} purchases...")
 
-        with connection.cursor() as cursor:
-            cursor.execute(str(self.templates["purchase"]))
-            print("Seeding splits...")
-            cursor.execute(str(self.templates["purchase_splits"]))
+        # with connection.cursor() as cursor:
+        #     cursor.execute(str(self.templates["purchase"]))
+        #     print("Seeding splits...")
+        #     cursor.execute(str(self.templates["purchase_splits"]))
 
         print(f"Calculating balances...")
         debt_dict = self._get_debts()
 
-        print(f"Total debts: {len(debt_dict)}")
-        for key in debt_dict:
-            if key[2] == 7:
-                print(key, debt_dict[key])
+        print(f"Processing debts and settlements...")
+        self._get_settlements(debt_dict)
+
+        with connection.cursor() as cursor:
+            print(f"Seeding {len(self.templates['cumulative_debts'].rows)} debts...")
+            cursor.execute(str(self.templates["cumulative_debts"]))
+            print(
+                f"Seeding {len(self.templates['settlement_history'].rows)} settlements..."
+            )
+            cursor.execute(str(self.templates["settlement_history"]))
 
     def _get_users(self):
         users = self.templates["multiset_user"]
@@ -277,8 +285,6 @@ class ProductionSeeder:
 
     def _get_debts(self):
         # we need to calculate the debts between users in a group
-        debts = self.templates["cumulative_debts"]
-
         # keys are tuples of (purchaser_id, borrower_id)
         debt_dict = {}
 
@@ -295,11 +301,6 @@ class ProductionSeeder:
                 debt_dict[key] = current_debt + amount
 
         print("Calculating debts...")
-        print(f"Total debts: {len(debt_dict)}")
-
-        for key in debt_dict:
-            if key[2] == 7:
-                print(key, debt_dict[key])
 
         # we make a new dict to store the debts that have been cancelled out
         # we can't use the other bc we'd have to delete keys as we go which is illegal
@@ -320,6 +321,55 @@ class ProductionSeeder:
                     processed_debt_dict[reverse_pair] = reverse_amount - amount
 
         return processed_debt_dict
+
+    def _get_settlements(self, debts: dict):
+        settlements = self.templates["settlement_history"]
+        cumulative_debts = self.templates["cumulative_debts"]
+        settlement_id = 1
+
+        for key in debts:
+            pairwise_count = 0
+
+            while (
+                random.random() < self.SETTLEMENT_PROBABILITY
+                and pairwise_count < self.MAX_SETTLEMENTS
+                and debts[key] > 0
+            ):
+                if random.random() < self.FULL_SETTLEMENT_PROBABILITY:
+                    amount = debts[key]
+
+                else:
+                    amount = random.randint(
+                        0, int(debts[key])
+                    )  # cast to int in case we have a float
+
+                purchaser_id, borrower_id, group_id = key
+
+                settlements.add_row(
+                    settlement_id,
+                    borrower_id,
+                    group_id,
+                    purchaser_id,
+                    group_id,
+                    amount,
+                )
+
+                debts[key] -= amount
+
+                settlement_id += 1
+                pairwise_count += 1
+
+        for key in debts:
+            if debts[key] > 0:
+                purchaser_id, borrower_id, group_id = key
+
+                cumulative_debts.add_row(
+                    debts[key],
+                    purchaser_id,
+                    group_id,
+                    borrower_id,
+                    group_id,
+                )
 
     @staticmethod
     def _get_first_last(name):
