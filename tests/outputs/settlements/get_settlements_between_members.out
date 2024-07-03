@@ -1,0 +1,28 @@
+[
+    {
+        "id": 4,
+        "sender_user_id": 2,
+        "sender_group_id": 1,
+        "receiver_user_id": 1,
+        "receiver_group_id": 1,
+        "amount": 400,
+        "created_at": "2024-06-20 23:32:54.345851",
+        "sender_first_name": "Robert",
+        "sender_last_name": "Strauss",
+        "receiver_first_name": "Alice",
+        "receiver_last_name": "Camley"
+    },
+    {
+        "id": 1,
+        "sender_user_id": 1,
+        "sender_group_id": 1,
+        "receiver_user_id": 2,
+        "receiver_group_id": 1,
+        "amount": 100,
+        "created_at": "2024-06-20 23:32:54.345851",
+        "sender_first_name": "Alice",
+        "sender_last_name": "Camley",
+        "receiver_first_name": "Robert",
+        "receiver_last_name": "Strauss"
+    }
+]

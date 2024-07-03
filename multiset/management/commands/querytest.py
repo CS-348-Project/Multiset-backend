@@ -1,11 +1,11 @@
 from django.core.management.base import BaseCommand, CommandParser
+from django.db import connection
 from glob import glob
 import json
 from os import makedirs
 
 from multiset.db_utils import execute_query
-
-import sys
+from multiset.seeding.seeding_query import get_seeding_query
 
 
 class Command(BaseCommand):
@@ -16,7 +16,7 @@ class Command(BaseCommand):
 
     def add_arguments(self, parser: CommandParser) -> None:
         parser.add_argument(
-            "--print",
+            "--noprint",
             action="store_true",
             help="Whether the result is printed",
         )
@@ -30,24 +30,35 @@ class Command(BaseCommand):
 
         Check `tests/sample_suite/test.sql` for an example of the expected output format
 
-        TO RUN: `docker-compose run web python manage.py querytest` (no printing to files) or
-        `docker-compose run web python manage.py querytest --print` (with printing to files)
+        TO RUN: `docker-compose run --rm web python manage.py querytest` (printing to files) or
+        `docker-compose run --rm web python manage.py querytest --noprint` (no printing to files)
 
         """
 
-        print_to_file = kwargs.get("print", False)
+        noprint = kwargs.get("noprint", False)
 
         passes = 0
         fails = []
         errors = []
+        no_expected_output = 0
+
+        # get the seeding query (ran before each test suite)
+        seeding_query = get_seeding_query()
 
         # recursively get all the sql files in the tests directory
         files = glob(self.TEST_PATH + "/**/*.sql", recursive=True)
 
-        print(f"Running {len(files)} test(s)...")
+        print(f"Running {len(files)} test(s), shown below...")
+
+        for file in files:
+            print(file)
 
         for file in files:
             # TODO error handling and reporting
+
+            # first, we run the seeding query
+            with connection.cursor() as cursor:
+                cursor.execute(seeding_query)
 
             # now, we get the result of the query
             raw_result = execute_query(file, fetchall=True)
@@ -79,7 +90,7 @@ class Command(BaseCommand):
                     fails.append(
                         {
                             "file": file,
-                            "result": json.dumps(raw_result, indent=4),
+                            "result": json.dumps(raw_result, indent=4, default=str),
                             "expected": expected_output_str,
                         }
                     )
@@ -89,6 +100,7 @@ class Command(BaseCommand):
             # no expected output found
             # for now we just skip the test but still print if appropriate
             except ValueError:
+                no_expected_output += 1
                 pass
 
             # this just replaces self.TEST_PATH with self.OUTPUT_PATH and changes the extension
@@ -98,12 +110,13 @@ class Command(BaseCommand):
             # we remove the file name from the path to get the directory
             makedirs(output_path[: output_path.rfind("/")], exist_ok=True)
 
-            if print_to_file:
+            if not noprint:
                 with open(output_path, "w") as f:
-                    json.dump(raw_result, f, indent=4)
+                    json.dump(raw_result, f, indent=4, default=str)
 
         # print the detailed results
         print(f"Passes: {passes}, Fails: {len(fails)}, Errors: {len(errors)}")
+        print(f"{no_expected_output} test(s) had no expected output")
 
         if len(fails) > 0:
             print("Fails:")
@@ -130,4 +143,3 @@ class Command(BaseCommand):
 
         # remove the last newline
         return csv[:-1]
-    
