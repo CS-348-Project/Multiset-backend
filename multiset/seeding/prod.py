@@ -25,6 +25,9 @@ class ProductionSeeder:
     FULL_SETTLEMENT_PROBABILITY = 0.5
     MAX_SETTLEMENTS = 3
 
+    QUANTITIES = [1, 2, 3, 4, 5, 6, 8, 10, 12, 15, 20, 24, 30]
+    QUANTITY_WEIGHT = 0.25
+
     CATEGORIES = [
         "Food",
         "Entertainment",
@@ -47,6 +50,7 @@ class ProductionSeeder:
         self.user_id_groups = {}
         self.group_id_users = {}
         self.purchase_id_splits = {}
+        self.grocery_list_id_items = {}
 
         # ensure results are always the same
         random.seed(self.SEED)
@@ -67,18 +71,18 @@ class ProductionSeeder:
         self._get_users()
         print(f"Seeding {len(self.templates['multiset_user'].rows)} users...")
 
-        # with connection.cursor() as cursor:
-        #     cursor.execute(str(self.templates["multiset_user"]))
+        with connection.cursor() as cursor:
+            cursor.execute(str(self.templates["multiset_user"]))
 
         print("Processing groups and members...")
         self._get_groups()
 
         print(f"Seeding {len(self.templates['multiset_group'].rows)} groups...")
 
-        # with connection.cursor() as cursor:
-        #     cursor.execute(str(self.templates["multiset_group"]))
-        #     print("Seeding members...")
-        #     cursor.execute(str(self.templates["member"]))
+        with connection.cursor() as cursor:
+            cursor.execute(str(self.templates["multiset_group"]))
+            print("Seeding members...")
+            cursor.execute(str(self.templates["member"]))
 
         print("Processing purchases and splits...")
 
@@ -86,10 +90,10 @@ class ProductionSeeder:
 
         print(f"Seeding {len(self.templates['purchase'].rows)} purchases...")
 
-        # with connection.cursor() as cursor:
-        #     cursor.execute(str(self.templates["purchase"]))
-        #     print("Seeding splits...")
-        #     cursor.execute(str(self.templates["purchase_splits"]))
+        with connection.cursor() as cursor:
+            cursor.execute(str(self.templates["purchase"]))
+            print("Seeding splits...")
+            cursor.execute(str(self.templates["purchase_splits"]))
 
         print(f"Calculating balances...")
         debt_dict = self._get_debts()
@@ -105,6 +109,20 @@ class ProductionSeeder:
             )
             cursor.execute(str(self.templates["settlement_history"]))
 
+        print("Processing groceries...")
+        self._get_groceries()
+
+        with connection.cursor() as cursor:
+            print(
+                f"Seeding {len(self.templates['grocery_list'].rows)} grocery lists..."
+            )
+
+            cursor.execute(str(self.templates["grocery_list"]))
+            print(
+                f"Seeding {len(self.templates['grocery_list_item'].rows)} grocery items..."
+            )
+            cursor.execute(str(self.templates["grocery_list_item"]))
+
     def _get_users(self):
         users = self.templates["multiset_user"]
 
@@ -116,18 +134,16 @@ class ProductionSeeder:
             # this has to be a string so we can hash it
             names.append(" ".join(self._get_first_last(customer_name)))
 
-            name_split = customer_name.split(" ")
-
-            # remove titles
-            if name_split[0].endswith(".") or name_split[0] == "Miss":
-                names.append(f"{name_split[1]} {name_split[2]}")
-            else:
-                names.append(f"{name_split[0]} {name_split[1]}")
-
             count += 1
 
         # get unique names
         names = list(set(names))
+        names = sorted(names)
+
+        # we do this to make sure the users are shuffled in the same way every time
+        # this is necessary the set order is not predictable
+        random.shuffle(names)
+
         user_id = 1
 
         for name in names:
@@ -370,6 +386,69 @@ class ProductionSeeder:
                     borrower_id,
                     group_id,
                 )
+
+    def _get_groceries(self):
+        # since our original data has grocery list items, we just use those for our lists
+
+        grocery_lists = self.templates["grocery_list"]
+        grocery_list_items = self.templates["grocery_list_item"]
+        item_id = 1
+
+        # first, make a list for each group
+        for i in range(1, len(self.templates["multiset_group"].rows) + 1):
+            grocery_lists.add_row(i, i, f"Grocery List {i}")
+            self.grocery_list_id_items[i] = []
+
+        # we add the items for each user
+        for row in self.rows:
+            products_str = row[self.columns["Product"]]
+
+            # this is in the form ['product1', 'product2', ...] so we have to process it
+
+            # remove brackets and split by comma
+            products = products_str[1:-1].split(", ")
+            # remove quotes
+            products = [product[1:-1] for product in products]
+
+            user_id = self.name_user_id[
+                " ".join(self._get_first_last(row[self.columns["Customer_Name"]]))
+            ]
+
+            groups = self.user_id_groups[user_id]
+
+            for i in range(len(groups)):
+                # split evenly between groups
+                start_range = (i * len(products)) // len(groups)
+                end_range = ((i + 1) * len(products)) // len(groups)
+
+                for j in range(start_range, end_range):
+                    # we don't want duplicates in the same list
+                    if products[j] in self.grocery_list_id_items[groups[i]]:
+                        pass
+                    else:
+                        quantity_index = 0
+
+                        while random.random() < self.QUANTITY_WEIGHT:
+                            quantity_index += 1
+                            if quantity_index == len(self.QUANTITIES) - 1:
+                                break
+
+                        quantity = self.QUANTITIES[quantity_index]
+
+                        grocery_list_items.add_row(
+                            item_id,
+                            groups[i],
+                            user_id,
+                            groups[i],
+                            random.choice([True, False]),
+                            "",
+                            quantity,
+                            products[j],
+                        )
+
+                        self.grocery_list_id_items[groups[i]].append(products[j])
+
+                        item_id += 1
 
     @staticmethod
     def _get_first_last(name):
