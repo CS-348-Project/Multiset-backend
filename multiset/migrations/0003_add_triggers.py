@@ -17,4 +17,6 @@ class Migration(migrations.Migration):
     operations = [
         sql_operation(Path("notifications/sql/triggers/new_group.sql")),
         sql_operation(Path("notifications/sql/triggers/new_list.sql")),
+        sql_operation(Path("notifications/sql/triggers/new_purchase.sql")),
+        sql_operation(Path("notifications/sql/triggers/new_settlement.sql")),
     ]
