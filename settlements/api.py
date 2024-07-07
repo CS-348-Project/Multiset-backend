@@ -33,6 +33,7 @@ def add_settlement_handler(request, new_settlement: SettlementCreate):
             return JsonResponse({"status": "error", "message": "Amount must be greater than 0"}, status=400)
         if new_settlement.sender_user_id == new_settlement.receiver_user_id:
             return JsonResponse({"status": "error", "message": "Sender and receiver cannot be the same"}, status=400)
+        save_settlement(new_settlement)
         return JsonResponse({"success": True})
     except Exception as e:
         return JsonResponse({"status": "error", "message": "Error in saving settlement"}, status=400)
