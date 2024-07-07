@@ -1,6 +1,7 @@
 from pathlib import Path
 
 from multiset.db_utils import execute_query
+from notifications.smtp.notif import EmailNotification
 
 
 def get_notifications(user_id: int):
@@ -34,8 +35,16 @@ def get_email_settings(user_id: int):
 
 
 def toggle_email_settings(user_id: int):
-    return execute_query(
+    data = execute_query(
         Path("notifications/sql/toggle_email.sql"),
         {"user_id": user_id},
         fetchone=True,
     )
+
+    # if the user has email notifications enabled, mark all notifications as email sent
+    # this is to prevent the user from receiving a deluge of emails from old notifications
+    if data["email_notifications"]:
+        execute_query(
+            Path("notifications/sql/mark_all_as_sent.sql"),
+            {"user_id": user_id},
+        )
