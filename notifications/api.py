@@ -5,6 +5,8 @@ from notifications.services import (
     get_notifications,
     read_notifications,
     delete_notifications,
+    get_email_settings,
+    toggle_email_settings,
 )
 
 router = Router()
@@ -34,3 +36,22 @@ def delete_notifications_handler(request):
     """
     delete_notifications(request.auth)
     return JsonResponse({}, status=204)
+
+
+@router.get("/email")
+def get_email_settings_handler(request):
+    """
+    Get email notification settings for the authenticated user.
+    """
+    data = get_email_settings(request.auth)
+
+    return JsonResponse(data, status=200)
+
+
+@router.patch("/email")
+def toggle_email_settings_handler(request):
+    """
+    Toggle email notification settings for the authenticated user.
+    """
+    data = toggle_email_settings(request.auth)
+    return JsonResponse(data, status=200)

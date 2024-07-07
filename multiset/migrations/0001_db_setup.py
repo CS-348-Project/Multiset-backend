@@ -12,7 +12,8 @@ class Migration(migrations.Migration):
         email VARCHAR(255) NOT NULL,
         google_id VARCHAR(255) NOT NULL,
         first_name VARCHAR(255) NOT NULL,
-        last_name VARCHAR(255) NOT NULL
+        last_name VARCHAR(255) NOT NULL,
+        email_notifications BOOLEAN NOT NULL DEFAULT FALSE
       );
       
       CREATE TABLE multiset_group (

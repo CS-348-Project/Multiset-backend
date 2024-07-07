@@ -23,3 +23,19 @@ def delete_notifications(user_id: int):
         Path("notifications/sql/clear.sql"),
         {"user_id": user_id},
     )
+
+
+def get_email_settings(user_id: int):
+    return execute_query(
+        Path("notifications/sql/get_email.sql"),
+        {"user_id": user_id},
+        fetchone=True,
+    )
+
+
+def toggle_email_settings(user_id: int):
+    return execute_query(
+        Path("notifications/sql/toggle_email.sql"),
+        {"user_id": user_id},
+        fetchone=True,
+    )
