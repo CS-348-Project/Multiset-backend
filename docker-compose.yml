@@ -30,8 +30,9 @@ services:
     ports:
       - "8888:80"
     environment:
-      PGADMIN_DEFAULT_EMAIL: postgres@multiset.com
-      PGADMIN_DEFAULT_PASSWORD: multiset
+      - PGADMIN_DEFAULT_EMAIL=postgres@multiset.com
+      - PGADMIN_DEFAULT_PASSWORD=multiset
+      - POSTGRES_HOST_AUTH_METHOD=trust
     volumes:
       - pgadmin-data:/var/lib/pgadmin
 
