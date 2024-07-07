@@ -1,3 +1,4 @@
+from groups.services import verify_user_in_group
 from ninja import Router
 from django.http import JsonResponse
 from multiset.db_utils import execute_query
@@ -17,12 +18,16 @@ def all_purchase_handler(request, group_id: int):
     Returns:
         a JSON response with all purchases
     """
-    purchases = execute_query(
-        Path("purchases/sql/get_purchases_by_group_id.sql"),
-        {"group_id": group_id},
-        fetchall=True,
-    )
-    return JsonResponse(purchases, safe=False)
+    try: 
+        verify_user_in_group(request.auth, group_id)
+        purchases = execute_query(
+            Path("purchases/sql/get_purchases_by_group_id.sql"),
+            {"group_id": group_id},
+            fetchall=True,
+        )
+        return JsonResponse(purchases, safe=False)
+    except Exception as e:
+        return JsonResponse({"status": "error", "message": "Error in fetching purchases"}, status=500)
 
 
 @router.get("/")
@@ -36,19 +41,23 @@ def get_purchase_handler(request, user_id: int, group_id: int = None):
     Returns:
         a JSON response with the purchase
     """
-    if group_id:
-        purchases = execute_query(
-            Path("purchases/sql/get_purchases_by_user_id_and_group_id.sql"),
-            {"user_id": user_id, "group_id": group_id},
-            fetchall=True,
-        )
-    else:
-        purchases = execute_query(
-            Path("purchases/sql/get_purchases_by_user_id.sql"),
-            {"user_id": user_id},
-            fetchall=True,
-        )
-    return JsonResponse(purchases, safe=False)
+    try:
+        if group_id:
+            verify_user_in_group(request.auth, group_id)
+            purchases = execute_query(
+                Path("purchases/sql/get_purchases_by_user_id_and_group_id.sql"),
+                {"user_id": user_id, "group_id": group_id},
+                fetchall=True,
+            )
+        else:
+            purchases = execute_query(
+                Path("purchases/sql/get_purchases_by_user_id.sql"),
+                {"user_id": user_id},
+                fetchall=True,
+            )
+        return JsonResponse(purchases, safe=False)
+    except Exception as e:
+        return JsonResponse({"status": "error", "message": "Error in fetching purchases"}, status=500)
 
 
 @router.post("/new-purchase")
@@ -60,12 +69,15 @@ def create_new_purchase(request, purchase: Purchase):
     Returns:
         a JSON response with the status of the operation
     """
-    user_id = request.auth
-    purchase.purchaser = user_id
-    if not valid_purchase(purchase):
-        return JsonResponse({"status": "error", "message": "Purchase is not valid"}, status=400)
-    created_purchase = new_purchase(purchase)
-    new_purchase_id = created_purchase["id"]
-    split_purchase(purchase, new_purchase_id)
-
-    return JsonResponse({}, status=204)
+    try:
+        user_id = request.auth
+        verify_user_in_group(user_id, purchase.group_id)
+        purchase.purchaser = user_id
+        if not valid_purchase(purchase):
+            return JsonResponse({"status": "error", "message": "Purchase is not valid"}, status=400)
+        created_purchase = new_purchase(purchase)
+        new_purchase_id = created_purchase["id"]
+        split_purchase(purchase, new_purchase_id)
+        return JsonResponse({}, status=204)
+    except Exception as e:
+        return JsonResponse({"status": "error", "message": "Error in creating purchase"}, status=500)

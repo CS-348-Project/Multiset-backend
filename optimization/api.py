@@ -1,7 +1,7 @@
+from multiset.db_utils import _verify_group
 from ninja import Router
 from django.http import JsonResponse
 
-from optimization.utils import _verify_group
 from optimization.services import calculate, flag, toggle
 
 router = Router()
