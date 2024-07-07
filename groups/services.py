@@ -68,4 +68,5 @@ def verify_user_in_group(user_id: int, group_id: int):
         {"user_id": user_id, "group_id": group_id},
         fetchone=True,
     )
-    return res.get("count") > 0
+    if res.get("count") == 0:
+        raise Exception("You are unauthorized to access this group")
