@@ -18,7 +18,7 @@ def get_notifications_handler(request):
     return get_notifications(request.auth)
 
 
-@router.post("/read")
+@router.patch("/read")
 def read_notifications_handler(request):
     """
     Read all notifications for the authenticated user.
