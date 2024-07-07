@@ -5,7 +5,9 @@ from os.path import join
 from random import randint, choice, uniform
 import pandas as pd
 import numpy as np
+from pathlib import Path
 
+from multiset.db_utils import execute_query
 from multiset.seeding.template import *
 
 CSV_PATH = join("multiset", "seeding", "csv")
@@ -102,7 +104,9 @@ def get_seeding_query():
     # finally, we are done!
     # now we insert the data into the database
     # we have to do this in a specific order because of foreign key constraints
-    script = f"""{str(tables['multiset_user'])}\n
+    script = (
+        get_trigger_delete_query()
+        + f"""{str(tables['multiset_user'])}\n
                     {str(tables['multiset_group'])}\n
                     {str(tables['member'])}\n
                     {str(tables['purchase'])}\n
@@ -111,5 +115,19 @@ def get_seeding_query():
                     {str(tables['grocery_list'])}\n
                     {str(tables['grocery_list_item'])}\n
                     {str(tables['settlement_history'])}"""
+    )
 
     return script
+
+
+def get_trigger_delete_query():
+    triggers = execute_query(
+        Path("multiset/seeding/sql/get_triggers.sql"), fetchall=True
+    )
+
+    return "\n".join(
+        [
+            f"DROP TRIGGER {t['trigger_name']} ON {t['event_object_table']};"
+            for t in triggers
+        ]
+    )
