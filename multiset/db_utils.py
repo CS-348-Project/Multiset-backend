@@ -48,18 +48,3 @@ def execute_query(
     except Error as e:
         print(f"An error occurred: {e}")
         return None
-
-
-def execute_sql(
-    filepath: Path,
-    params: dict = None,
-):
-    """Executes SQL with optional parameter substitution. Use for DDL/DML."""
-
-    sql = _load_sql(filepath)
-    try:
-        with connection.cursor() as cursor:
-            cursor.execute(sql, params)
-    except Error as e:
-        print(f"An error occurred: {e}")
-        return None

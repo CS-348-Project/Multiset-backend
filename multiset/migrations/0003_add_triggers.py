@@ -1,12 +1,12 @@
 from django.db import migrations
 from pathlib import Path
 
-from multiset.db_utils import execute_sql
+from multiset.db_utils import execute_query
 
 
 def sql_operation(filepath: Path):
     def inner(apps, schema_editor):
-        execute_sql(filepath)
+        execute_query(filepath)
 
     return migrations.RunPython(inner)
 
