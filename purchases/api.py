@@ -86,7 +86,7 @@ def create_new_purchase(request, purchase: Purchase):
     return JsonResponse({}, status=204)
 
 
-@router.get("/purchase_splits/{purchase_id}")
+@router.get("/purchase_splits")
 def get_purchase_splits_by_id(request, purchase_id: int):
     """
     Returns a purchase by its ID.
@@ -104,7 +104,7 @@ def get_purchase_splits_by_id(request, purchase_id: int):
     return JsonResponse(purchase, safe=False)
 
 
-@router.get("/purchase_details/{purchase_id}")
+@router.get("/purchase_details")
 def get_purchase_by_id(request, purchase_id: int):
     """
     Returns a purchase by its ID.
