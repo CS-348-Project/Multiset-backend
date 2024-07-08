@@ -69,6 +69,6 @@ def split_purchase(purchase: Purchase, new_purchase_id):
                 "purchase_id": new_purchase_id,
                 "amount": purchase_split.amount,
                 "borrower": purchase_split.borrower,
-                "borrower_group_id": purchase_split.group_id,
+                "borrower_group_id": purchase.group_id,
             },
         )
