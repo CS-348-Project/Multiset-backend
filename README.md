@@ -10,6 +10,7 @@
 6. Group grocery list
 7. Debts and optimization
 8. Member activity logs
+9. In-app & email notifications
 
 ## API Docs
 
