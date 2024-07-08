@@ -26,7 +26,7 @@ BEGIN
   END IF;
 
   INSERT INTO member_activity_logs (member_user_id, member_group_id, action, details)
-  VALUES (NEW.user_id, NEW.group_id, TG_OP, detail_message);
+  VALUES (user_id, group_id, TG_OP, detail_message);
   RETURN NULL;
 END;
 $$ LANGUAGE plpgsql;
