@@ -18,6 +18,13 @@ To see our test SQL queries, go into the `tests` folder from the root directory 
 
 ## Setup
 
+Since our GitHub includes the prod dataset with high volumes of data that exceed Git limitations, you will need to install [git-lfs](https://docs.github.com/en/repositories/working-with-files/managing-large-files/installing-git-large-file-storage) before cloning the database locally. Below are the two commands you would need to run in order to install git-lfs:
+
+```bash
+brew install git-lfs
+git lfs install
+```
+
 To setup the backend, you can run a docker container through the Makefile. This approach eliminates possible issues with environment inconsistencies.
 
 1. Start docker desktop
