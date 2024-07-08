@@ -12,7 +12,7 @@ def sql_operation(filepath: Path):
 
 
 class Migration(migrations.Migration):
-    dependencies = [("multiset", "0002_add_indexes")]
+    dependencies = [("multiset", "0001_db_setup"), ("multiset", "0002_add_indexes")]
 
     operations = [
         # this should go into the other migrations eventually but having it separate

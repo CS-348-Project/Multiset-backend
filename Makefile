@@ -6,7 +6,12 @@ build:
 
 # Start up all services defined in docker-compose.yml
 up:
-	docker-compose up -d
+	docker-compose up -d postgres
+	docker-compose up -d web pgadmin
+
+# Start up the scheduler
+scheduler:
+	docker-compose up -d scheduler
 
 # Apply Django migrations
 migrate:
