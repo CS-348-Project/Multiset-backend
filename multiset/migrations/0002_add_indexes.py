@@ -28,7 +28,7 @@ class Migration(migrations.Migration):
       CREATE INDEX grocery_list_item_grocery_list_id_idx ON grocery_list_item (grocery_list_id);
       CREATE INDEX grocery_list_item_item_name_idx ON grocery_list_item (item_name);
       
-      CREATE INDEX member_activity_logs_group_id_idx ON member_activity_logs (member_group_id);
+      CREATE INDEX member_activity_logs_group_id_idx ON member_activity_logs (member_group_id);      
       """
     )
   ]
