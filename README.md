@@ -5,10 +5,11 @@
 1. Google authentication
 2. Group management
 3. Purchase splitting
-4. Purchase settlements
+4. Settling debts
 5. Analytics
 6. Group grocery list
 7. Debts and optimization
+8. Member activity logs
 
 ## API Docs
 
@@ -22,10 +23,11 @@ To setup the backend, you can run a docker container through the Makefile. This 
 
 1. Start docker desktop
 2. Create a `.env` file at the root with the secrets (message Emma)
-3. Run the following command:
+3. Run the following commands:
 
 ```bash
 make init
+make initdb
 ```
 
 To stop running all services, run the following command:
@@ -93,3 +95,11 @@ make reinit
 ```
 
 Fully resets and restarts the environment, useful for significant changes or clean starts.
+
+### Email Scheduler
+
+```bash
+make scheduler
+```
+
+Starts the email scheduler to process and send out email notifications.
