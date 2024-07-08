@@ -10,7 +10,7 @@ def sql_operation(filepath: Path):
     return migrations.RunPython(inner)
 
 class Migration(migrations.Migration):
-  dependencies = [("multiset", "0001_db_setup"), ("multiset", "0002_add_indexes")]
+  dependencies = [("multiset", "0001_db_setup"), ("multiset", "0002_add_indexes"), ("multiset", "0003_notifications")]
   
   operations = [
     sql_operation(Path("member_activity_logs/sql/triggers/member_triggers.sql")),
