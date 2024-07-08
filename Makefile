@@ -25,6 +25,7 @@ seed:
 down:
 	docker-compose down
 
+# Clean up all Docker images and volumes
 clean:
 	docker-compose down --rmi all -v
 
