@@ -102,16 +102,6 @@ class Migration(migrations.Migration):
         created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
         FOREIGN KEY (member_user_id, member_group_id) REFERENCES member(user_id, group_id) ON DELETE CASCADE
       );
-
-      CREATE TABLE notification (
-        id SERIAL,
-        user_id INT NOT NULL REFERENCES multiset_user(id) ON DELETE CASCADE,
-        message VARCHAR(255) NOT NULL,
-        read BOOLEAN NOT NULL DEFAULT FALSE,
-        email_sent BOOLEAN NOT NULL DEFAULT FALSE,
-        created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-        PRIMARY KEY (id, user_id)
-      );
       """
         )
     ]
