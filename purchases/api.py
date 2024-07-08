@@ -84,3 +84,39 @@ def create_new_purchase(request, purchase: Purchase):
     split_purchase(purchase, new_purchase_id)
 
     return JsonResponse({}, status=204)
+
+
+@router.get("/purchase_splits")
+def get_purchase_splits_by_id(request, purchase_id: int):
+    """
+    Returns a purchase by its ID.
+    Args:
+        request: the HTTP request
+        purchase_id: the ID of the purchase
+    Returns:
+        a JSON response with the purchase
+    """
+    purchase = execute_query(
+        Path("purchases/sql/get_purchase_splits_by_purchase_id.sql"),
+        {"purchase_id": purchase_id},
+        fetchall=True,
+    )
+    return JsonResponse(purchase, safe=False)
+
+
+@router.get("/purchase_details")
+def get_purchase_by_id(request, purchase_id: int):
+    """
+    Returns a purchase by its ID.
+    Args:
+        request: the HTTP request
+        purchase_id: the ID of the purchase
+    Returns:
+        a JSON response with the purchase
+    """
+    purchase = execute_query(
+        Path("purchases/sql/get_purchase_by_id.sql"),
+        {"purchase_id": purchase_id},
+        fetchone=True,
+    )
+    return JsonResponse(purchase, safe=False)
