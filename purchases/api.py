@@ -50,6 +50,21 @@ def get_purchase_handler(request, user_id: int, group_id: int = None):
         )
     return JsonResponse(purchases, safe=False)
 
+@router.get("/recurring_purchases")
+def get_recurring_purchase_handler(request, user_id: int):
+    """
+    Returns the recurring purchase items of a user.
+    Args:
+        user_id: the ID of the user
+    Returns:
+        a JSON response with recurring purchase item name
+    """
+    recurring_purchases = execute_query(
+            Path("purchases/sql/get_recurring_purchases.sql"),
+            {"user_id": user_id},
+            fetchall=True,
+        )
+    return JsonResponse(recurring_purchases, safe=False)
 
 @router.post("/new-purchase")
 def create_new_purchase(request, purchase: Purchase):
