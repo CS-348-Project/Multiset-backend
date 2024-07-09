@@ -54,4 +54,4 @@ def toggle_email_settings_handler(request):
     Toggle email notification settings for the authenticated user.
     """
     data = toggle_email_settings(request.auth)
-    return JsonResponse(data, status=200)
+    return JsonResponse(data, status=200, safe=False)

@@ -6,4 +6,5 @@ class User(Schema):
     google_id: str
     first_name: str
     last_name: str
+    email_notifications: bool
 
