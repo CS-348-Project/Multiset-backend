@@ -15,13 +15,13 @@ def get_seeding_query():
     files = listdir(CSV_PATH)
 
     print("Getting seeding query...")
-    tables: dict[str, SeedingTemplate] = {}
+    tables: dict[str, SeedingTemplate] = multiset_templates()
 
     for file in files:
         path = join(CSV_PATH, file)
         table_raw = pd.read_csv(path)
 
-        table = SeedingTemplate(file[:-4], tuple(table_raw.columns.to_list()))
+        table = tables[file[:-4]]
 
         if file == "purchase_splits.csv":
             # i tried to do this with pandas but it wasnt working and im annoyed
