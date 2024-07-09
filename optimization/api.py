@@ -22,5 +22,6 @@ def toggle_handler(request, group_id: int):
 
 
 @router.post("/calculate")
+@_verify_group
 def calculate_handler(request, group_id: int, show_all: bool = False):
     return calculate(group_id, request.auth, show_all)
