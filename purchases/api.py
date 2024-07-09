@@ -1,7 +1,7 @@
 from groups.services import verify_user_in_group
 from ninja import Router
 from django.http import JsonResponse
-from multiset.db_utils import execute_query
+from multiset.db_utils import execute_query, update_debts
 from pathlib import Path
 from purchases.models import Purchase
 from purchases.services import new_purchase, split_purchase, valid_purchase
@@ -76,6 +76,7 @@ def get_recurring_purchase_handler(request, user_id: int):
 
 
 @router.post("/new-purchase")
+@update_debts
 def create_new_purchase(request, purchase: Purchase):
     """
     Creates a new purchase and its splits in the database.

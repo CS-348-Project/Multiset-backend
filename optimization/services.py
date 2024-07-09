@@ -8,7 +8,7 @@ from pulp import (
     LpVariable,
 )
 
-from multiset.db_utils import execute_query
+import multiset.db_utils as db
 
 """
 Our goal is to minimize the amount of total transferred money.
@@ -27,7 +27,7 @@ def flag(gid: int):
         a dict with key `optimize_payments` and value `True` if optimization is enabled
     """
 
-    result = execute_query(
+    result = db.execute_query(
         Path("optimization/sql/get_optimization_flag.sql"),
         {
             "group_id": gid,
@@ -47,7 +47,7 @@ def toggle(gid: int):
         a dict with key `optimize_payments` and value `True` if optimization is now enabled
     """
 
-    result = execute_query(
+    result = db.execute_query(
         Path("optimization/sql/toggle_optimization_flag.sql"),
         {
             "group_id": gid,
@@ -58,7 +58,7 @@ def toggle(gid: int):
     return result
 
 
-def calculate(gid: int, uid: int, show_all: bool = False):
+def calculate(gid: int, uid: int = None, show_all: bool = False):
     """
         Calculates transfers for a group:
         - if optimization is disabled, just returns the balances between each pair of users that need to be resolved
@@ -76,7 +76,7 @@ def calculate(gid: int, uid: int, show_all: bool = False):
 
     # if optimization is not enabled, we just get the balances and return them
     if not optimization_flag["optimize_payments"]:
-        balances = execute_query(
+        balances = db.execute_query(
             Path("optimization/sql/get_group_balances.sql"),
             {
                 "group_id": gid,
@@ -91,7 +91,7 @@ def calculate(gid: int, uid: int, show_all: bool = False):
         )
 
     # if optimization is enabled, we get the balances and solve the ILP
-    balances = execute_query(
+    balances = db.execute_query(
         Path("optimization/sql/get_aggregate_balances.sql"),
         {
             "group_id": gid,
@@ -129,7 +129,7 @@ def update_debts(balances: list[dict], gid: int):
     """
 
     # first, delete all debts for this group
-    execute_query(
+    db.execute_query(
         Path("optimization/sql/delete_group_debts.sql"),
         {"group_id": gid},
     )
@@ -137,7 +137,7 @@ def update_debts(balances: list[dict], gid: int):
     # then, insert the new debts
     for balance in balances:
         # TODO make this a single query?
-        execute_query(
+        db.execute_query(
             Path("optimization/sql/insert_debt.sql"),
             {
                 "amount": balance["amount"],

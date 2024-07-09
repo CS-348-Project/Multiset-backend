@@ -3,6 +3,7 @@ from ninja import Router
 from django.http import JsonResponse
 from .models import SettlementCreate
 from .services import find_settlements, save_settlement, find_settlements_between_members
+from multiset.db_utils import update_debts
 
 router = Router()
 
@@ -25,6 +26,7 @@ def get_settlements_between_members_handler(request, member1_user_id: int, membe
         return JsonResponse({"status": "error", "message": "Error in fetching settlements"}, status=400)
         
 @router.post("/create")
+@update_debts
 def add_settlement_handler(request, new_settlement: SettlementCreate):
     try:
         verify_user_in_group(request.auth, new_settlement.group_id)
