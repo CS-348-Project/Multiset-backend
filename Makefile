@@ -1,4 +1,4 @@
-.PHONY: build up migrate seed down
+.PHONY: build up migrate seed down prodgen
 
 # Build the Docker images
 build:
@@ -19,6 +19,9 @@ seed:
 # Run the Django seedprod command
 seedprod:
 	docker-compose exec web python manage.py seedprod
+
+prodgen:
+	docker-compose exec web python manage.py prodgen
 
 # Shut down all services
 down:
