@@ -25,6 +25,10 @@ seed:
 down:
 	docker-compose down
 
+# Clean up all Docker images and volumes
+clean:
+	docker-compose down --rmi all -v
+
 # Shortcut for initialization for the first time
 init: build up
 
