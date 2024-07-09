@@ -6,6 +6,7 @@ from pulp import (
     LpStatusOptimal,
     LpProblem,
     LpVariable,
+    PULP_CBC_CMD,
 )
 
 import multiset.db_utils as db
@@ -209,7 +210,7 @@ def _solve_ilp(input: list[dict]):
             )
             model += (constraint, f"binary_{i}_{j}")
 
-    status = model.solve()
+    status = model.solve(PULP_CBC_CMD(msg=False))
 
     if status == LpStatusOptimal:
         # We have a solution! Now we need to return it in a way that makes sense
