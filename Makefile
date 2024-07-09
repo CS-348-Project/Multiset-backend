@@ -21,10 +21,6 @@ migrate:
 seed:
 	docker-compose exec web python manage.py seed
 
-# Run the Django seedprod command
-seedprod:
-	docker-compose exec web python manage.py seedprod
-
 # Shut down all services
 down:
 	docker-compose down

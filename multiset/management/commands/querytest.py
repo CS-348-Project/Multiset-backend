@@ -5,7 +5,7 @@ import json
 from os import makedirs
 
 from multiset.db_utils import execute_query
-from multiset.seeding.query import get_seeding_query
+from multiset.seeding.seeding_query import get_seeding_query
 
 
 class Command(BaseCommand):
