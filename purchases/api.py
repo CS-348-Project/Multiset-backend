@@ -18,7 +18,7 @@ def all_purchase_handler(request, group_id: int):
     Returns:
         a JSON response with all purchases
     """
-    try: 
+    try:
         verify_user_in_group(request.auth, group_id)
         purchases = execute_query(
             Path("purchases/sql/get_purchases_by_group_id.sql"),
@@ -27,7 +27,9 @@ def all_purchase_handler(request, group_id: int):
         )
         return JsonResponse(purchases, safe=False)
     except Exception as e:
-        return JsonResponse({"status": "error", "message": "Error in fetching purchases"}, status=500)
+        return JsonResponse(
+            {"status": "error", "message": "Error in fetching purchases"}, status=500
+        )
 
 
 @router.get("/")
@@ -41,23 +43,36 @@ def get_purchase_handler(request, user_id: int, group_id: int = None):
     Returns:
         a JSON response with the purchase
     """
-    try:
-        if group_id:
-            verify_user_in_group(request.auth, group_id)
-            purchases = execute_query(
-                Path("purchases/sql/get_purchases_by_user_id_and_group_id.sql"),
-                {"user_id": user_id, "group_id": group_id},
-                fetchall=True,
-            )
-        else:
-            purchases = execute_query(
-                Path("purchases/sql/get_purchases_by_user_id.sql"),
-                {"user_id": user_id},
-                fetchall=True,
-            )
-        return JsonResponse(purchases, safe=False)
-    except Exception as e:
-        return JsonResponse({"status": "error", "message": "Error in fetching purchases"}, status=500)
+    if group_id:
+        purchases = execute_query(
+            Path("purchases/sql/get_purchases_by_user_id_and_group_id.sql"),
+            {"user_id": user_id, "group_id": group_id},
+            fetchall=True,
+        )
+    else:
+        purchases = execute_query(
+            Path("purchases/sql/get_purchases_by_user_id.sql"),
+            {"user_id": user_id},
+            fetchall=True,
+        )
+    return JsonResponse(purchases, safe=False)
+
+
+@router.get("/recurring_purchases")
+def get_recurring_purchase_handler(request, user_id: int):
+    """
+    Returns the recurring purchase items of a user.
+    Args:
+        user_id: the ID of the user
+    Returns:
+        a JSON response with recurring purchase item name
+    """
+    recurring_purchases = execute_query(
+        Path("purchases/sql/get_recurring_purchases.sql"),
+        {"user_id": user_id},
+        fetchall=True,
+    )
+    return JsonResponse(recurring_purchases, safe=False)
 
 
 @router.post("/new-purchase")
@@ -69,15 +84,50 @@ def create_new_purchase(request, purchase: Purchase):
     Returns:
         a JSON response with the status of the operation
     """
-    try:
-        user_id = request.auth
-        verify_user_in_group(user_id, purchase.group_id)
-        purchase.purchaser = user_id
-        if not valid_purchase(purchase):
-            return JsonResponse({"status": "error", "message": "Purchase is not valid"}, status=400)
-        created_purchase = new_purchase(purchase)
-        new_purchase_id = created_purchase["id"]
-        split_purchase(purchase, new_purchase_id)
-        return JsonResponse({}, status=204)
-    except Exception as e:
-        return JsonResponse({"status": "error", "message": "Error in creating purchase"}, status=500)
+    user_id = request.auth
+    purchase.purchaser = user_id
+    if not valid_purchase(purchase):
+        return JsonResponse(
+            {"status": "error", "message": "Purchase is not valid"}, status=400
+        )
+    created_purchase = new_purchase(purchase)
+    new_purchase_id = created_purchase["id"]
+    split_purchase(purchase, new_purchase_id)
+
+    return JsonResponse({}, status=204)
+
+
+@router.get("/purchase_splits")
+def get_purchase_splits_by_id(request, purchase_id: int):
+    """
+    Returns a purchase by its ID.
+    Args:
+        request: the HTTP request
+        purchase_id: the ID of the purchase
+    Returns:
+        a JSON response with the purchase
+    """
+    purchase = execute_query(
+        Path("purchases/sql/get_purchase_splits_by_purchase_id.sql"),
+        {"purchase_id": purchase_id},
+        fetchall=True,
+    )
+    return JsonResponse(purchase, safe=False)
+
+
+@router.get("/purchase_details")
+def get_purchase_by_id(request, purchase_id: int):
+    """
+    Returns a purchase by its ID.
+    Args:
+        request: the HTTP request
+        purchase_id: the ID of the purchase
+    Returns:
+        a JSON response with the purchase
+    """
+    purchase = execute_query(
+        Path("purchases/sql/get_purchase_by_id.sql"),
+        {"purchase_id": purchase_id},
+        fetchone=True,
+    )
+    return JsonResponse(purchase, safe=False)

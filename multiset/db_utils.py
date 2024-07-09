@@ -4,16 +4,19 @@ from django.db import connection, Error
 from pathlib import Path
 from django.http import JsonResponse
 
+
 def _load_sql(filepath: Path):
     """Utility function to load SQL from a file."""
     filename = settings.BASE_DIR / filepath
-    with open(filename, 'r') as file:
+    with open(filename, "r") as file:
         return file.read()
-    
+
+
 def dictfetchone(cursor):
     "Return one row from a cursor as a dict"
     columns = [col[0] for col in cursor.description]
     return dict(zip(columns, cursor.fetchone()))
+
 
 def dictfetchall(cursor):
     "Return all rows from a cursor as a dict"
@@ -29,7 +32,7 @@ def execute_query(
 ):
     """Executes a SQL query directly with optional parameter substitution."""
     sql = _load_sql(filepath)
-    try: 
+    try:
         with connection.cursor() as cursor:
             cursor.execute(sql, params)
             if cursor.description is None:

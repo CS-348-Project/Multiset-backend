@@ -10,7 +10,9 @@ from analytics.api import router as analytics_router
 from optimization.api import router as optimization_router
 from users.api import router as users_router
 from grocery_lists.api import router as grocery_lists_router
+from member_activity_logs.api import router as member_activity_logs_router
 from auth.api import router as auth_router
+from notifications.api import router as notifications_router
 from ninja.security import HttpBearer
 from auth.services import get_associated_user_id
 
@@ -32,7 +34,10 @@ api.add_router("/analytics/", analytics_router)
 api.add_router("/optimization/", optimization_router)
 api.add_router("/users/", users_router)
 api.add_router("/grocery-lists/", grocery_lists_router)
+api.add_router("/member-activity-logs/", member_activity_logs_router)
 api.add_router("/auth/", auth_router)
+api.add_router("/notifications/", notifications_router)
+
 
 @api.get("/add")
 def add(request, a: int, b: int):
@@ -42,6 +47,7 @@ def add(request, a: int, b: int):
 @api.get("/")
 def home(request):
     return {"message": "Hello, world!"}
+
 
 urlpatterns = [
     path("admin/", admin.site.urls),
