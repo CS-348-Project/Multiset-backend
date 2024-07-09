@@ -1,7 +1,7 @@
 /*
 Name: new_purchase.sql
 Description: Insert a new row into the purchase table
-Usage: {name=”Apples”, category=”groceries”, group_id = 2, total_cost=500, purchaser=1}
+Usage: {name="Apples", category="groceries", group_id = 2, total_cost=500, purchaser=1}
 Return: {id}
 */
 
