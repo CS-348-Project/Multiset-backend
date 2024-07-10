@@ -3,7 +3,6 @@ Name: get_grocery_list_items.sql
 Description: Get grocery list items by grocery list id
 Usage: {grocery_list_id = 1}
 */
--- prodorder grocery_list_item.id
 SELECT 
   grocery_list_item.id,
   grocery_list_item.item_name,
@@ -18,4 +17,5 @@ SELECT
   ) AS member
 FROM grocery_list_item
 JOIN multiset_user ON grocery_list_item.requester_user_id = multiset_user.id
-WHERE grocery_list_item.grocery_list_id = 1;
+WHERE grocery_list_item.grocery_list_id = 1
+ORDER BY grocery_list_item.id LIMIT 10;
