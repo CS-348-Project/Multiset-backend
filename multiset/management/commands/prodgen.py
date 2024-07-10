@@ -70,26 +70,22 @@ class Command(BaseCommand):
                     break
 
             if prodorder is None:
-                print(f"{file} does not contain a prodorder. No prod test generated.")
-                continue
+                script = sql
 
-            print("Ordering by", prodorder)
+            else:
+                print("Ordering by", prodorder)
 
-            semicolon_index = sql.find(";")
+                semicolon_index = sql.find(";")
 
-            # assume we have a semicolon, if not the regular query will fail anyway
-            script = sql[:semicolon_index]
-            script += " ORDER BY " + prodorder
-            script += " LIMIT 10;"
+                # assume we have a semicolon
+                script = sql[:semicolon_index]
+                script += " ORDER BY " + prodorder
+                script += " LIMIT 10;"
 
             # write it to a file
-
             output_path = self.PROD_TEST_PATH + file[len(self.SAMPLE_TEST_PATH) :]
 
             output_path = output_path.replace("\\", "/")
-
-            print(file[len(self.SAMPLE_TEST_PATH) :])
-            print(output_path)
 
             makedirs(output_path[: output_path.rfind("/")], exist_ok=True)
 
