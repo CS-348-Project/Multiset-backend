@@ -30,10 +30,21 @@ services:
     ports:
       - "8888:80"
     environment:
-      PGADMIN_DEFAULT_EMAIL: postgres@multiset.com
-      PGADMIN_DEFAULT_PASSWORD: multiset
+      - PGADMIN_DEFAULT_EMAIL=postgres@multiset.com
+      - PGADMIN_DEFAULT_PASSWORD=multiset
+      - POSTGRES_HOST_AUTH_METHOD=trust
     volumes:
       - pgadmin-data:/var/lib/pgadmin
+
+  scheduler:
+    build: .
+    command: python manage.py schedule
+    volumes:
+      - .:/app
+    env_file:
+      - .env
+    depends_on:
+      - web
 
 volumes:
   postgres_data:

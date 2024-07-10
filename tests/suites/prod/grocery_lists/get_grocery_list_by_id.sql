@@ -4,4 +4,5 @@ Description: Get grocery lists by id
 Usage: {id = 1}
 */
 SELECT * FROM grocery_list
-WHERE id = 1;
+WHERE id = 1
+ORDER BY id LIMIT 10;
