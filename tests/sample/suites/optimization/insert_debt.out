@@ -1,9 +1,0 @@
-[
-    {
-        "amount": 5000,
-        "collector_user_id": 6,
-        "collector_group_id": 1,
-        "borrower_user_id": 3,
-        "borrower_group_id": 1
-    }
-]
