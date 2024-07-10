@@ -9,14 +9,7 @@ DECLARE
   user_id INT;
   group_id INT;
 BEGIN
-  IF TG_OP = 'DELETE' THEN
-    detail_message := 'Settlement of $' || ROUND(OLD.amount * 1. / 100, 2) || ' from ' ||
-      (SELECT first_name || ' ' || last_name FROM multiset_user WHERE multiset_user.id = OLD.sender_user_id) ||
-      ' to ' || (SELECT first_name || ' ' || last_name FROM multiset_user WHERE multiset_user.id = OLD.receiver_user_id) ||
-      ' has been deleted';
-    user_id := OLD.sender_user_id;
-    group_id := OLD.sender_group_id;
-  ELSIF TG_OP = 'INSERT' THEN
+  IF TG_OP = 'INSERT' THEN
     detail_message := 'Settlement of $' || ROUND(NEW.amount * 1. / 100, 2) || ' from ' ||
       (SELECT first_name || ' ' || last_name FROM multiset_user WHERE multiset_user.id = NEW.sender_user_id) ||
       ' to ' || (SELECT first_name || ' ' || last_name FROM multiset_user WHERE multiset_user.id = NEW.receiver_user_id) ||
@@ -45,10 +38,5 @@ EXECUTE FUNCTION log_member_activity_settlements();
 
 CREATE OR REPLACE TRIGGER settlement_history_after_update
 AFTER UPDATE ON settlement_history
-FOR EACH ROW
-EXECUTE FUNCTION log_member_activity_settlements();
-
-CREATE OR REPLACE TRIGGER settlement_history_after_delete
-AFTER DELETE ON settlement_history
 FOR EACH ROW
 EXECUTE FUNCTION log_member_activity_settlements();

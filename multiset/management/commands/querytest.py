@@ -9,8 +9,8 @@ from multiset.seeding.seeding_query import get_seeding_query
 
 
 class Command(BaseCommand):
-    TEST_PATH = "tests/suites/"
-    OUTPUT_PATH = "tests/outputs/"
+    TEST_PATH = "tests/sample/suites"
+    OUTPUT_PATH = "tests/sample/outputs/"
 
     help = "Runs all the tests in the tests directory and finds their expected output"
 
