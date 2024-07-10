@@ -1,0 +1,186 @@
+[
+    {
+        "id": 7411871,
+        "user_id": 150000,
+        "message": "The grocery list Grocery List 23124 has been created in Group 23124",
+        "read": false,
+        "email_sent": false,
+        "created_at": "2024-07-10 02:11:39.126167"
+    },
+    {
+        "id": 7182869,
+        "user_id": 150000,
+        "message": "You have received a settlement of $1.25 from Dennis Shannon",
+        "read": false,
+        "email_sent": false,
+        "created_at": "2024-07-10 02:09:43.648501"
+    },
+    {
+        "id": 492463,
+        "user_id": 150000,
+        "message": "You owe $5.68 to Corey Clark for Purchase 21366",
+        "read": false,
+        "email_sent": false,
+        "created_at": "2024-07-10 01:51:19.492496"
+    },
+    {
+        "id": 703195,
+        "user_id": 150000,
+        "message": "You owe $5.41 to Corey Clark for Purchase 54818",
+        "read": false,
+        "email_sent": false,
+        "created_at": "2024-07-10 01:51:19.492496"
+    },
+    {
+        "id": 894083,
+        "user_id": 150000,
+        "message": "You owe $3.35 to Corey Clark for Purchase 85066",
+        "read": false,
+        "email_sent": false,
+        "created_at": "2024-07-10 01:51:19.492496"
+    },
+    {
+        "id": 1062137,
+        "user_id": 150000,
+        "message": "You owe $10.68 to Kathleen Fritz for Purchase 111739",
+        "read": false,
+        "email_sent": false,
+        "created_at": "2024-07-10 01:51:19.492496"
+    },
+    {
+        "id": 1319909,
+        "user_id": 150000,
+        "message": "You owe $10.26 to Corey Clark for Purchase 152625",
+        "read": false,
+        "email_sent": false,
+        "created_at": "2024-07-10 01:51:19.492496"
+    },
+    {
+        "id": 1398026,
+        "user_id": 150000,
+        "message": "You owe $7.32 to Michele Howard for Purchase 165039",
+        "read": false,
+        "email_sent": false,
+        "created_at": "2024-07-10 01:51:19.492496"
+    },
+    {
+        "id": 1797179,
+        "user_id": 150000,
+        "message": "You owe $7.14 to Corey Clark for Purchase 228413",
+        "read": false,
+        "email_sent": false,
+        "created_at": "2024-07-10 01:51:19.492496"
+    },
+    {
+        "id": 1998914,
+        "user_id": 150000,
+        "message": "You owe $1.55 to Kyle Roth for Purchase 260355",
+        "read": false,
+        "email_sent": false,
+        "created_at": "2024-07-10 01:51:19.492496"
+    },
+    {
+        "id": 2064505,
+        "user_id": 150000,
+        "message": "You owe $6.23 to Corey Clark for Purchase 270824",
+        "read": false,
+        "email_sent": false,
+        "created_at": "2024-07-10 01:51:19.492496"
+    },
+    {
+        "id": 3150080,
+        "user_id": 150000,
+        "message": "You owe $3.79 to Michele Howard for Purchase 442983",
+        "read": false,
+        "email_sent": false,
+        "created_at": "2024-07-10 01:51:19.492496"
+    },
+    {
+        "id": 3163404,
+        "user_id": 150000,
+        "message": "You owe $3.21 to Dennis Shannon for Purchase 445106",
+        "read": false,
+        "email_sent": false,
+        "created_at": "2024-07-10 01:51:19.492496"
+    },
+    {
+        "id": 4919077,
+        "user_id": 150000,
+        "message": "You owe $3.68 to Corey Clark for Purchase 723444",
+        "read": false,
+        "email_sent": false,
+        "created_at": "2024-07-10 01:51:19.492496"
+    },
+    {
+        "id": 5060827,
+        "user_id": 150000,
+        "message": "You owe $4.90 to Susan Zamora for Purchase 745968",
+        "read": false,
+        "email_sent": false,
+        "created_at": "2024-07-10 01:51:19.492496"
+    },
+    {
+        "id": 5150459,
+        "user_id": 150000,
+        "message": "You owe $9.00 to Michele Howard for Purchase 760172",
+        "read": false,
+        "email_sent": false,
+        "created_at": "2024-07-10 01:51:19.492496"
+    },
+    {
+        "id": 5586746,
+        "user_id": 150000,
+        "message": "You owe $7.34 to Corey Clark for Purchase 829230",
+        "read": false,
+        "email_sent": false,
+        "created_at": "2024-07-10 01:51:19.492496"
+    },
+    {
+        "id": 5733499,
+        "user_id": 150000,
+        "message": "You owe $8.48 to Michele Howard for Purchase 852581",
+        "read": false,
+        "email_sent": false,
+        "created_at": "2024-07-10 01:51:19.492496"
+    },
+    {
+        "id": 6109248,
+        "user_id": 150000,
+        "message": "You owe $10.57 to Susan Zamora for Purchase 912250",
+        "read": false,
+        "email_sent": false,
+        "created_at": "2024-07-10 01:51:19.492496"
+    },
+    {
+        "id": 6227970,
+        "user_id": 150000,
+        "message": "You owe $7.79 to Kyle Roth for Purchase 931074",
+        "read": false,
+        "email_sent": false,
+        "created_at": "2024-07-10 01:51:19.492496"
+    },
+    {
+        "id": 2791473,
+        "user_id": 150000,
+        "message": "You owe $10.53 to Cheryl Charles for Purchase 386099",
+        "read": false,
+        "email_sent": false,
+        "created_at": "2024-07-10 01:51:19.492496"
+    },
+    {
+        "id": 438725,
+        "user_id": 150000,
+        "message": "You owe $2.12 to Cheryl Charles for Purchase 12833",
+        "read": false,
+        "email_sent": false,
+        "created_at": "2024-07-10 01:51:19.492496"
+    },
+    {
+        "id": 151223,
+        "user_id": 150000,
+        "message": "You have been added to Group 23124",
+        "read": false,
+        "email_sent": false,
+        "created_at": "2024-07-10 01:48:06.749757"
+    }
+]
