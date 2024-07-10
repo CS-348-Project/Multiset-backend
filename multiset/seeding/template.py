@@ -20,8 +20,16 @@ class SeedingTemplate:
     def dict_rows(self):
         return [dict(zip(self.columns, row)) for row in self.rows]
 
+    @property
+    def delete_sql(self):
+        return f"DELETE FROM {self.table};"
+
     def __str__(self):
         sql = f"DELETE FROM {self.table};\n"
+
+        if len(self.rows) == 0:
+            return sql
+
         sql += f"INSERT INTO {self.table} ({', '.join(self.columns)}) VALUES\n"
 
         for row in self.rows:

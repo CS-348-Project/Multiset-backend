@@ -102,7 +102,10 @@ def get_seeding_query():
     # finally, we are done!
     # now we insert the data into the database
     # we have to do this in a specific order because of foreign key constraints
-    script = f"""{str(tables['multiset_user'])}\n
+    script = f"""
+                    {str(tables['member_activity_logs'])}\n
+                    {str(tables['notification'])}
+                    {str(tables['multiset_user'])}\n
                     {str(tables['multiset_group'])}\n
                     {str(tables['member'])}\n
                     {str(tables['purchase'])}\n
