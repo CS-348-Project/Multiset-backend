@@ -3,7 +3,7 @@ Name: get_groups_detailed.sql
 Description: Get all groups with user details
 Usage: {}
 */
-
+--prodorder mg.id
 SELECT mg.*, 
 -- Aggregates all of the non-null users into a JSON array
 -- In the case where there are no users, COALESCE converts the null value to an empty array

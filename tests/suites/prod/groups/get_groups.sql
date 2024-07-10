@@ -3,5 +3,5 @@ Name: get_groups.sql
 Description: Get all groups
 Usage: {}
 */
-
-SELECT mg.* FROM multiset_group mg;
+--prodorder mg.id
+SELECT mg.* FROM multiset_group mg ORDER BY mg.id LIMIT 10;
