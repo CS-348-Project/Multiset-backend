@@ -12,11 +12,14 @@
 8. Member activity logs
 9. In-app & email notifications
 
+## Test Suite
+
+To see our test SQL queries, go into the `tests` folder from the root directory of the repository. In this folder, there is a subfolder for `production` and `samples` which correspond to the production and sample dataset respectively. Within these subfolders is a `suites` folder that has the test SQL queries and a folder called `outputs` which has the corresponding results of the tests.
+
 ## API Docs
 
 To try out the API endpoints after starting the application, go to `/api/docs` where you can use the interactive frontend. In order to access endpoints protected by auth, you would need to set the bearer token through the Authorize button at the top right of the page. Please message Emma for a valid token value that you can use!
 
-To see our test SQL queries, go into the `tests` folder from the root directory of the repository. In this folder, there is a subfolder called `suites` that has the test SQL queries and a folder called `outputs` which has the corresponding results of the tests.
 
 ## Setup
 
