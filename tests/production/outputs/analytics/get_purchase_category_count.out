@@ -1,0 +1,34 @@
+[
+    {
+        "category": "Clothing",
+        "count": 3
+    },
+    {
+        "category": "Entertainment",
+        "count": 3
+    },
+    {
+        "category": "Food",
+        "count": 5
+    },
+    {
+        "category": "Groceries",
+        "count": 3
+    },
+    {
+        "category": "Other",
+        "count": 3
+    },
+    {
+        "category": "Rent",
+        "count": 3
+    },
+    {
+        "category": "Transportation",
+        "count": 1
+    },
+    {
+        "category": "Utilities",
+        "count": 1
+    }
+]

@@ -1,0 +1,92 @@
+[
+    {
+        "id": 12369,
+        "name": "Purchase 12369",
+        "category": "Clothing",
+        "total_cost": 7327,
+        "purchaser_user_id": 1,
+        "purchaser_first_name": "Teresa",
+        "purchaser_last_name": "Miller"
+    },
+    {
+        "id": 90626,
+        "name": "Purchase 90626",
+        "category": "Other",
+        "total_cost": 4208,
+        "purchaser_user_id": 1,
+        "purchaser_first_name": "Teresa",
+        "purchaser_last_name": "Miller"
+    },
+    {
+        "id": 100259,
+        "name": "Purchase 100259",
+        "category": "Food",
+        "total_cost": 1822,
+        "purchaser_user_id": 1,
+        "purchaser_first_name": "Teresa",
+        "purchaser_last_name": "Miller"
+    },
+    {
+        "id": 158338,
+        "name": "Purchase 158338",
+        "category": "Rent",
+        "total_cost": 8427,
+        "purchaser_user_id": 1,
+        "purchaser_first_name": "Teresa",
+        "purchaser_last_name": "Miller"
+    },
+    {
+        "id": 173733,
+        "name": "Purchase 173733",
+        "category": "Food",
+        "total_cost": 5462,
+        "purchaser_user_id": 1,
+        "purchaser_first_name": "Teresa",
+        "purchaser_last_name": "Miller"
+    },
+    {
+        "id": 357402,
+        "name": "Purchase 357402",
+        "category": "Rent",
+        "total_cost": 2156,
+        "purchaser_user_id": 1,
+        "purchaser_first_name": "Teresa",
+        "purchaser_last_name": "Miller"
+    },
+    {
+        "id": 403841,
+        "name": "Purchase 403841",
+        "category": "Food",
+        "total_cost": 8547,
+        "purchaser_user_id": 1,
+        "purchaser_first_name": "Teresa",
+        "purchaser_last_name": "Miller"
+    },
+    {
+        "id": 409344,
+        "name": "Purchase 409344",
+        "category": "Rent",
+        "total_cost": 9511,
+        "purchaser_user_id": 1,
+        "purchaser_first_name": "Teresa",
+        "purchaser_last_name": "Miller"
+    },
+    {
+        "id": 459453,
+        "name": "Purchase 459453",
+        "category": "Rent",
+        "total_cost": 1279,
+        "purchaser_user_id": 1,
+        "purchaser_first_name": "Teresa",
+        "purchaser_last_name": "Miller"
+    },
+    {
+        "id": 551009,
+        "name": "Purchase 551009",
+        "category": "Entertainment",
+        "total_cost": 3024,
+        "purchaser_user_id": 1,
+        "purchaser_first_name": "Teresa",
+        "purchaser_last_name": "Miller"
+    }
+]

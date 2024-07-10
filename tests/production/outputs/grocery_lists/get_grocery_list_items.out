@@ -1,0 +1,80 @@
+[{
+		"id" : 54763,
+		"item_name" : "Butter",
+		"quantity" : 1,
+		"notes" : "",
+		"completed" : false,
+		"member" : "{\"user_id\" : 7, \"group_id\" : 2, \"first_name\" : \"Robert\", \"last_name\" : \"Berg\"}"
+	},
+	{
+		"id" : 72474,
+		"item_name" : "Canned Soup",
+		"quantity" : 1,
+		"notes" : "",
+		"completed" : true,
+		"member" : "{\"user_id\" : 12, \"group_id\" : 2, \"first_name\" : \"Jon\", \"last_name\" : \"Graham\"}"
+	},
+	{
+		"id" : 72475,
+		"item_name" : "Milk",
+		"quantity" : 1,
+		"notes" : "",
+		"completed" : false,
+		"member" : "{\"user_id\" : 12, \"group_id\" : 2, \"first_name\" : \"Jon\", \"last_name\" : \"Graham\"}"
+	},
+	{
+		"id" : 179671,
+		"item_name" : "Eggs",
+		"quantity" : 1,
+		"notes" : "",
+		"completed" : true,
+		"member" : "{\"user_id\" : 12, \"group_id\" : 2, \"first_name\" : \"Jon\", \"last_name\" : \"Graham\"}"
+	},
+	{
+		"id" : 179672,
+		"item_name" : "Deodorant",
+		"quantity" : 1,
+		"notes" : "",
+		"completed" : false,
+		"member" : "{\"user_id\" : 12, \"group_id\" : 2, \"first_name\" : \"Jon\", \"last_name\" : \"Graham\"}"
+	},
+	{
+		"id" : 306985,
+		"item_name" : "Dishware",
+		"quantity" : 1,
+		"notes" : "",
+		"completed" : true,
+		"member" : "{\"user_id\" : 7, \"group_id\" : 2, \"first_name\" : \"Robert\", \"last_name\" : \"Berg\"}"
+	},
+	{
+		"id" : 306986,
+		"item_name" : "Water",
+		"quantity" : 1,
+		"notes" : "",
+		"completed" : true,
+		"member" : "{\"user_id\" : 7, \"group_id\" : 2, \"first_name\" : \"Robert\", \"last_name\" : \"Berg\"}"
+	},
+	{
+		"id" : 306987,
+		"item_name" : "Cleaning Rags",
+		"quantity" : 2,
+		"notes" : "",
+		"completed" : true,
+		"member" : "{\"user_id\" : 7, \"group_id\" : 2, \"first_name\" : \"Robert\", \"last_name\" : \"Berg\"}"
+	},
+	{
+		"id" : 307342,
+		"item_name" : "Beef",
+		"quantity" : 2,
+		"notes" : "",
+		"completed" : true,
+		"member" : "{\"user_id\" : 7, \"group_id\" : 2, \"first_name\" : \"Robert\", \"last_name\" : \"Berg\"}"
+	},
+	{
+		"id" : 563095,
+		"item_name" : "Toothbrush",
+		"quantity" : 1,
+		"notes" : "",
+		"completed" : true,
+		"member" : "{\"user_id\" : 8, \"group_id\" : 2, \"first_name\" : \"Mark\", \"last_name\" : \"Parks\"}"
+	}]

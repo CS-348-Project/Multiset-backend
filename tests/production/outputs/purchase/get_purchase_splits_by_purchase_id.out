@@ -1,0 +1,58 @@
+[
+    {
+        "id": 3,
+        "purchase_id": 1,
+        "amount": 400,
+        "first_name": "Eddie",
+        "last_name": "Cline"
+    },
+    {
+        "id": 164908,
+        "purchase_id": 1,
+        "amount": 1032,
+        "first_name": "Adriana",
+        "last_name": "Chung"
+    },
+    {
+        "id": 164909,
+        "purchase_id": 1,
+        "amount": 1029,
+        "first_name": "Christine",
+        "last_name": "Maynard"
+    },
+    {
+        "id": 164910,
+        "purchase_id": 1,
+        "amount": 1029,
+        "first_name": "Sheila",
+        "last_name": "Wiley"
+    },
+    {
+        "id": 164911,
+        "purchase_id": 1,
+        "amount": 1024,
+        "first_name": "Amy",
+        "last_name": "Moses"
+    },
+    {
+        "id": 164912,
+        "purchase_id": 1,
+        "amount": 1022,
+        "first_name": "Stacey",
+        "last_name": "Price"
+    },
+    {
+        "id": 164913,
+        "purchase_id": 1,
+        "amount": 1025,
+        "first_name": "Adrian",
+        "last_name": "Fowler"
+    },
+    {
+        "id": 164914,
+        "purchase_id": 1,
+        "amount": 1004,
+        "first_name": "Joel",
+        "last_name": "Murphy"
+    }
+]
