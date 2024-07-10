@@ -74,22 +74,25 @@ def delete_group_handler(request, group_id: int):
     except Exception as e:
         return JsonResponse({"status": "error", "message": str(e)}, status=400)
 
-@router.get("/other-members")
-def get_other_group_members_handler(request, group_id: int, detailed: Optional[bool] = False):
+@router.get("/members")
+def get_group_members_handler(request, group_id: int, exclude_current_user: Optional[bool] = False):
     """
     Gets the other members of a group.
     Args:
         group_id: the id of the group to get the members of
-        detailed: whether to return detailed information about the members
+        exclude_current_user: whether to exclude the current user from the list of members
     Returns:
         a JSON response with the status of the operation and the list of members
     """
     try:
         verify_user_in_group(request.auth, group_id)
-        group = get_group(group_id, detailed=detailed)
+        group = get_group(group_id, detailed=True)
         if not group:
             return JsonResponse({"status": "error", "message": "Group not found"}, status=404)
-        other_members = [user for user in group["users"] if user["id"] != request.auth]
-        return JsonResponse(other_members, safe=False)
+        if exclude_current_user:
+            members = [user for user in group["users"] if user["id"] != request.auth]
+        else:
+            members = group["users"]
+        return JsonResponse(members, safe=False)
     except Exception as e:
         return JsonResponse({"status": "error", "message": str(e)}, status=400)

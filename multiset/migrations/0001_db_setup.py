@@ -1,17 +1,19 @@
 from django.db import migrations
 
+
 class Migration(migrations.Migration):
-  dependencies = []
-  
-  operations = [
-    migrations.RunSQL(
-      """
+    dependencies = []
+
+    operations = [
+        migrations.RunSQL(
+            """
       CREATE TABLE multiset_user (
         id SERIAL PRIMARY KEY,
         email VARCHAR(255) NOT NULL,
         google_id VARCHAR(255) NOT NULL,
         first_name VARCHAR(255) NOT NULL,
-        last_name VARCHAR(255) NOT NULL
+        last_name VARCHAR(255) NOT NULL,
+        email_notifications BOOLEAN NOT NULL DEFAULT FALSE
       );
       
       CREATE TABLE multiset_group (
@@ -101,5 +103,5 @@ class Migration(migrations.Migration):
         FOREIGN KEY (member_user_id, member_group_id) REFERENCES member(user_id, group_id) ON DELETE CASCADE
       );
       """
-    )
-  ]
+        )
+    ]

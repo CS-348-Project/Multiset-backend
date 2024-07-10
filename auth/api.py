@@ -5,6 +5,8 @@ from ninja import Schema
 from auth.services import create_new_user, find_id_from_email
 import jwt
 from datetime import datetime, timedelta
+from django.http import JsonResponse
+from users.services import get_user
 
 router = Router()
 
@@ -42,3 +44,23 @@ def callback_handler(request, token: TokenModel):
         return {"token": jwt_token}
     else:
         return {"error": "Invalid token"}
+
+@router.get("/user")
+def get_authenticated_user_handler(request):
+    """
+    Gets a user by their email or id.
+    Args:
+        email: the email of the user to retrieve
+        user_id: the id of the user to retrieve
+    Returns:
+        a JSON response with the status of the operation and the user retrieved
+    """
+    try:
+        user_id = request.auth;
+        ret = get_user(None, user_id)
+        if len(ret) == 0:
+            return JsonResponse({"status": "error", "message": "User not found"}, status=404)
+        
+        return ret
+    except Exception as e:
+        return JsonResponse({"status": "error", "message": str(e)}, status=400)
