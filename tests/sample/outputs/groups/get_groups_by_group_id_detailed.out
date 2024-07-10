@@ -1,0 +1,46 @@
+[
+    {
+        "id": 1,
+        "name": "Book Club",
+        "optimize_payments": true,
+        "created_at": "2024-07-10 03:31:29.410104",
+        "users": [
+            {
+                "id": 1,
+                "email": "alice@gmail.com",
+                "first_name": "Alice",
+                "last_name": "Camley"
+            },
+            {
+                "id": 2,
+                "email": "bob@gmail.com",
+                "first_name": "Robert",
+                "last_name": "Strauss"
+            },
+            {
+                "id": 3,
+                "email": "carol@gmail.com",
+                "first_name": "Carol",
+                "last_name": "Hirose"
+            },
+            {
+                "id": 4,
+                "email": "dan@gmail.com",
+                "first_name": "Daniel",
+                "last_name": "Dubois"
+            },
+            {
+                "id": 5,
+                "email": "eve@gmail.com",
+                "first_name": "Eve",
+                "last_name": "Butler"
+            },
+            {
+                "id": 6,
+                "email": "frank@gmail.com",
+                "first_name": "Francesco",
+                "last_name": "Mengoni"
+            }
+        ]
+    }
+]

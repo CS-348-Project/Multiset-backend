@@ -1,0 +1,14 @@
+[
+    {
+        "category": "Entertainment",
+        "count": 1
+    },
+    {
+        "category": "Food",
+        "count": 4
+    },
+    {
+        "category": "Other",
+        "count": 2
+    }
+]
