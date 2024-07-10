@@ -3,7 +3,7 @@ Name: get_groups_detailed.sql
 Description: Get all groups with user details
 Usage: {}
 */
-
+--prodorder mg.id
 SELECT mg.*, 
 -- Aggregates all of the non-null users into a JSON array
 -- In the case where there are no users, COALESCE converts the null value to an empty array
@@ -16,4 +16,4 @@ COALESCE(json_agg(json_build_object(
 FROM multiset_group mg 
 LEFT JOIN member m ON mg.id = m.group_id
 LEFT JOIN multiset_user mu ON m.user_id = mu.id
-GROUP BY mg.id;
+GROUP BY mg.id ORDER BY mg.id LIMIT 10;
