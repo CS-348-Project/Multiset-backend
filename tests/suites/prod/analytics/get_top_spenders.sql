@@ -11,4 +11,4 @@ FROM multiset_user u
 JOIN purchase p ON u.id = p.purchaser_user_id
 WHERE p.purchaser_group_id = 1
 GROUP BY u.id
-ORDER BY SUM(total_cost) DES ORDER BY u.id;
+ORDER BY SUM(total_cost) DES ORDER BY u.id LIMIT 10;

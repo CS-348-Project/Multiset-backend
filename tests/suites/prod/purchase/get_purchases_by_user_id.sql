@@ -10,3 +10,5 @@ SELECT p.id, name, category, total_cost, purchaser_user_id, first_name as purcha
 FROM purchase p
 JOIN multiset_user u ON p.purchaser_user_id = u.id
 WHERE purchaser_user_id = 1
+ORDER BY p.id
+LIMIT 10

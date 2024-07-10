@@ -10,3 +10,5 @@ SELECT p.name
 FROM purchase p
 GROUP BY p.name, p.purchaser_user_id
 HAVING COUNT(*) > 2 and p.purchaser_user_id = 1
+ORDER BY p.name
+LIMIT 10

@@ -8,3 +8,5 @@ Return: {id, category, name, total_cost, created_at}
 SELECT id, category, name, total_cost, created_at
 FROM purchase p
 WHERE id = 1
+ORDER BY id
+LIMIT 10;

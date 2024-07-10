@@ -11,3 +11,5 @@ FROM purchase p
 JOIN multiset_user u ON p.purchaser_user_id = u.id
 WHERE purchaser_group_id = 1
 AND purchaser_user_id = 1
+ORDER BY p.id
+LIMIT 10
