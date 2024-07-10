@@ -1,0 +1,186 @@
+[
+    {
+        "id": 5855,
+        "member_user_id": 1,
+        "member_group_id": 1,
+        "action": "INSERT",
+        "details": "Member Alice Camley has joined group Book Club",
+        "created_at": "2024-07-10 03:31:29.718679"
+    },
+    {
+        "id": 5856,
+        "member_user_id": 2,
+        "member_group_id": 1,
+        "action": "INSERT",
+        "details": "Member Robert Strauss has joined group Book Club",
+        "created_at": "2024-07-10 03:31:29.718679"
+    },
+    {
+        "id": 5857,
+        "member_user_id": 3,
+        "member_group_id": 1,
+        "action": "INSERT",
+        "details": "Member Carol Hirose has joined group Book Club",
+        "created_at": "2024-07-10 03:31:29.718679"
+    },
+    {
+        "id": 5858,
+        "member_user_id": 4,
+        "member_group_id": 1,
+        "action": "INSERT",
+        "details": "Member Daniel Dubois has joined group Book Club",
+        "created_at": "2024-07-10 03:31:29.718679"
+    },
+    {
+        "id": 5859,
+        "member_user_id": 5,
+        "member_group_id": 1,
+        "action": "INSERT",
+        "details": "Member Eve Butler has joined group Book Club",
+        "created_at": "2024-07-10 03:31:29.718679"
+    },
+    {
+        "id": 5860,
+        "member_user_id": 6,
+        "member_group_id": 1,
+        "action": "INSERT",
+        "details": "Member Francesco Mengoni has joined group Book Club",
+        "created_at": "2024-07-10 03:31:29.718679"
+    },
+    {
+        "id": 5888,
+        "member_user_id": 1,
+        "member_group_id": 1,
+        "action": "INSERT",
+        "details": "Purchase \"April Meeting Snacks\" has been added by Alice Camley",
+        "created_at": "2024-07-10 03:31:29.718679"
+    },
+    {
+        "id": 5889,
+        "member_user_id": 5,
+        "member_group_id": 1,
+        "action": "INSERT",
+        "details": "Purchase \"Booking Fees\" has been added by Eve Butler",
+        "created_at": "2024-07-10 03:31:29.718679"
+    },
+    {
+        "id": 5890,
+        "member_user_id": 2,
+        "member_group_id": 1,
+        "action": "INSERT",
+        "details": "Purchase \"Club Dinner\" has been added by Robert Strauss",
+        "created_at": "2024-07-10 03:31:29.718679"
+    },
+    {
+        "id": 5891,
+        "member_user_id": 5,
+        "member_group_id": 1,
+        "action": "INSERT",
+        "details": "Purchase \"Post-Meeting Coffee\" has been added by Eve Butler",
+        "created_at": "2024-07-10 03:31:29.718679"
+    },
+    {
+        "id": 5892,
+        "member_user_id": 1,
+        "member_group_id": 1,
+        "action": "INSERT",
+        "details": "Purchase \"May Meeting Snacks\" has been added by Alice Camley",
+        "created_at": "2024-07-10 03:31:29.718679"
+    },
+    {
+        "id": 5893,
+        "member_user_id": 3,
+        "member_group_id": 1,
+        "action": "INSERT",
+        "details": "Purchase \"Club Fair Booth\" has been added by Carol Hirose",
+        "created_at": "2024-07-10 03:31:29.718679"
+    },
+    {
+        "id": 5894,
+        "member_user_id": 2,
+        "member_group_id": 1,
+        "action": "INSERT",
+        "details": "Purchase \"Movie Night\" has been added by Robert Strauss",
+        "created_at": "2024-07-10 03:31:29.718679"
+    },
+    {
+        "id": 5938,
+        "member_user_id": 1,
+        "member_group_id": 1,
+        "action": "INSERT",
+        "details": "Grocery list item \"Milk\" has been added by Alice Camley",
+        "created_at": "2024-07-10 03:31:29.718679"
+    },
+    {
+        "id": 5939,
+        "member_user_id": 1,
+        "member_group_id": 1,
+        "action": "INSERT",
+        "details": "Grocery list item \"Almond Milk\" has been added by Alice Camley",
+        "created_at": "2024-07-10 03:31:29.718679"
+    },
+    {
+        "id": 5940,
+        "member_user_id": 2,
+        "member_group_id": 1,
+        "action": "INSERT",
+        "details": "Grocery list item \"Hummus\" has been added by Robert Strauss",
+        "created_at": "2024-07-10 03:31:29.718679"
+    },
+    {
+        "id": 5941,
+        "member_user_id": 3,
+        "member_group_id": 1,
+        "action": "INSERT",
+        "details": "Grocery list item \"Ketchup\" has been added by Carol Hirose",
+        "created_at": "2024-07-10 03:31:29.718679"
+    },
+    {
+        "id": 5942,
+        "member_user_id": 6,
+        "member_group_id": 1,
+        "action": "INSERT",
+        "details": "Grocery list item \"Wasabi Peas\" has been added by Francesco Mengoni",
+        "created_at": "2024-07-10 03:31:29.718679"
+    },
+    {
+        "id": 6040,
+        "member_user_id": 1,
+        "member_group_id": 1,
+        "action": "INSERT",
+        "details": "Settlement of $1.00 from Alice Camley to Robert Strauss has been added",
+        "created_at": "2024-07-10 03:31:29.718679"
+    },
+    {
+        "id": 6041,
+        "member_user_id": 1,
+        "member_group_id": 1,
+        "action": "INSERT",
+        "details": "Settlement of $2.00 from Alice Camley to Carol Hirose has been added",
+        "created_at": "2024-07-10 03:31:29.718679"
+    },
+    {
+        "id": 6042,
+        "member_user_id": 1,
+        "member_group_id": 1,
+        "action": "INSERT",
+        "details": "Settlement of $3.00 from Alice Camley to Daniel Dubois has been added",
+        "created_at": "2024-07-10 03:31:29.718679"
+    },
+    {
+        "id": 6043,
+        "member_user_id": 2,
+        "member_group_id": 1,
+        "action": "INSERT",
+        "details": "Settlement of $4.00 from Robert Strauss to Alice Camley has been added",
+        "created_at": "2024-07-10 03:31:29.718679"
+    },
+    {
+        "id": 6044,
+        "member_user_id": 2,
+        "member_group_id": 1,
+        "action": "INSERT",
+        "details": "Settlement of $5.00 from Robert Strauss to Carol Hirose has been added",
+        "created_at": "2024-07-10 03:31:29.718679"
+    }
+]

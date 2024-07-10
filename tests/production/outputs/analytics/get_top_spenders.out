@@ -1,0 +1,37 @@
+[
+    {
+        "id": 2,
+        "first_name": "Crystal",
+        "last_name": "Gregory",
+        "num_purchases": 1,
+        "total_spend": 2151
+    },
+    {
+        "id": 3,
+        "first_name": "Eddie",
+        "last_name": "Cline",
+        "num_purchases": 1,
+        "total_spend": 3001
+    },
+    {
+        "id": 5,
+        "first_name": "Jeffery",
+        "last_name": "Lynch",
+        "num_purchases": 2,
+        "total_spend": 16160
+    },
+    {
+        "id": 4,
+        "first_name": "Monica",
+        "last_name": "Schwartz",
+        "num_purchases": 4,
+        "total_spend": 21195
+    },
+    {
+        "id": 1,
+        "first_name": "Teresa",
+        "last_name": "Miller",
+        "num_purchases": 14,
+        "total_spend": 59245
+    }
+]

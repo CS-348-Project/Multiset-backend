@@ -1,0 +1,67 @@
+[
+    {
+        "id": 1,
+        "sender_user_id": 1,
+        "sender_group_id": 1,
+        "receiver_user_id": 2,
+        "receiver_group_id": 1,
+        "amount": 100,
+        "created_at": "2024-07-10 03:31:29.267591",
+        "sender_first_name": "Alice",
+        "sender_last_name": "Camley",
+        "receiver_first_name": "Robert",
+        "receiver_last_name": "Strauss"
+    },
+    {
+        "id": 2,
+        "sender_user_id": 1,
+        "sender_group_id": 1,
+        "receiver_user_id": 3,
+        "receiver_group_id": 1,
+        "amount": 200,
+        "created_at": "2024-07-10 03:31:29.267591",
+        "sender_first_name": "Alice",
+        "sender_last_name": "Camley",
+        "receiver_first_name": "Carol",
+        "receiver_last_name": "Hirose"
+    },
+    {
+        "id": 3,
+        "sender_user_id": 1,
+        "sender_group_id": 1,
+        "receiver_user_id": 4,
+        "receiver_group_id": 1,
+        "amount": 300,
+        "created_at": "2024-07-10 03:31:29.267591",
+        "sender_first_name": "Alice",
+        "sender_last_name": "Camley",
+        "receiver_first_name": "Daniel",
+        "receiver_last_name": "Dubois"
+    },
+    {
+        "id": 4,
+        "sender_user_id": 2,
+        "sender_group_id": 1,
+        "receiver_user_id": 1,
+        "receiver_group_id": 1,
+        "amount": 400,
+        "created_at": "2024-07-10 03:31:29.267591",
+        "sender_first_name": "Robert",
+        "sender_last_name": "Strauss",
+        "receiver_first_name": "Alice",
+        "receiver_last_name": "Camley"
+    },
+    {
+        "id": 5,
+        "sender_user_id": 2,
+        "sender_group_id": 1,
+        "receiver_user_id": 3,
+        "receiver_group_id": 1,
+        "amount": 500,
+        "created_at": "2024-07-10 03:31:29.267591",
+        "sender_first_name": "Robert",
+        "sender_last_name": "Strauss",
+        "receiver_first_name": "Carol",
+        "receiver_last_name": "Hirose"
+    }
+]

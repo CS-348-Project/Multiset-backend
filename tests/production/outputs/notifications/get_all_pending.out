@@ -1,0 +1,342 @@
+[
+    {
+        "id": 684,
+        "email": "patrickgreer@gmail.com",
+        "google_id": "google684",
+        "first_name": "Patrick",
+        "last_name": "Greer",
+        "email_notifications": true,
+        "notifications": [
+            {
+                "id": 1907,
+                "user_id": 684,
+                "message": "You have been added to Group 106",
+                "read": false,
+                "email_sent": false,
+                "created_at": "2024-07-10T01:48:06.749757"
+            },
+            {
+                "id": 2841929,
+                "user_id": 684,
+                "message": "You owe $4.53 to Dawn Cruz for Purchase 394080",
+                "read": false,
+                "email_sent": false,
+                "created_at": "2024-07-10T01:51:19.492496"
+            },
+            {
+                "id": 2363714,
+                "user_id": 684,
+                "message": "You owe $17.28 to Dawn Cruz for Purchase 318261",
+                "read": false,
+                "email_sent": false,
+                "created_at": "2024-07-10T01:51:19.492496"
+            }
+        ]
+    },
+    {
+        "id": 1127,
+        "email": "courtneyriggs@gmail.com",
+        "google_id": "google1127",
+        "first_name": "Courtney",
+        "last_name": "Riggs",
+        "email_notifications": true,
+        "notifications": [
+            {
+                "id": 2350,
+                "user_id": 1127,
+                "message": "You have been added to Group 175",
+                "read": false,
+                "email_sent": false,
+                "created_at": "2024-07-10T01:48:06.749757"
+            },
+            {
+                "id": 3860648,
+                "user_id": 1127,
+                "message": "You owe $7.08 to Donna Paul for Purchase 555702",
+                "read": false,
+                "email_sent": false,
+                "created_at": "2024-07-10T01:51:19.492496"
+            },
+            {
+                "id": 2595781,
+                "user_id": 1127,
+                "message": "You owe $4.63 to Manuel Gregory for Purchase 355111",
+                "read": false,
+                "email_sent": false,
+                "created_at": "2024-07-10T01:51:19.492496"
+            }
+        ]
+    },
+    {
+        "id": 1132,
+        "email": "geraldgallagher@gmail.com",
+        "google_id": "google1132",
+        "first_name": "Gerald",
+        "last_name": "Gallagher",
+        "email_notifications": true,
+        "notifications": [
+            {
+                "id": 345685,
+                "user_id": 1132,
+                "message": "You have been added to Group 52983",
+                "read": false,
+                "email_sent": false,
+                "created_at": "2024-07-10T01:48:06.749757"
+            },
+            {
+                "id": 2355,
+                "user_id": 1132,
+                "message": "You have been added to Group 176",
+                "read": false,
+                "email_sent": false,
+                "created_at": "2024-07-10T01:48:06.749757"
+            },
+            {
+                "id": 602003,
+                "user_id": 1132,
+                "message": "You owe $8.96 to Vernon Nolan for Purchase 38725",
+                "read": false,
+                "email_sent": false,
+                "created_at": "2024-07-10T01:51:19.492496"
+            }
+        ]
+    },
+    {
+        "id": 1140,
+        "email": "carolinelamb@gmail.com",
+        "google_id": "google1140",
+        "first_name": "Caroline",
+        "last_name": "Lamb",
+        "email_notifications": true,
+        "notifications": [
+            {
+                "id": 2363,
+                "user_id": 1140,
+                "message": "You have been added to Group 177",
+                "read": false,
+                "email_sent": false,
+                "created_at": "2024-07-10T01:48:06.749757"
+            },
+            {
+                "id": 3152264,
+                "user_id": 1140,
+                "message": "You owe $5.47 to Tammy Peck for Purchase 443333",
+                "read": false,
+                "email_sent": false,
+                "created_at": "2024-07-10T01:51:19.492496"
+            },
+            {
+                "id": 2377670,
+                "user_id": 1140,
+                "message": "You owe $2.16 to Tammy Peck for Purchase 320473",
+                "read": false,
+                "email_sent": false,
+                "created_at": "2024-07-10T01:51:19.492496"
+            }
+        ]
+    },
+    {
+        "id": 1148,
+        "email": "kerryshepard@gmail.com",
+        "google_id": "google1148",
+        "first_name": "Kerry",
+        "last_name": "Shepard",
+        "email_notifications": true,
+        "notifications": [
+            {
+                "id": 2371,
+                "user_id": 1148,
+                "message": "You have been added to Group 179",
+                "read": false,
+                "email_sent": false,
+                "created_at": "2024-07-10T01:48:06.749757"
+            },
+            {
+                "id": 2030743,
+                "user_id": 1148,
+                "message": "You owe $23.48 to Zachary Watson for Purchase 265442",
+                "read": false,
+                "email_sent": false,
+                "created_at": "2024-07-10T01:51:19.492496"
+            },
+            {
+                "id": 1015109,
+                "user_id": 1148,
+                "message": "You owe $16.61 to Cassidy Erickson for Purchase 104310",
+                "read": false,
+                "email_sent": false,
+                "created_at": "2024-07-10T01:51:19.492496"
+            }
+        ]
+    },
+    {
+        "id": 1177,
+        "email": "connorpham@gmail.com",
+        "google_id": "google1177",
+        "first_name": "Connor",
+        "last_name": "Pham",
+        "email_notifications": true,
+        "notifications": [
+            {
+                "id": 2400,
+                "user_id": 1177,
+                "message": "You have been added to Group 185",
+                "read": false,
+                "email_sent": false,
+                "created_at": "2024-07-10T01:48:06.749757"
+            },
+            {
+                "id": 461382,
+                "user_id": 1177,
+                "message": "You owe $4.01 to Beth Lewis for Purchase 16448",
+                "read": false,
+                "email_sent": false,
+                "created_at": "2024-07-10T01:51:19.492496"
+            },
+            {
+                "id": 392398,
+                "user_id": 1177,
+                "message": "You owe $12.48 to Phillip Hawkins for Purchase 5503",
+                "read": false,
+                "email_sent": false,
+                "created_at": "2024-07-10T01:51:19.492496"
+            }
+        ]
+    },
+    {
+        "id": 1183,
+        "email": "nicholasterrell@gmail.com",
+        "google_id": "google1183",
+        "first_name": "Nicholas",
+        "last_name": "Terrell",
+        "email_notifications": true,
+        "notifications": [
+            {
+                "id": 2406,
+                "user_id": 1183,
+                "message": "You have been added to Group 186",
+                "read": false,
+                "email_sent": false,
+                "created_at": "2024-07-10T01:48:06.749757"
+            },
+            {
+                "id": 847624,
+                "user_id": 1183,
+                "message": "You owe $32.37 to Caitlin Parker for Purchase 77681",
+                "read": false,
+                "email_sent": false,
+                "created_at": "2024-07-10T01:51:19.492496"
+            },
+            {
+                "id": 597882,
+                "user_id": 1183,
+                "message": "You owe $4.59 to Caitlin Parker for Purchase 38061",
+                "read": false,
+                "email_sent": false,
+                "created_at": "2024-07-10T01:51:19.492496"
+            }
+        ]
+    },
+    {
+        "id": 1186,
+        "email": "colehanson@gmail.com",
+        "google_id": "google1186",
+        "first_name": "Cole",
+        "last_name": "Hanson",
+        "email_notifications": true,
+        "notifications": [
+            {
+                "id": 2409,
+                "user_id": 1186,
+                "message": "You have been added to Group 187",
+                "read": false,
+                "email_sent": false,
+                "created_at": "2024-07-10T01:48:06.749757"
+            },
+            {
+                "id": 1526314,
+                "user_id": 1186,
+                "message": "You owe $5.26 to Debbie Shaw for Purchase 185429",
+                "read": false,
+                "email_sent": false,
+                "created_at": "2024-07-10T01:51:19.492496"
+            },
+            {
+                "id": 1335217,
+                "user_id": 1186,
+                "message": "You owe $5.17 to Benjamin Hickman for Purchase 155068",
+                "read": false,
+                "email_sent": false,
+                "created_at": "2024-07-10T01:51:19.492496"
+            }
+        ]
+    },
+    {
+        "id": 1190,
+        "email": "francismartinez@gmail.com",
+        "google_id": "google1190",
+        "first_name": "Francis",
+        "last_name": "Martinez",
+        "email_notifications": true,
+        "notifications": [
+            {
+                "id": 2413,
+                "user_id": 1190,
+                "message": "You have been added to Group 187",
+                "read": false,
+                "email_sent": false,
+                "created_at": "2024-07-10T01:48:06.749757"
+            },
+            {
+                "id": 1526317,
+                "user_id": 1190,
+                "message": "You owe $5.26 to Debbie Shaw for Purchase 185429",
+                "read": false,
+                "email_sent": false,
+                "created_at": "2024-07-10T01:51:19.492496"
+            },
+            {
+                "id": 1335220,
+                "user_id": 1190,
+                "message": "You owe $5.17 to Benjamin Hickman for Purchase 155068",
+                "read": false,
+                "email_sent": false,
+                "created_at": "2024-07-10T01:51:19.492496"
+            }
+        ]
+    },
+    {
+        "id": 1195,
+        "email": "jeremiahterry@gmail.com",
+        "google_id": "google1195",
+        "first_name": "Jeremiah",
+        "last_name": "Terry",
+        "email_notifications": true,
+        "notifications": [
+            {
+                "id": 2418,
+                "user_id": 1195,
+                "message": "You have been added to Group 188",
+                "read": false,
+                "email_sent": false,
+                "created_at": "2024-07-10T01:48:06.749757"
+            },
+            {
+                "id": 1332326,
+                "user_id": 1195,
+                "message": "You owe $10.73 to Justin Roberts for Purchase 154604",
+                "read": false,
+                "email_sent": false,
+                "created_at": "2024-07-10T01:51:19.492496"
+            },
+            {
+                "id": 1043848,
+                "user_id": 1195,
+                "message": "You owe $12.27 to Justin Roberts for Purchase 108831",
+                "read": false,
+                "email_sent": false,
+                "created_at": "2024-07-10T01:51:19.492496"
+            }
+        ]
+    }
+]

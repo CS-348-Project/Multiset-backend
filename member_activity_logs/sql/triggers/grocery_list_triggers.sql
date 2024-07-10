@@ -9,11 +9,7 @@ DECLARE
   user_id INT;
   group_id INT;
 BEGIN
-  IF TG_OP = 'DELETE' THEN
-    detail_message := 'Grocery list item "' || OLD.item_name || '" has been deleted';
-    user_id := OLD.requester_user_id;
-    group_id := OLD.requester_group_id;
-  ELSIF TG_OP = 'INSERT' THEN
+  IF TG_OP = 'INSERT' THEN
     detail_message := 'Grocery list item "' || NEW.item_name || '" has been added by ' || 
       (SELECT first_name || ' ' || last_name FROM multiset_user WHERE multiset_user.id = NEW.requester_user_id);
     user_id := NEW.requester_user_id;
@@ -37,10 +33,5 @@ EXECUTE FUNCTION log_member_activity_grocery_list_item();
 
 CREATE OR REPLACE TRIGGER grocery_list_item_after_update
 AFTER UPDATE ON grocery_list_item
-FOR EACH ROW
-EXECUTE FUNCTION log_member_activity_grocery_list_item();
-
-CREATE OR REPLACE TRIGGER grocery_list_item_after_delete
-AFTER DELETE ON grocery_list_item
 FOR EACH ROW
 EXECUTE FUNCTION log_member_activity_grocery_list_item();

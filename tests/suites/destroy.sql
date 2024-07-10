@@ -1,1 +1,0 @@
-DELETE FROM multiset_user;

@@ -1,0 +1,508 @@
+[
+    {
+        "id": 1,
+        "name": "Test Group",
+        "optimize_payments": false,
+        "created_at": "2024-07-10 01:48:04.775572",
+        "users": [
+            {
+                "id": 1,
+                "email": "teresamiller@gmail.com",
+                "first_name": "Teresa",
+                "last_name": "Miller"
+            },
+            {
+                "id": 2,
+                "email": "crystalgregory@gmail.com",
+                "first_name": "Crystal",
+                "last_name": "Gregory"
+            },
+            {
+                "id": 3,
+                "email": "eddiecline@gmail.com",
+                "first_name": "Eddie",
+                "last_name": "Cline"
+            },
+            {
+                "id": 4,
+                "email": "monicaschwartz@gmail.com",
+                "first_name": "Monica",
+                "last_name": "Schwartz"
+            },
+            {
+                "id": 5,
+                "email": "jefferylynch@gmail.com",
+                "first_name": "Jeffery",
+                "last_name": "Lynch"
+            }
+        ]
+    },
+    {
+        "id": 2,
+        "name": "Group 2",
+        "optimize_payments": true,
+        "created_at": "2024-07-10 01:48:04.775572",
+        "users": [
+            {
+                "id": 6,
+                "email": "shanebutler@gmail.com",
+                "first_name": "Shane",
+                "last_name": "Butler"
+            },
+            {
+                "id": 7,
+                "email": "robertberg@gmail.com",
+                "first_name": "Robert",
+                "last_name": "Berg"
+            },
+            {
+                "id": 8,
+                "email": "markparks@gmail.com",
+                "first_name": "Mark",
+                "last_name": "Parks"
+            },
+            {
+                "id": 9,
+                "email": "morganelliott@gmail.com",
+                "first_name": "Morgan",
+                "last_name": "Elliott"
+            },
+            {
+                "id": 10,
+                "email": "stacyyork@gmail.com",
+                "first_name": "Stacy",
+                "last_name": "York"
+            },
+            {
+                "id": 11,
+                "email": "meghanharper@gmail.com",
+                "first_name": "Meghan",
+                "last_name": "Harper"
+            },
+            {
+                "id": 12,
+                "email": "jongraham@gmail.com",
+                "first_name": "Jon",
+                "last_name": "Graham"
+            },
+            {
+                "id": 13,
+                "email": "desireebutler@gmail.com",
+                "first_name": "Desiree",
+                "last_name": "Butler"
+            },
+            {
+                "id": 14,
+                "email": "susanyu@gmail.com",
+                "first_name": "Susan",
+                "last_name": "Yu"
+            }
+        ]
+    },
+    {
+        "id": 3,
+        "name": "Group 3",
+        "optimize_payments": true,
+        "created_at": "2024-07-10 01:48:04.775572",
+        "users": [
+            {
+                "id": 15,
+                "email": "aprilmartinez@gmail.com",
+                "first_name": "April",
+                "last_name": "Martinez"
+            },
+            {
+                "id": 16,
+                "email": "charlesross@gmail.com",
+                "first_name": "Charles",
+                "last_name": "Ross"
+            },
+            {
+                "id": 17,
+                "email": "crystalnicholson@gmail.com",
+                "first_name": "Crystal",
+                "last_name": "Nicholson"
+            },
+            {
+                "id": 18,
+                "email": "alexandrachristian@gmail.com",
+                "first_name": "Alexandra",
+                "last_name": "Christian"
+            },
+            {
+                "id": 19,
+                "email": "ryanhays@gmail.com",
+                "first_name": "Ryan",
+                "last_name": "Hays"
+            },
+            {
+                "id": 20,
+                "email": "jefferycooper@gmail.com",
+                "first_name": "Jeffery",
+                "last_name": "Cooper"
+            }
+        ]
+    },
+    {
+        "id": 4,
+        "name": "Group 4",
+        "optimize_payments": false,
+        "created_at": "2024-07-10 01:48:04.775572",
+        "users": [
+            {
+                "id": 21,
+                "email": "evanmcgee@gmail.com",
+                "first_name": "Evan",
+                "last_name": "Mcgee"
+            },
+            {
+                "id": 22,
+                "email": "brendanmartin@gmail.com",
+                "first_name": "Brendan",
+                "last_name": "Martin"
+            },
+            {
+                "id": 23,
+                "email": "malikmoody@gmail.com",
+                "first_name": "Malik",
+                "last_name": "Moody"
+            },
+            {
+                "id": 24,
+                "email": "rickyhays@gmail.com",
+                "first_name": "Ricky",
+                "last_name": "Hays"
+            },
+            {
+                "id": 25,
+                "email": "josephmorrow@gmail.com",
+                "first_name": "Joseph",
+                "last_name": "Morrow"
+            },
+            {
+                "id": 26,
+                "email": "luismclean@gmail.com",
+                "first_name": "Luis",
+                "last_name": "Mclean"
+            },
+            {
+                "id": 27,
+                "email": "alexissanders@gmail.com",
+                "first_name": "Alexis",
+                "last_name": "Sanders"
+            }
+        ]
+    },
+    {
+        "id": 5,
+        "name": "Group 5",
+        "optimize_payments": true,
+        "created_at": "2024-07-10 01:48:04.775572",
+        "users": [
+            {
+                "id": 28,
+                "email": "jonathonfrazier@gmail.com",
+                "first_name": "Jonathon",
+                "last_name": "Frazier"
+            },
+            {
+                "id": 29,
+                "email": "sheenabaldwin@gmail.com",
+                "first_name": "Sheena",
+                "last_name": "Baldwin"
+            },
+            {
+                "id": 30,
+                "email": "carriehayes@gmail.com",
+                "first_name": "Carrie",
+                "last_name": "Hayes"
+            },
+            {
+                "id": 31,
+                "email": "chasele@gmail.com",
+                "first_name": "Chase",
+                "last_name": "Le"
+            },
+            {
+                "id": 32,
+                "email": "dustinvang@gmail.com",
+                "first_name": "Dustin",
+                "last_name": "Vang"
+            },
+            {
+                "id": 33,
+                "email": "donaldwatson@gmail.com",
+                "first_name": "Donald",
+                "last_name": "Watson"
+            }
+        ]
+    },
+    {
+        "id": 6,
+        "name": "Group 6",
+        "optimize_payments": false,
+        "created_at": "2024-07-10 01:48:04.775572",
+        "users": [
+            {
+                "id": 34,
+                "email": "jillsutton@gmail.com",
+                "first_name": "Jill",
+                "last_name": "Sutton"
+            },
+            {
+                "id": 35,
+                "email": "douglasterry@gmail.com",
+                "first_name": "Douglas",
+                "last_name": "Terry"
+            },
+            {
+                "id": 36,
+                "email": "breannaallen@gmail.com",
+                "first_name": "Breanna",
+                "last_name": "Allen"
+            },
+            {
+                "id": 37,
+                "email": "hayleyalexander@gmail.com",
+                "first_name": "Hayley",
+                "last_name": "Alexander"
+            },
+            {
+                "id": 38,
+                "email": "donnajordan@gmail.com",
+                "first_name": "Donna",
+                "last_name": "Jordan"
+            },
+            {
+                "id": 39,
+                "email": "jeanettegibson@gmail.com",
+                "first_name": "Jeanette",
+                "last_name": "Gibson"
+            },
+            {
+                "id": 40,
+                "email": "jayjackson@gmail.com",
+                "first_name": "Jay",
+                "last_name": "Jackson"
+            },
+            {
+                "id": 41,
+                "email": "stevenconner@gmail.com",
+                "first_name": "Steven",
+                "last_name": "Conner"
+            }
+        ]
+    },
+    {
+        "id": 7,
+        "name": "Group 7",
+        "optimize_payments": false,
+        "created_at": "2024-07-10 01:48:04.775572",
+        "users": [
+            {
+                "id": 42,
+                "email": "leahbauer@gmail.com",
+                "first_name": "Leah",
+                "last_name": "Bauer"
+            },
+            {
+                "id": 43,
+                "email": "kathleendurham@gmail.com",
+                "first_name": "Kathleen",
+                "last_name": "Durham"
+            },
+            {
+                "id": 44,
+                "email": "melissarice@gmail.com",
+                "first_name": "Melissa",
+                "last_name": "Rice"
+            },
+            {
+                "id": 45,
+                "email": "rachelhardy@gmail.com",
+                "first_name": "Rachel",
+                "last_name": "Hardy"
+            },
+            {
+                "id": 46,
+                "email": "chaddeleon@gmail.com",
+                "first_name": "Chad",
+                "last_name": "Deleon"
+            },
+            {
+                "id": 47,
+                "email": "andrewlambert@gmail.com",
+                "first_name": "Andrew",
+                "last_name": "Lambert"
+            },
+            {
+                "id": 48,
+                "email": "shelbycarpenter@gmail.com",
+                "first_name": "Shelby",
+                "last_name": "Carpenter"
+            },
+            {
+                "id": 49,
+                "email": "jonathanobrien@gmail.com",
+                "first_name": "Jonathan",
+                "last_name": "Obrien"
+            },
+            {
+                "id": 50,
+                "email": "baileymarshall@gmail.com",
+                "first_name": "Bailey",
+                "last_name": "Marshall"
+            },
+            {
+                "id": 51,
+                "email": "vickipugh@gmail.com",
+                "first_name": "Vicki",
+                "last_name": "Pugh"
+            }
+        ]
+    },
+    {
+        "id": 8,
+        "name": "Group 8",
+        "optimize_payments": true,
+        "created_at": "2024-07-10 01:48:04.775572",
+        "users": [
+            {
+                "id": 52,
+                "email": "philipramos@gmail.com",
+                "first_name": "Philip",
+                "last_name": "Ramos"
+            },
+            {
+                "id": 53,
+                "email": "lancemcmillan@gmail.com",
+                "first_name": "Lance",
+                "last_name": "Mcmillan"
+            },
+            {
+                "id": 54,
+                "email": "dannyvasquez@gmail.com",
+                "first_name": "Danny",
+                "last_name": "Vasquez"
+            },
+            {
+                "id": 55,
+                "email": "vanessaingram@gmail.com",
+                "first_name": "Vanessa",
+                "last_name": "Ingram"
+            },
+            {
+                "id": 56,
+                "email": "timothyhardy@gmail.com",
+                "first_name": "Timothy",
+                "last_name": "Hardy"
+            },
+            {
+                "id": 57,
+                "email": "bradwilliams@gmail.com",
+                "first_name": "Brad",
+                "last_name": "Williams"
+            }
+        ]
+    },
+    {
+        "id": 9,
+        "name": "Group 9",
+        "optimize_payments": true,
+        "created_at": "2024-07-10 01:48:04.775572",
+        "users": [
+            {
+                "id": 58,
+                "email": "cassidyjacobson@gmail.com",
+                "first_name": "Cassidy",
+                "last_name": "Jacobson"
+            },
+            {
+                "id": 59,
+                "email": "cynthiamccarty@gmail.com",
+                "first_name": "Cynthia",
+                "last_name": "Mccarty"
+            },
+            {
+                "id": 60,
+                "email": "donalddavies@gmail.com",
+                "first_name": "Donald",
+                "last_name": "Davies"
+            }
+        ]
+    },
+    {
+        "id": 10,
+        "name": "Group 10",
+        "optimize_payments": false,
+        "created_at": "2024-07-10 01:48:04.775572",
+        "users": [
+            {
+                "id": 61,
+                "email": "charlesgraham@gmail.com",
+                "first_name": "Charles",
+                "last_name": "Graham"
+            },
+            {
+                "id": 62,
+                "email": "susanpatel@gmail.com",
+                "first_name": "Susan",
+                "last_name": "Patel"
+            },
+            {
+                "id": 63,
+                "email": "jerrycampbell@gmail.com",
+                "first_name": "Jerry",
+                "last_name": "Campbell"
+            },
+            {
+                "id": 64,
+                "email": "margaretherrera@gmail.com",
+                "first_name": "Margaret",
+                "last_name": "Herrera"
+            },
+            {
+                "id": 65,
+                "email": "traceywarren@gmail.com",
+                "first_name": "Tracey",
+                "last_name": "Warren"
+            },
+            {
+                "id": 66,
+                "email": "caseyconner@gmail.com",
+                "first_name": "Casey",
+                "last_name": "Conner"
+            },
+            {
+                "id": 67,
+                "email": "mollyromero@gmail.com",
+                "first_name": "Molly",
+                "last_name": "Romero"
+            },
+            {
+                "id": 68,
+                "email": "sabrinawalker@gmail.com",
+                "first_name": "Sabrina",
+                "last_name": "Walker"
+            },
+            {
+                "id": 69,
+                "email": "feliciawood@gmail.com",
+                "first_name": "Felicia",
+                "last_name": "Wood"
+            },
+            {
+                "id": 7,
+                "email": "robertberg@gmail.com",
+                "first_name": "Robert",
+                "last_name": "Berg"
+            },
+            {
+                "id": 8,
+                "email": "markparks@gmail.com",
+                "first_name": "Mark",
+                "last_name": "Parks"
+            }
+        ]
+    }
+]

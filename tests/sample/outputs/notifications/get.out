@@ -1,0 +1,50 @@
+[
+    {
+        "id": 10673,
+        "user_id": 15,
+        "message": "You have been added to Theater Club",
+        "read": false,
+        "email_sent": false,
+        "created_at": "2024-07-10 03:31:29.998811"
+    },
+    {
+        "id": 10745,
+        "user_id": 15,
+        "message": "You owe $25.43 to Kris Ramos for Prop Supplies (2)",
+        "read": false,
+        "email_sent": false,
+        "created_at": "2024-07-10 03:31:29.998811"
+    },
+    {
+        "id": 10749,
+        "user_id": 15,
+        "message": "You owe $10.00 to Lee Baldwin for Rehearsal Booking",
+        "read": false,
+        "email_sent": false,
+        "created_at": "2024-07-10 03:31:29.998811"
+    },
+    {
+        "id": 10753,
+        "user_id": 15,
+        "message": "You owe $300.00 to Lee Baldwin for Theatre Rental",
+        "read": false,
+        "email_sent": false,
+        "created_at": "2024-07-10 03:31:29.998811"
+    },
+    {
+        "id": 10759,
+        "user_id": 15,
+        "message": "You owe $20.10 to Naomi Elson for Equipment Rental",
+        "read": false,
+        "email_sent": false,
+        "created_at": "2024-07-10 03:31:29.998811"
+    },
+    {
+        "id": 10858,
+        "user_id": 15,
+        "message": "The grocery list Show Day Lunch has been created in Theater Club",
+        "read": false,
+        "email_sent": false,
+        "created_at": "2024-07-10 03:31:29.998811"
+    }
+]

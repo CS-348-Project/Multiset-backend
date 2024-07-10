@@ -1,0 +1,41 @@
+[
+    {
+        "id": 22235,
+        "sender_user_id": 2,
+        "sender_group_id": 1,
+        "receiver_user_id": 4,
+        "receiver_group_id": 1,
+        "amount": 3822,
+        "created_at": "2024-07-10 00:59:13.402599",
+        "sender_first_name": "Crystal",
+        "sender_last_name": "Gregory",
+        "receiver_first_name": "Monica",
+        "receiver_last_name": "Schwartz"
+    },
+    {
+        "id": 176172,
+        "sender_user_id": 2,
+        "sender_group_id": 1,
+        "receiver_user_id": 5,
+        "receiver_group_id": 1,
+        "amount": 2785,
+        "created_at": "2024-07-10 00:59:13.402599",
+        "sender_first_name": "Crystal",
+        "sender_last_name": "Gregory",
+        "receiver_first_name": "Jeffery",
+        "receiver_last_name": "Lynch"
+    },
+    {
+        "id": 415219,
+        "sender_user_id": 2,
+        "sender_group_id": 1,
+        "receiver_user_id": 3,
+        "receiver_group_id": 1,
+        "amount": 168,
+        "created_at": "2024-07-10 00:59:13.402599",
+        "sender_first_name": "Crystal",
+        "sender_last_name": "Gregory",
+        "receiver_first_name": "Eddie",
+        "receiver_last_name": "Cline"
+    }
+]
