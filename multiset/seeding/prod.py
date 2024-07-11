@@ -1,3 +1,13 @@
+"""
+WARNING! THIS SCRIPT DOES NOT WORK WITHOUT THE PROD CSV FILE.
+The file is not included in the main branch due to it 
+requiring Git LFS, and because it complicates deployment. 
+You can either access the file via a branch that contains it, 
+or by visiting the following link, placing the file  in 
+multiset/seeding/prodcsv and naming it data.csv:
+https://www.kaggle.com/datasets/prasad22/retail-transactions-dataset
+"""
+
 from django.core.management.base import BaseCommand, CommandParser
 from django.db import connection
 from os import listdir
