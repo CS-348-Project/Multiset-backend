@@ -6,7 +6,7 @@ from random import randint, choice, uniform
 import pandas as pd
 import numpy as np
 
-from multiset.seeding.seeding_query import get_seeding_query
+from multiset.seeding.query import get_seeding_query
 from multiset.seeding.template import *
 
 
