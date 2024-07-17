@@ -120,3 +120,33 @@ def get_purchase_by_id(request, purchase_id: int):
         fetchone=True,
     )
     return JsonResponse(purchase, safe=False)
+
+
+@router.delete("/delete_purchase")
+def delete_purchase_by_id(request, purchase_id: int):
+    """
+    Deletes a purchase by its ID.
+    Args:
+        request: the HTTP request
+        purchase_id: the ID of the purchase
+    Returns:
+        a JSON response with the status of the operation
+    """
+    purchase = execute_query(
+        Path("purchases/sql/get_purchase_by_id.sql"),
+        {"purchase_id": purchase_id},
+        fetchone=True,
+    )
+    if not purchase:
+        return JsonResponse(
+            {"status": "error", "message": "Purchase not found"}, status=404
+        )
+    if purchase["purchaser_user_id"] != request.auth:
+        return JsonResponse(
+            {"status": "error", "message": "User is not the purchaser"}, status=403
+        )
+    execute_query(
+        Path("purchases/sql/delete_purchase_by_id.sql"),
+        {"purchase_id": purchase_id},
+    )
+    return JsonResponse({}, status=200)
