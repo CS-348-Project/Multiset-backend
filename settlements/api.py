@@ -2,7 +2,7 @@ from groups.services import verify_user_in_group
 from ninja import Router
 from django.http import JsonResponse
 from .models import SettlementCreate
-from .services import find_settlements, save_settlement, find_settlements_between_members
+from .services import delete_settlement, find_settlements, get_settlement_by_id, save_settlement, find_settlements_between_members
 
 router = Router()
 
@@ -40,3 +40,14 @@ def add_settlement_handler(request, new_settlement: SettlementCreate):
         return JsonResponse({"success": True})
     except Exception as e:
         return JsonResponse({"status": "error", "message": "Error in saving settlement"}, status=400)
+    
+@router.delete("/delete")
+def delete_settlement_handler(request, id: int):
+    try:
+        settlement = get_settlement_by_id(id)
+        if (settlement.get('sender_user_id') != request.auth):
+            return JsonResponse({"status": "error", "message": "You are unauthorized to delete this settlement"}, status=403)
+        delete_settlement(id)
+        return JsonResponse({}, status=204)
+    except Exception as e:
+        return JsonResponse({"status": "error", "message": "Error in deleting settlement"}, status=500)

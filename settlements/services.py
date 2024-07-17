@@ -36,7 +36,6 @@ def find_settlements(group_id, member_user_id=None):
             fetchall=True,
         )
     else:
-        # TODO: pagination?
         settlements = execute_query(Path("settlements/sql/get_settlements.sql"), fetchall=True)
     settlements = add_member_info_to_settlements(settlements)
     return settlements if settlements else []
@@ -58,5 +57,19 @@ def save_settlement(new_settlement: SettlementCreate):
          'sender_group_id': new_settlement.group_id,
          'receiver_group_id': new_settlement.group_id, 
          'amount': new_settlement.amount},
+    )
+    return True
+
+def get_settlement_by_id(id):
+    return execute_query(
+        Path("settlements/sql/get_settlement_by_id.sql"),
+        {'settlement_id': id},
+        fetchone=True,
+    )
+    
+def delete_settlement(id):
+    execute_query(
+        Path("settlements/sql/delete_settlement.sql"),
+        {'settlement_id': id},
     )
     return True
