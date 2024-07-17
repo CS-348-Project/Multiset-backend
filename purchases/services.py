@@ -72,3 +72,12 @@ def split_purchase(purchase: Purchase, new_purchase_id):
                 "borrower_group_id": purchase.group_id,
             },
         )
+
+
+def get_purchase_by_id(purchase_id):
+    purchase = execute_query(
+        Path("purchases/sql/get_purchase_by_id.sql"),
+        {"purchase_id": purchase_id},
+        fetchone=True,
+    )
+    return purchase

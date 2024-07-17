@@ -3,7 +3,12 @@ from django.http import JsonResponse
 from multiset.db_utils import execute_query
 from pathlib import Path
 from purchases.models import Purchase
-from purchases.services import new_purchase, split_purchase, valid_purchase
+from purchases.services import (
+    new_purchase,
+    split_purchase,
+    valid_purchase,
+    get_purchase_by_id,
+)
 
 router = Router()
 
@@ -105,7 +110,7 @@ def get_purchase_splits_by_id(request, purchase_id: int):
 
 
 @router.get("/purchase_details")
-def get_purchase_by_id(request, purchase_id: int):
+def get_purchase_details(request, purchase_id: int):
     """
     Returns a purchase by its ID.
     Args:
@@ -132,11 +137,7 @@ def delete_purchase_by_id(request, purchase_id: int):
     Returns:
         a JSON response with the status of the operation
     """
-    purchase = execute_query(
-        Path("purchases/sql/get_purchase_by_id.sql"),
-        {"purchase_id": purchase_id},
-        fetchone=True,
-    )
+    purchase = get_purchase_by_id(purchase_id)
     if not purchase:
         return JsonResponse(
             {"status": "error", "message": "Purchase not found"}, status=404
