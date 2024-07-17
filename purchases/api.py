@@ -1,3 +1,4 @@
+from groups.services import verify_user_in_group
 from ninja import Router
 from django.http import JsonResponse
 from multiset.db_utils import execute_query
@@ -17,6 +18,8 @@ def all_purchase_handler(request, group_id: int):
     Returns:
         a JSON response with all purchases
     """
+    if (not verify_user_in_group(request.auth, group_id)):
+        return JsonResponse({"status": "error", "message": "You are unauthorized to access this group"}, status=403)
     purchases = execute_query(
         Path("purchases/sql/get_purchases_by_group_id.sql"),
         {"group_id": group_id},
@@ -37,6 +40,8 @@ def get_purchase_handler(request, user_id: int, group_id: int = None):
         a JSON response with the purchase
     """
     if group_id:
+        if (not verify_user_in_group(request.auth, group_id)):
+            return JsonResponse({"status": "error", "message": "You are unauthorized to access this group"}, status=403)
         purchases = execute_query(
             Path("purchases/sql/get_purchases_by_user_id_and_group_id.sql"),
             {"user_id": user_id, "group_id": group_id},
@@ -97,11 +102,18 @@ def get_purchase_splits_by_id(request, purchase_id: int):
         a JSON response with the purchase
     """
     purchase = execute_query(
+        Path("purchases/sql/get_purchase_by_id.sql"),
+        {"purchase_id": purchase_id},
+        fetchone=True,
+    )
+    if (purchase and not verify_user_in_group(request.auth, purchase.get("purchaser_group_id"))):
+        return JsonResponse({"status": "error", "message": "You are unauthorized to access this group"}, status=403)
+    purchase_splits = execute_query(
         Path("purchases/sql/get_purchase_splits_by_purchase_id.sql"),
         {"purchase_id": purchase_id},
         fetchall=True,
     )
-    return JsonResponse(purchase, safe=False)
+    return JsonResponse(purchase_splits, safe=False)
 
 
 @router.get("/purchase_details")
@@ -119,4 +131,6 @@ def get_purchase_by_id(request, purchase_id: int):
         {"purchase_id": purchase_id},
         fetchone=True,
     )
+    if (purchase and not verify_user_in_group(request.auth, purchase.get("purchaser_group_id"))):
+        return JsonResponse({"status": "error", "message": "You are unauthorized to access this group"}, status=403)
     return JsonResponse(purchase, safe=False)

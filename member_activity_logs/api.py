@@ -8,7 +8,8 @@ router = Router()
 @router.get("/")
 def get_member_activity_logs_handler(request, group_id: int):
     try:
-        verify_user_in_group(request.auth, group_id)
+        if (not verify_user_in_group(request.auth, group_id)):
+            return JsonResponse({"status": "error", "message": "You are unauthorized to access this group"}, status=403)
         ret = get_member_activity_logs_by_group_id(group_id)
         return JsonResponse(ret, safe=False, status=200)
     except Exception as e:
