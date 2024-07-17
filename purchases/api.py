@@ -29,7 +29,7 @@ def get_recurring_purchase_handler(request, group_id: int):
     """
     Returns the recurring purchase items of a user.
     Args:
-        user_id: the ID of the user
+        group_id: the ID of the user
     Returns:
         a JSON response with recurring purchase item name
     """
