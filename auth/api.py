@@ -25,8 +25,8 @@ def callback_handler(request, token: TokenModel):
         user_info = response.json()
 
         email = user_info.get("email")
-        first_name = user_info.get("given_name")
-        last_name = user_info.get("family_name")
+        first_name = user_info.get("given_name") or ""
+        last_name = user_info.get("family_name") or ""
         google_id = user_info.get("sub")
 
         user_id = find_id_from_email(email)
