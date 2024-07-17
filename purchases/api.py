@@ -27,9 +27,9 @@ def all_purchase_handler(request, group_id: int):
 @router.get("/recurring_purchases")
 def get_recurring_purchase_handler(request, group_id: int):
     """
-    Returns the recurring purchase items of a user.
+    Returns the recurring purchase items of a group.
     Args:
-        group_id: the ID of the user
+        group_id: the ID of the group
     Returns:
         a JSON response with recurring purchase item name
     """
