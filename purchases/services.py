@@ -81,3 +81,12 @@ def get_purchase_by_id(purchase_id):
         fetchone=True,
     )
     return purchase
+
+
+def get_purchase_splits(purchase_id):
+    purchase_splits = execute_query(
+        Path("purchases/sql/get_purchase_splits_by_purchase_id.sql"),
+        {"purchase_id": purchase_id},
+        fetchall=True,
+    )
+    return purchase_splits
