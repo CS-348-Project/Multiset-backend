@@ -121,7 +121,7 @@ def calculate(gid: int, uid: int, show_all: bool = False):
 
     # if all balances are 0, we can return an empty list of transfers
     if all(item["balance"] == 0 for item in balances):
-        update_debts(solution, gid)
+        update_debts([], gid)
 
         return _get_response([], uid, optimization_flag["optimize_payments"], show_all)
 
