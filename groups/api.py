@@ -20,6 +20,7 @@ def get_group_handler(request, group_id: Optional[int] = None, detailed: Optiona
         a JSON response with the status of the operation and the group or groups retrieved
     """
     try:
+        verify_user_in_group(request.auth, group_id)
         ret = get_group(group_id, request.auth, detailed)
         return ret
     except Exception as e:
@@ -54,6 +55,7 @@ def update_group_handler(request, group: Group):
         a JSON response with the status of the operation
     """
     try:
+        verify_user_in_group(request.auth, group.id)
         update_group(group)
         return JsonResponse({"status": "success"})
     except Exception as e:
@@ -69,6 +71,7 @@ def delete_group_handler(request, group_id: int):
         a JSON response with the status of the operation
     """
     try:
+        verify_user_in_group(request.auth, group_id)
         delete_group(group_id)
         return JsonResponse({"status": "success"})
     except Exception as e:
