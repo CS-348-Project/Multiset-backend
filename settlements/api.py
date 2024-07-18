@@ -26,7 +26,6 @@ def get_settlements_between_members_handler(request, member1_user_id: int, membe
         return JsonResponse({"status": "error", "message": "Error in fetching settlements"}, status=400)
         
 @router.post("/create")
-@update_debts
 def add_settlement_handler(request, new_settlement: SettlementCreate):
     try:
         verify_user_in_group(request.auth, new_settlement.group_id)

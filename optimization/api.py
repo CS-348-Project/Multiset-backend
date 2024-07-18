@@ -24,6 +24,9 @@ def toggle_handler(request, group_id: int):
 @router.get("/debts")
 @_verify_group
 def debts_handler(request, group_id: int):
+    calculate(group_id)  # lazily calculate debts
+    # TODO to make more efficient, add flag to group to indicate if debts are up to date
+    # + trigger if something is added
     return JsonResponse(debts(group_id), safe=False, status=200)
 
 

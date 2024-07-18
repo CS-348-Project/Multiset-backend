@@ -76,7 +76,6 @@ def get_recurring_purchase_handler(request, user_id: int):
 
 
 @router.post("/new-purchase")
-@update_debts
 def create_new_purchase(request, purchase: Purchase):
     """
     Creates a new purchase and its splits in the database.

@@ -79,26 +79,6 @@ def debts(gid: int):
     return result
 
 
-def debts(gid: int):
-    """
-        Gets all debts for a group
-    Args:
-        gid: the id of the group to get debts for
-    Returns:
-        a list of dicts representing debts
-    """
-
-    result = db.execute_query(
-        Path("optimization/sql/get_overall_balances.sql"),
-        {
-            "group_id": gid,
-        },
-        fetchall=True,
-    )
-
-    return result
-
-
 def calculate(gid: int, uid: int = None, show_all: bool = False):
     """
         Calculates transfers for a group:
