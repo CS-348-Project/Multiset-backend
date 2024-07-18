@@ -1,7 +1,7 @@
 /*
-Name: get_group_balances.sql
+Name: get_aggregated_balances_noopt.sql
 Description: Get balances of all members in a group between each other. Accounts for purchases within the group and settlements
-between two group members.
+between two group members. To be used for non-optimized groups.
 Usage: [group_id]
 Return: [from_user_id, from_first_name, from_last_name, to_user_id, to_first_name, to_last_name, group_id, amount]
 */

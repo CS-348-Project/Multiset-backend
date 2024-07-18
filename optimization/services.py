@@ -97,7 +97,7 @@ def calculate(gid: int, uid: int, show_all: bool = False):
     # if optimization is not enabled, we just get the balances and return them
     if not optimization_flag["optimize_payments"]:
         balances = execute_query(
-            Path("optimization/sql/get_group_balances.sql"),
+            Path("optimization/sql/get_aggregated_balances_noopt.sql"),
             {
                 "group_id": gid,
             },
@@ -112,7 +112,7 @@ def calculate(gid: int, uid: int, show_all: bool = False):
 
     # if optimization is enabled, we get the balances and solve the ILP
     balances = execute_query(
-        Path("optimization/sql/get_aggregated_balances.sql"),
+        Path("optimization/sql/get_aggregated_balances_opt.sql"),
         {
             "group_id": gid,
         },
