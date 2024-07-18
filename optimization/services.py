@@ -58,6 +58,26 @@ def toggle(gid: int):
     return result
 
 
+def debts(gid: int):
+    """
+        Gets all debts for a group
+    Args:
+        gid: the id of the group to get debts for
+    Returns:
+        a list of dicts representing debts
+    """
+
+    result = execute_query(
+        Path("optimization/sql/get_overall_balances.sql"),
+        {
+            "group_id": gid,
+        },
+        fetchall=True,
+    )
+
+    return result
+
+
 def calculate(gid: int, uid: int, show_all: bool = False):
     """
         Calculates transfers for a group:
@@ -92,7 +112,7 @@ def calculate(gid: int, uid: int, show_all: bool = False):
 
     # if optimization is enabled, we get the balances and solve the ILP
     balances = execute_query(
-        Path("optimization/sql/get_aggregate_balances.sql"),
+        Path("optimization/sql/get_aggregated_balances.sql"),
         {
             "group_id": gid,
         },
