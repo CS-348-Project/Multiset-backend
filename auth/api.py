@@ -56,11 +56,10 @@ def get_authenticated_user_handler(request):
         a JSON response with the status of the operation and the user retrieved
     """
     try:
-        user_id = request.auth;
+        user_id = request.auth
         ret = get_user(None, user_id)
         if len(ret) == 0:
             return JsonResponse({"status": "error", "message": "User not found"}, status=404)
-        
         return ret
     except Exception as e:
         return JsonResponse({"status": "error", "message": str(e)}, status=400)
