@@ -8,7 +8,7 @@ class PurchaseSplit(Schema):
 
 
 class Purchase(Schema):
-    purchase_id: int
+    purchase_id: Optional[int] = None
     name: str
     category: str
     group_id: int
