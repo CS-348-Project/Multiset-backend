@@ -9,3 +9,4 @@ SELECT p.id, name, category, total_cost, purchaser_user_id, first_name as purcha
 FROM purchase p
 JOIN multiset_user u ON p.purchaser_user_id = u.id
 WHERE purchaser_group_id = %(group_id)s
+ORDER BY p.id DESC

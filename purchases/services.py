@@ -13,7 +13,7 @@ def get_purchases_by_group_id(group_id: int):
     return rows
 
 
-def valid_purchase(purchase: Purchase):
+def purchase_split_total_diff(purchase: Purchase):
     """
     Args:
         The new purchase object
@@ -23,9 +23,7 @@ def valid_purchase(purchase: Purchase):
     sum = 0
     for purchase_split in purchase.purchase_splits:
         sum += purchase_split.amount
-    if sum != purchase.total_cost:
-        return False
-    return True
+    return (purchase.total_cost - sum) / 100.0
 
 
 def new_purchase(purchase: Purchase):
@@ -72,3 +70,21 @@ def split_purchase(purchase: Purchase, new_purchase_id):
                 "borrower_group_id": purchase.group_id,
             },
         )
+
+
+def get_purchase_by_id(purchase_id):
+    purchase = execute_query(
+        Path("purchases/sql/get_purchase_by_id.sql"),
+        {"purchase_id": purchase_id},
+        fetchone=True,
+    )
+    return purchase
+
+
+def get_purchase_splits(purchase_id):
+    purchase_splits = execute_query(
+        Path("purchases/sql/get_purchase_splits_by_purchase_id.sql"),
+        {"purchase_id": purchase_id},
+        fetchall=True,
+    )
+    return purchase_splits
