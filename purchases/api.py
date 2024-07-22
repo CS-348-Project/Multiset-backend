@@ -6,8 +6,8 @@ from pathlib import Path
 from purchases.models import Purchase
 from purchases.services import (
     new_purchase,
+    purchase_split_total_diff,
     split_purchase,
-    valid_purchase,
     get_purchase_by_id,
     get_purchase_splits,
 )
@@ -97,9 +97,15 @@ def create_new_purchase(request, purchase: Purchase):
     """
     user_id = request.auth
     purchase.purchaser = user_id
-    if not valid_purchase(purchase):
+    if purchase_split_total_diff(purchase) != 0:
+        purchase_diff = purchase_split_total_diff(purchase)
+        message = "Purchase splits do not sum up to total. "
+        if purchase_diff > 0:
+            message = message + "$" + str(purchase_diff) + " are left to be split."
+        else:
+            message = message + "Splits exceed total by $" + str(-purchase_diff) + "."
         return JsonResponse(
-            {"status": "error", "message": "Purchase splits do not sum up to total"},
+            {"status": "error", "message": message},
             status=400,
         )
     created_purchase = new_purchase(purchase)
@@ -233,9 +239,15 @@ def update_purchase_by_id(request, purchase: Purchase):
             {"status": "error", "message": "You are unauthorized to access this group"},
             status=403,
         )
-    if not valid_purchase(purchase):
+    if purchase_split_total_diff(purchase) != 0:
+        purchase_diff = purchase_split_total_diff(purchase)
+        message = "Purchase splits do not sum up to total. "
+        if purchase_diff > 0:
+            message = message + "$" + str(purchase_diff) + " are left to be split."
+        else:
+            message = message + "Splits exceed total by $" + str(-purchase_diff) + "."
         return JsonResponse(
-            {"status": "error", "message": "Purchase splits do not sum up to total"},
+            {"status": "error", "message": message},
             status=400,
         )
     # delete the old splits

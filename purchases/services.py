@@ -13,7 +13,7 @@ def get_purchases_by_group_id(group_id: int):
     return rows
 
 
-def valid_purchase(purchase: Purchase):
+def purchase_split_total_diff(purchase: Purchase):
     """
     Args:
         The new purchase object
@@ -23,9 +23,7 @@ def valid_purchase(purchase: Purchase):
     sum = 0
     for purchase_split in purchase.purchase_splits:
         sum += purchase_split.amount
-    if sum != purchase.total_cost:
-        return False
-    return True
+    return (purchase.total_cost - sum) / 100.0
 
 
 def new_purchase(purchase: Purchase):
