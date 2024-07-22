@@ -228,9 +228,10 @@ def update_purchase_by_id(request, purchase: Purchase):
         return JsonResponse(
             {"status": "error", "message": "Purchase not found"}, status=404
         )
-    if purchase_from_db["purchaser_user_id"] != request.auth:
+    if not verify_user_in_group(request.auth, purchase_from_db["purchaser_group_id"]):
         return JsonResponse(
-            {"status": "error", "message": "User is not the purchaser"}, status=403
+            {"status": "error", "message": "You are unauthorized to access this group"},
+            status=403,
         )
     if not valid_purchase(purchase):
         return JsonResponse(
