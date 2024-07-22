@@ -20,6 +20,8 @@ def get_group_handler(request, group_id: Optional[int] = None, detailed: Optiona
         a JSON response with the status of the operation and the group or groups retrieved
     """
     try:
+        if (group_id and not verify_user_in_group(request.auth, group_id)):
+            return JsonResponse({"status": "error", "message": "You are unauthorized to access this group"}, status=403)
         ret = get_group(group_id, request.auth, detailed)
         return ret
     except Exception as e:
@@ -69,6 +71,8 @@ def delete_group_handler(request, group_id: int):
         a JSON response with the status of the operation
     """
     try:
+        if (group_id and not verify_user_in_group(request.auth, group_id)):
+            return JsonResponse({"status": "error", "message": "You are unauthorized to access this group"}, status=403)
         delete_group(group_id)
         return JsonResponse({"status": "success"})
     except Exception as e:
@@ -85,7 +89,8 @@ def get_group_members_handler(request, group_id: int, exclude_current_user: Opti
         a JSON response with the status of the operation and the list of members
     """
     try:
-        verify_user_in_group(request.auth, group_id)
+        if (not verify_user_in_group(request.auth, group_id)):
+            return JsonResponse({"status": "error", "message": "You are unauthorized to access this group"}, status=403)
         group = get_group(group_id, detailed=True)
         if not group:
             return JsonResponse({"status": "error", "message": "Group not found"}, status=404)

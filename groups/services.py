@@ -44,11 +44,6 @@ def get_group(group_id=None, user_id=None, detailed=False):
                 {"user_id": user_id, "detailed": detailed},
                 fetchall=True,
             )
-    else:
-        if detailed:
-            rows = execute_query(Path("groups/sql/get_groups_detailed.sql"), fetchall=True)
-        else:
-            rows = execute_query(Path("groups/sql/get_groups.sql"), fetchall=True)
     return rows
 
 def update_group(group: Group):
