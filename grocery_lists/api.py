@@ -9,7 +9,8 @@ router = Router()
 @router.get("/")
 def get_grocery_lists_handler(request, group_id: int):
     try:
-        verify_user_in_group(request.auth, group_id)
+        if (not verify_user_in_group(request.auth, group_id)):
+            return JsonResponse({"status": "error", "message": "You are unauthorized to access this group"}, status=403)
         ret = get_grocery_lists_by_group_id(group_id)
         return JsonResponse(ret, safe=False, status=200)
     except Exception as e:
@@ -18,7 +19,8 @@ def get_grocery_lists_handler(request, group_id: int):
 @router.post("/create")
 def add_grocery_list_handler(request, new_grocery_list: GroceryListCreate):
     try:
-        verify_user_in_group(request.auth, new_grocery_list.group_id)
+        if (not verify_user_in_group(request.auth, new_grocery_list.group_id)):
+            return JsonResponse({"status": "error", "message": "You are unauthorized to access this group"}, status=403)
         ret = create_grocery_list(new_grocery_list)
         return JsonResponse(ret, status=201)
     except Exception as e:
@@ -28,7 +30,8 @@ def add_grocery_list_handler(request, new_grocery_list: GroceryListCreate):
 def update_grocery_list_handler(request, grocery_list: GroceryListUpdate):
     try:
         current_grocery_list: GroceryList = get_grocery_list_by_id(grocery_list.id)
-        verify_user_in_group(request.auth, current_grocery_list.get("group_id"))
+        if (not verify_user_in_group(request.auth, current_grocery_list.get("group_id"))):
+            return JsonResponse({"status": "error", "message": "You are unauthorized to access this group"}, status=403)
         update_grocery_list(grocery_list)
         return JsonResponse({}, status=204)
     except Exception as e:
@@ -38,7 +41,8 @@ def update_grocery_list_handler(request, grocery_list: GroceryListUpdate):
 def delete_grocery_list_handler(request, id: int):
     try:
         grocery_list: GroceryList = get_grocery_list_by_id(id)
-        verify_user_in_group(request.auth, grocery_list.get("group_id"))
+        if (not verify_user_in_group(request.auth, grocery_list.get("group_id"))):
+            return JsonResponse({"status": "error", "message": "You are unauthorized to access this group"}, status=403)
         delete_grocery_list(id)
         return JsonResponse({}, status=204)
     except Exception as e:
@@ -48,7 +52,8 @@ def delete_grocery_list_handler(request, id: int):
 def add_item_to_grocery_list_handler(request, grocery_list_item: GroceryListItemCreate):
     try:
         grocery_list: GroceryList = get_grocery_list_by_id(grocery_list_item.grocery_list_id)
-        verify_user_in_group(request.auth, grocery_list.get("group_id"))
+        if (not verify_user_in_group(request.auth, grocery_list.get("group_id"))):
+            return JsonResponse({"status": "error", "message": "You are unauthorized to access this group"}, status=403)
         grocery_list_item.requester_user_id = request.auth
         add_item_to_grocery_list(grocery_list_item)
         return JsonResponse({}, status=204)
@@ -59,7 +64,8 @@ def add_item_to_grocery_list_handler(request, grocery_list_item: GroceryListItem
 def get_grocery_list_items_handler(request, grocery_list_id: int):
     try:
         grocery_list: GroceryList = get_grocery_list_by_id(grocery_list_id)
-        verify_user_in_group(request.auth, grocery_list.get("group_id"))
+        if (not verify_user_in_group(request.auth, grocery_list.get("group_id"))):
+            return JsonResponse({"status": "error", "message": "You are unauthorized to access this group"}, status=403)
         ret = get_grocery_list_items(grocery_list_id)
         return JsonResponse(ret, safe=False, status=200)
     except Exception as e:
@@ -69,7 +75,8 @@ def get_grocery_list_items_handler(request, grocery_list_id: int):
 def toggle_grocery_list_item_handler(request, item_id: int, grocery_list_id: int):
     try:
         grocery_list: GroceryList = get_grocery_list_by_id(grocery_list_id)
-        verify_user_in_group(request.auth, grocery_list.get("group_id"))
+        if (not verify_user_in_group(request.auth, grocery_list.get("group_id"))):
+            return JsonResponse({"status": "error", "message": "You are unauthorized to access this group"}, status=403)
         toggle_grocery_list_item(item_id, grocery_list_id)
         return JsonResponse({}, status=204)
     except Exception as e:
@@ -79,7 +86,8 @@ def toggle_grocery_list_item_handler(request, item_id: int, grocery_list_id: int
 def delete_grocery_list_item_handler(request, item_id: int, grocery_list_id: int):
     try:
         grocery_list: GroceryList = get_grocery_list_by_id(grocery_list_id)
-        verify_user_in_group(request.auth, grocery_list.get("group_id"))
+        if (not verify_user_in_group(request.auth, grocery_list.get("group_id"))):
+            return JsonResponse({"status": "error", "message": "You are unauthorized to access this group"}, status=403)
         delete_grocery_list_item(item_id, grocery_list_id)
         return JsonResponse({}, status=204)
     except Exception as e:
