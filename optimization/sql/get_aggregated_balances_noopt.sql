@@ -1,7 +1,7 @@
 /*
-Name: get_group_balances.sql
+Name: get_aggregated_balances_noopt.sql
 Description: Get balances of all members in a group between each other. Accounts for purchases within the group and settlements
-between two group members.
+between two group members. To be used for non-optimized groups.
 Usage: [group_id]
 Return: [from_user_id, from_first_name, from_last_name, to_user_id, to_first_name, to_last_name, group_id, amount]
 */
@@ -43,6 +43,16 @@ condensed AS (
     FROM uncondensed u1 LEFT OUTER JOIN uncondensed u2 
     ON u1.from_user_id = u2.to_user_id AND u1.to_user_id = u2.from_user_id
     WHERE u1.amount > u2.amount OR u2.amount IS NULL
+),
+
+-- need to correct signs here in case settlements > purchases
+condensed_correct_sign AS (
+    (SELECT * FROM condensed WHERE amount > 0) 
+    UNION 
+    (
+        SELECT to_user_id from_user_id, from_user_id to_user_id, group_id, -amount
+        FROM condensed WHERE amount < 0
+    )
 )
 
 SELECT c.*, 
@@ -51,5 +61,5 @@ gm1.last_name from_last_name,
 gm2.first_name to_first_name,
 gm2.last_name to_last_name
 
-FROM condensed c, group_members gm1, group_members gm2
+FROM condensed_correct_sign c, group_members gm1, group_members gm2
 WHERE c.from_user_id = gm1.user_id AND c.to_user_id = gm2.user_id;

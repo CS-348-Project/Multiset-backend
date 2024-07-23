@@ -1,7 +1,8 @@
 /*
-Name: get_aggregate_balances.sql
+Name: get_aggregate_balances_opt.sql
 Description: Get balances of all members in a group (as an amount above or below zero). 
 Accounts for purchases within the group and settlements between two group members.
+To be used for optimized groups.
 Usage: [group_id]
 Return: [user_id, group_id, first_name, last_name, balance]
 */
