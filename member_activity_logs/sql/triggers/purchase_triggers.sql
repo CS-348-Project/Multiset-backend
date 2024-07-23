@@ -14,10 +14,14 @@ BEGIN
       (SELECT first_name || ' ' || last_name FROM multiset_user WHERE multiset_user.id = NEW.purchaser_user_id);
     user_id := NEW.purchaser_user_id;
     group_id := NEW.purchaser_group_id;
-  ELSE
+  ELSIF TG_OP = 'UPDATE' THEN
     detail_message := 'Purchase "' || NEW.name || '" has been updated';
     user_id := NEW.purchaser_user_id;
     group_id := NEW.purchaser_group_id;
+  ELSE
+    detail_message := 'Purchase "' || OLD.name || '" has been deleted';
+    user_id := OLD.purchaser_user_id;
+    group_id := OLD.purchaser_group_id;
   END IF;
 
   INSERT INTO member_activity_logs (member_user_id, member_group_id, action, details)
@@ -33,5 +37,10 @@ EXECUTE FUNCTION log_member_activity_purchases();
 
 CREATE OR REPLACE TRIGGER purchase_after_update
 AFTER UPDATE ON purchase
+FOR EACH ROW
+EXECUTE FUNCTION log_member_activity_purchases();
+
+CREATE OR REPLACE TRIGGER purchase_after_delete
+AFTER DELETE ON purchase
 FOR EACH ROW
 EXECUTE FUNCTION log_member_activity_purchases();
