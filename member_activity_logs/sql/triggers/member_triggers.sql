@@ -1,6 +1,6 @@
 /*
-Name: grocery_list_triggers.sql
-Description: triggers for logging member activity on grocery list items
+Name: member_trigers.sql
+Description: triggers for logging member activity on groups
 */
 CREATE OR REPLACE FUNCTION log_member_activity_members()
 RETURNS TRIGGER AS $$

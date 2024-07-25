@@ -244,9 +244,9 @@ def update_purchase_by_id(request, purchase: Purchase):
         purchase_diff = purchase_split_total_diff(purchase)
         message = "Purchase splits do not sum up to total. "
         if purchase_diff > 0:
-            message = message + "$" + str(purchase_diff) + " are left to be split."
+            message = message + "${:.2f} are left to be split.".format(purchase_diff)
         else:
-            message = message + "Splits exceed total by $" + str(-purchase_diff) + "."
+            message = message + "Splits exceed total by ${:.2f}".format(-purchase_diff) + "."
         return JsonResponse(
             {"status": "error", "message": message},
             status=400,
