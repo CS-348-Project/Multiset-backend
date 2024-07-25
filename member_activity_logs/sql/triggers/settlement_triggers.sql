@@ -1,6 +1,6 @@
 /*
-Name: grocery_list_triggers.sql
-Description: triggers for logging member activity on grocery list items
+Name: settlement_triggers.sql
+Description: triggers for logging member activity on settlements
 */
 CREATE OR REPLACE FUNCTION log_member_activity_settlements()
 RETURNS TRIGGER AS $$
