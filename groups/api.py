@@ -61,7 +61,7 @@ def update_group_handler(request, group: Group):
     except Exception as e:
         return JsonResponse({"status": "error", "message": str(e)}, status=400)
 
-@router.post("/delete")
+@router.delete("/delete")
 def delete_group_handler(request, group_id: int):
     """
     Deletes a group from the database.
