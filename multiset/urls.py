@@ -20,6 +20,8 @@ from auth.services import get_associated_user_id
 class GlobalAuth(HttpBearer):
     # To get the user id from within an endpoint you can use request.auth
     def authenticate(self, request, token):
+        if token.startswith("null"):
+            return None
         user_id = get_associated_user_id(token)
         if not user_id:
             return None

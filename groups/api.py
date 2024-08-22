@@ -154,11 +154,42 @@ def get_group_share_code(request, group_id: int):
                 status=403,
             )
         group = get_group(group_id, detailed=True)
-        print(group["share_code"])
         if not group:
             return JsonResponse(
                 {"status": "error", "message": "Group not found"}, status=404
             )
         return JsonResponse({"share_code": group["share_code"]})
+    except Exception as e:
+        return JsonResponse({"status": "error", "message": str(e)}, status=400)
+
+
+@router.post("/join-by-code")
+def join_group_by_code(request, share_code: str):
+    """
+    Adds a user to a group by the group's share code.
+    Args:
+        share_code: the share code of the group to join
+    Returns:
+        a JSON response with the status of the operation
+    """
+    try:
+        if not request.auth:
+            return JsonResponse(
+                {"status": "error", "message": "You must be logged in to join a group"},
+                status=401,
+            )
+        group_id = execute_query(
+            Path("groups/sql/get_group_id_by_share_code.sql"),
+            {
+                "share_code": share_code,
+            },
+            fetchone=True,
+        )
+        if not group_id:
+            return JsonResponse(
+                {"status": "error", "message": "Invalid share code"}, status=400
+            )
+        add_group_members(group_id, [request.auth])
+        return JsonResponse({"group_id": group_id["id"]})
     except Exception as e:
         return JsonResponse({"status": "error", "message": str(e)}, status=400)
