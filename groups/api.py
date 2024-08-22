@@ -2,7 +2,15 @@ from ninja import Router
 from django.http import JsonResponse
 from multiset.db_utils import execute_query
 from pathlib import Path
-from groups.services import get_group, create_group, update_group, delete_group, verify_user_in_group
+from groups.services import (
+    get_group,
+    create_group,
+    update_group,
+    delete_group,
+    verify_user_in_group,
+    add_group_members,
+)
+from groups.models import GroupMembers, CreateGroup
 
 from typing import List, Optional
 from .models import Group, GroupSkeleton
@@ -29,7 +37,7 @@ def get_group_handler(request, group_id: Optional[int] = None, detailed: Optiona
 
 
 @router.post("/create")
-def create_group_handler(request, group: GroupSkeleton, user_ids: List[int] = []):
+def create_group_handler(request, group: CreateGroup):
     """
     Creates a new group in the database.
     Args:
@@ -37,14 +45,38 @@ def create_group_handler(request, group: GroupSkeleton, user_ids: List[int] = []
     Returns:
         a JSON response with the status of the operation and the created group id
     """
-    
-    if len(user_ids) == 0:
+    if len(group.user_ids) == 0:
         return JsonResponse({"status": "error", "message": "No users provided for group"}, status=400)
     try:
-        ret = create_group(group, user_ids)
+        ret = create_group(group.group_info, group.user_ids)
         return JsonResponse(ret, status=201)
     except Exception as e:
         return JsonResponse({"status": "error", "message": str(e)}, status=400)
+
+
+@router.post("/add_members")
+def add_group_members_endpoint(request, group_members: GroupMembers):
+    """
+    Adds a user to a group.
+    Args:
+        group_members: the group to add the users to
+    Returns:
+        a JSON response with the status of the operation
+    """
+    try:
+        if not verify_user_in_group(request.auth, group_members.group_id):
+            return JsonResponse(
+                {
+                    "status": "error",
+                    "message": "You are unauthorized to access this group",
+                },
+                status=403,
+            )
+        add_group_members(group_members.group_id, group_members.user_ids)
+        return JsonResponse({"status": "success"})
+    except Exception as e:
+        return JsonResponse({"status": "error", "message": str(e)}, status=400)
+
 
 @router.put("/update")
 def update_group_handler(request, group: Group):
@@ -99,5 +131,34 @@ def get_group_members_handler(request, group_id: int, exclude_current_user: Opti
         else:
             members = group["users"]
         return JsonResponse(members, safe=False)
+    except Exception as e:
+        return JsonResponse({"status": "error", "message": str(e)}, status=400)
+
+
+@router.get("/share_code")
+def get_group_share_code(request, group_id: int):
+    """
+    Gets the share code for a group.
+    Args:
+        group_id: the id of the group to get the share code for
+    Returns:
+        a JSON response with the status of the operation and the share code
+    """
+    try:
+        if not verify_user_in_group(request.auth, group_id):
+            return JsonResponse(
+                {
+                    "status": "error",
+                    "message": "You are unauthorized to access this group",
+                },
+                status=403,
+            )
+        group = get_group(group_id, detailed=True)
+        print(group["share_code"])
+        if not group:
+            return JsonResponse(
+                {"status": "error", "message": "Group not found"}, status=404
+            )
+        return JsonResponse({"share_code": group["share_code"]})
     except Exception as e:
         return JsonResponse({"status": "error", "message": str(e)}, status=400)
