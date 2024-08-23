@@ -1,20 +1,32 @@
 from multiset.db_utils import execute_query
 from pathlib import Path
 from typing import List
+import secrets
 
 from .models import Group, GroupSkeleton
 
 def create_group(group: GroupSkeleton, user_ids: List[int]):
+    share_code = secrets.token_urlsafe(16)
     created_group = execute_query(
         Path("groups/sql/create_group/create_group.sql"),
-        {"name": group.name, "optimize_payments": group.optimize_payments},
+        {
+            "name": group.name,
+            "optimize_payments": group.optimize_payments,
+            "share_code": share_code,
+        },
         fetchone=True,
     )
+    if created_group:
+        add_group_members(created_group["id"], user_ids)
+    return created_group
+
+
+def add_group_members(group_id: int, user_ids: List[int]):
     execute_query(
         Path("groups/sql/create_group/add_users_to_group.sql"),
-        {"group_id": created_group["id"], "user_ids": user_ids},
+        {"group_id": group_id, "user_ids": user_ids},
     )
-    return created_group
+
 
 def get_group(group_id=None, user_id=None, detailed=False):
     rows = []
@@ -64,3 +76,11 @@ def verify_user_in_group(user_id: int, group_id: int):
         fetchone=True,
     )
     return res.get("count") > 0
+
+
+def add_group_secret_key(group_id: int):
+    secret_key = secrets.token_urlsafe(16)
+    execute_query(
+        Path("groups/sql/add_group_secret_key.sql"),
+        {"group_id": group_id, "secret": secret_key},
+    )
