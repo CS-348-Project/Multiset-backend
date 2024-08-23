@@ -178,18 +178,18 @@ def join_group_by_code(request, share_code: str):
                 {"status": "error", "message": "You must be logged in to join a group"},
                 status=401,
             )
-        group_id = execute_query(
+        res = execute_query(
             Path("groups/sql/get_group_id_by_share_code.sql"),
             {
                 "share_code": share_code,
             },
             fetchone=True,
         )
-        if not group_id:
+        if not res:
             return JsonResponse(
                 {"status": "error", "message": "Invalid share code"}, status=400
             )
-        add_group_members(group_id, [request.auth])
-        return JsonResponse({"group_id": group_id["id"]})
+        add_group_members(res["id"], [request.auth])
+        return JsonResponse({"group_id": res["id"]})
     except Exception as e:
         return JsonResponse({"status": "error", "message": str(e)}, status=400)
